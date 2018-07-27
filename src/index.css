@@ -1,0 +1,10 @@
+body, button {
+    margin: 0;
+    padding: 0;
+    /*font-family: sans-serif;*/
+    font-family: "ITV Reem";
+}
+
+h1, h2 {
+    font-family: "ITV Reem Light";
+}
