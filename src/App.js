@@ -38,7 +38,7 @@ export default class App extends Component {
     }
 
     getProgrammes(category) {
-        if (category.includes('&')) category = "Drama & Soaps";
+        if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
         console.log('category here: ', category);
             axios
                 .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
@@ -65,7 +65,6 @@ export default class App extends Component {
         event.preventDefault();
         this.getProgrammes(event.target.innerHTML);
         this.setState({category: event.target.innerHTML});
-
     }
 
     render() {
@@ -79,6 +78,18 @@ export default class App extends Component {
                         return (
                             <a href='#' key={category.name.substring(0,3)}>
                                 <li onClick={this.handleClick}>{category.name}</li>
+                            </a>
+                        )
+                    })
+                    }
+                </ul>
+                <h2>Programmes</h2>
+                <ul>
+                    {console.log(this.state.programmes)}
+                    {this.state.programmes.map(programme => {
+                        return (
+                            <a href='#' key={programme.title.substring(0,3)}>
+                                <li>{programme.title}</li>
                             </a>
                         )
                     })
