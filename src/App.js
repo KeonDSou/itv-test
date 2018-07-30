@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+// import ReactTable from 'react-table';
+// import 'react-table/react-table.css';
 import axios from 'axios';
 import Select from 'react-select';
 
@@ -10,6 +12,7 @@ export default class App extends Component {
             categories: [],
             programmes: [],
             category: '',
+            image: ''
         };
     };
 
@@ -38,7 +41,6 @@ export default class App extends Component {
 
     getProgrammes(category) {
         if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
-        console.log('category here: ', category);
         axios
             .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
                 params: {
@@ -54,47 +56,54 @@ export default class App extends Component {
                 this.setState({
                     programmes: fetch.data._embedded.programmes
                 });
-                console.log('this.state.programmes', this.state.programmes)
             })
             .catch(err => console.log(err));
     };
 
     handleChange = (selectedOption) => {
-        this.setState({selectedOption});
-        console.log(`Option selected:`, selectedOption);
+        this.setState({category: selectedOption.value});
         this.getProgrammes(selectedOption.value);
     };
 
     render() {
-        console.log(this.state.category);
+        const {categories, category, programmes} = this.state
+        const programmeList =  categories ? <h2>{category} Programme List</h2> : undefined;
+        // const style = {}
 
+        const optionsMap = categories.map(category => {
+            return {
+                value: category.name,
+                label: category.name
+            };
+        })
         return (
-            <div>
-                <h1>Categories</h1>
-                <Select value={this.state.category}
-                        onChange={this.handleChange}
-                        options={this.state.categories.map(category => {
-                            return (
-                                {
-                                    value: category.name,
-                                    label: category.name
-                                }
-                            )
-                        })
-                        }
+            <div className={'container'}>
+                <img
+                    className={'image__header'}
+                    src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}/>
+                <Select
+                    value={category}
+                    onChange={this.handleChange}
+                    options={optionsMap}
+                    placeholder={category || 'Select a category....'}
                 />
-                <h2>Programmes</h2>
-                <ul>
-                    {console.log(this.state.programmes)}
-                    {this.state.programmes.map(programme => {
+
+                <div className={'row'}>
+                    {programmes.map(programme => {
+                        console.log('programme =====>',programme )
                         return (
-                            <a href='#' key={programme.title}>
-                                <li>{programme.title}</li>
-                            </a>
+                            <div
+                                // onClick={handleProgrammeClick}
+                                id={'programme-card'}
+                                className={'col-lg-4'}
+                                key={programme.title}>
+                                <h3>{programme.title}</h3>
+                                <img src={programme._embedded.latestProduction._links.image.href}/>
+                                <p>{programme.synopses.ninety}</p>
+                            </div>
                         )
-                    })
-                    }
-                </ul>
+                    })}
+                </div>
             </div>
         );
 
