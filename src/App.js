@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-// import Select from 'react-select';
+import Select from 'react-select';
 
 export default class App extends Component {
     constructor(props) {
@@ -9,14 +9,14 @@ export default class App extends Component {
         this.state = {
             categories: [],
             programmes: [],
-            category: ''
+            category: '',
         };
-        this.handleClick = this.handleClick.bind(this);
-    }
+        // this.handleClick = this.handleClick.bind(this);
+    };
 
     componentDidMount() {
         this.getCategories();
-    }
+    };
 
     getCategories() {
         axios
@@ -35,37 +35,43 @@ export default class App extends Component {
                 })
             })
             .catch(err => console.log(err));
-    }
+    };
 
     getProgrammes(category) {
         if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
         console.log('category here: ', category);
-            axios
-                .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
-                    params: {
-                        features: 'hls,aes',
-                        broadcaster: 'itv',
-                        category: category
-                    },
-                    headers: {
-                        'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
-                    }
-                })
-                .then(fetch => {
-                    this.setState({
-                        programmes: fetch.data._embedded.programmes
-                    });
-                    console.log('this.state.programmes', this.state.programmes)
-                })
-                .catch(err => console.log(err));
-    }
+        axios
+            .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
+                params: {
+                    features: 'hls,aes',
+                    broadcaster: 'itv',
+                    category: category
+                },
+                headers: {
+                    'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
+                }
+            })
+            .then(fetch => {
+                this.setState({
+                    programmes: fetch.data._embedded.programmes
+                });
+                console.log('this.state.programmes', this.state.programmes)
+            })
+            .catch(err => console.log(err));
+    };
 
 
-    handleClick(event) {
-        event.preventDefault();
-        this.getProgrammes(event.target.innerHTML);
-        this.setState({category: event.target.innerHTML});
-    }
+    // handleClick(event) {
+    //     event.preventDefault();
+    //     this.getProgrammes(event.target.innerHTML);
+    //     this.setState({category: event.target.innerHTML});
+    // };
+
+    handleChange = (selectedOption) => {
+        this.setState({selectedOption});
+        console.log(`Option selected:`, selectedOption);
+        this.getProgrammes(selectedOption.value);
+    };
 
     render() {
         console.log(this.state.category);
@@ -73,22 +79,36 @@ export default class App extends Component {
         return (
             <div>
                 <h1>Categories</h1>
-                <ul>
-                    {this.state.categories.map(category => {
-                        return (
-                            <a href='#' key={category.name.substring(0,3)}>
-                                <li onClick={this.handleClick}>{category.name}</li>
-                            </a>
-                        )
-                    })
-                    }
-                </ul>
+                <Select value={this.state.category}
+                        onChange={this.handleChange}
+                        options={this.state.categories.map(category => {
+                            return (
+                                {
+                                    value: category.name,
+                                    label: category.name
+                                }
+                            )
+                        })
+                        }
+                />
+                {/*<ul>*/}
+                {/*{this.state.categories.map(category => {*/}
+                {/*return (*/}
+                {/*<a href='#'key={category.name.substring(0, 3).toLowerCase()}>*/}
+                {/*<li onClick={this.handleClick}>*/}
+                {/*{category.name}*/}
+                {/*</li>*/}
+                {/*</a>*/}
+                {/*)*/}
+                {/*})*/}
+                {/*}*/}
+                {/*</ul>*/}
                 <h2>Programmes</h2>
                 <ul>
                     {console.log(this.state.programmes)}
                     {this.state.programmes.map(programme => {
                         return (
-                            <a href='#' key={programme.title.substring(0,3)}>
+                            <a href='#' key={programme.title}>
                                 <li>{programme.title}</li>
                             </a>
                         )
@@ -98,9 +118,9 @@ export default class App extends Component {
             </div>
         );
 
-    }
+    };
 
-}
+};
 
 ReactDOM.render(
     <App/>,
