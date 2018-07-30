@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 // import Select from 'react-select';
@@ -111,9 +111,10 @@ export default class App extends Component {
         super(props);
         this.state = {
             categories: [],
-            programmes: []
+            programmes: [],
+            category: ''
         }
-        // this.handleClick = this.handleClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -136,46 +137,42 @@ export default class App extends Component {
                     categories: fetch.data._embedded.categories
                 })
             })
-            // .catch(err => console.log(err));
-    }
-
-    getProgrammes(category) {
-
-        axios
-            .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
-                params: {
-                    features: 'hls,aes',
-                    broadcaster: 'ITV',
-                    category: category
-                },
-                headers: {
-                    'Accept': 'application/vnd.itv.hubsvc.category.v3+hal+json'
-                }
-            })
-            .then(fetch => {
-                this.setState({
-                    programmes: fetch.data._embedded.programmes
-                });
-                console.log("this.state.programmes", this.state.programmes)
-            })
             .catch(err => console.log(err));
     }
 
-    //
-    // getLinks() {
-    //     const links = [];
-    //     for (let i = 0; i < this.state.categories.length; i++) {
-    //         links.push(this.state.categories[i]["_links"]["doc:programmes"]["href"]);
-    //     }
-    //     return links;
-    // }
+    getProgrammes(category) {
+        if (category.includes('&')) category = "Drama & Soaps";
+        console.log('category here: ', category);
+            axios
+                .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
+                    params: {
+                        features: 'hls,aes',
+                        broadcaster: 'itv',
+                        category: category
+                    },
+                    headers: {
+                        'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
+                    }
+                })
+                .then(fetch => {
+                    this.setState({
+                        programmes: fetch.data._embedded.programmes
+                    });
+                    console.log('this.state.programmes', this.state.programmes)
+                })
+                .catch(err => console.log(err));
+    }
+
+
     handleClick(event) {
         event.preventDefault();
+        this.getProgrammes(event.target.innerHTML)
+        this.setState({category: event.target.innerHTML});
 
-        console.log('you clicked me!!!!', event.target.valueOf())
     }
 
     render() {
+        console.log(this.state.category);
 
         return (
             <div>
@@ -183,12 +180,8 @@ export default class App extends Component {
                 <ul>
                     {this.state.categories.map(category => {
                         return (
-                            <a href="#"
-                                key={category.name}
-                                onClick={this.handleClick}>
-                                <li>
-                                {category.name}
-                            </li>
+                            <a href='#' key={category.name}>
+                                <li onClick={this.handleClick}>{category.name}</li>
                             </a>
                         )
                     })
@@ -203,5 +196,5 @@ export default class App extends Component {
 
 ReactDOM.render(
     <App/>,
-    document.getElementById("root")
+    document.getElementById('root')
 );
