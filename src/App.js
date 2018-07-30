@@ -11,7 +11,6 @@ export default class App extends Component {
             programmes: [],
             category: '',
         };
-        // this.handleClick = this.handleClick.bind(this);
     };
 
     componentDidMount() {
@@ -60,13 +59,6 @@ export default class App extends Component {
             .catch(err => console.log(err));
     };
 
-
-    // handleClick(event) {
-    //     event.preventDefault();
-    //     this.getProgrammes(event.target.innerHTML);
-    //     this.setState({category: event.target.innerHTML});
-    // };
-
     handleChange = (selectedOption) => {
         this.setState({selectedOption});
         console.log(`Option selected:`, selectedOption);
@@ -91,18 +83,6 @@ export default class App extends Component {
                         })
                         }
                 />
-                {/*<ul>*/}
-                {/*{this.state.categories.map(category => {*/}
-                {/*return (*/}
-                {/*<a href='#'key={category.name.substring(0, 3).toLowerCase()}>*/}
-                {/*<li onClick={this.handleClick}>*/}
-                {/*{category.name}*/}
-                {/*</li>*/}
-                {/*</a>*/}
-                {/*)*/}
-                {/*})*/}
-                {/*}*/}
-                {/*</ul>*/}
                 <h2>Programmes</h2>
                 <ul>
                     {console.log(this.state.programmes)}
