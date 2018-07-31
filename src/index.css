@@ -1,7 +1,6 @@
 body, button {
     margin: 0;
     padding: 0;
-    /*font-family: sans-serif;*/
     font-family: "ITV Reem", sans-serif;
     font-weight: lighter;
 }
@@ -9,9 +8,9 @@ body, button {
 #programme-card:hover{
     cursor: pointer;
 }
-.image__header {
+#itv_logo {
     width: 10%;
-    padding: 5px;
+    /*padding: 5px;*/
 }
 
 .css-1aya2g8 {
@@ -38,5 +37,9 @@ body, button {
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
+}
+
+#more-prog-info:hover {
+
 }
 

@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-// import ReactTable from 'react-table';
-// import 'react-table/react-table.css';
 import axios from 'axios';
 import Select from 'react-select';
 
@@ -11,15 +9,24 @@ export default class App extends Component {
         this.state = {
             categories: [],
             programmes: [],
+            programmeUrl: '',
+            programme: '',
+            programmeEpisodes: [],
             category: '',
-            image: ''
         };
+        this.handleClick = this.handleClick.bind(this);
     };
 
+    /**
+     * Initialises display with category drop-down
+     */
     componentDidMount() {
         this.getCategories();
     };
 
+    /**
+     * Fetches the categories from the JSON file
+     */
     getCategories() {
         axios
             .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/categories?', {
@@ -39,6 +46,10 @@ export default class App extends Component {
             .catch(err => console.log(err));
     };
 
+    /**
+     * Fetches the programmes from the chosen category
+     * @param category User-specified category
+     */
     getProgrammes(category) {
         if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
         axios
@@ -60,52 +71,112 @@ export default class App extends Component {
             .catch(err => console.log(err));
     };
 
-    handleChange = (selectedOption) => {
+    /**
+     * Handles the category selection
+     * @param selectedOption User-specified category
+     */
+    handleCategory = (selectedOption) => {
         this.setState({category: selectedOption.value});
         this.getProgrammes(selectedOption.value);
     };
 
+    getEpisodes(url) {
+        this.setState({
+            programmeEpisodes: [],
+            programmes: []
+        });
+        if (url) {
+            axios
+                .get(url, {
+                    headers: {
+                        'Accept': 'application/vnd.itv.hubsvc.production.v3+hal+json; charset=UTF-8'
+                    }
+                })
+                .then(fetch => {
+                    this.setState({
+                        programmeEpisodes: fetch.data._embedded.productions
+                    })
+
+                })
+                .catch(err => console.log(err));
+        }
+    }
+
+    getEpisodeUrl(programme) {
+
+        if (this.state.programmes.length) {
+            this.state.programmes.map((res) => {
+                if (res.title === programme) {
+                    const url = res._embedded.productions._links["doc:productions"].href
+                    this.getEpisodes(url);
+                    this.setState({programmeUrl: url});
+                }
+            })
+
+        }
+    }
+
+
+    handleClick(e) {
+        e.preventDefault();
+        console.log(e.target.className);
+        this.setState({programme: e.target.className});
+        this.getEpisodeUrl(e.target.className);
+    }
+
     render() {
-        const {categories, category, programmes} = this.state
-        const programmeList =  categories ? <h2>{category} Programme List</h2> : undefined;
-        // const style = {}
+        console.log('state episodes:', this.state.programmeEpisodes);
+        // Removes need for 'this.state' prefix
+        const {categories, category, programmes} = this.state;
+        // Title appears only when a category is selected
+        const catProgList = categories ? <h2>{category} Programme List</h2> : undefined;
+        // Formats options for drop-down box
+        const optionsMap = categories.map(category => ({
+            value: category.name,
+            label: category.name
+        }));
 
-        const optionsMap = categories.map(category => {
-            return {
-                value: category.name,
-                label: category.name
-            };
-        })
-        return (
-            <div className={'container'}>
-                <img
-                    className={'image__header'}
-                    src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}/>
-                <Select
-                    value={category}
-                    onChange={this.handleChange}
-                    options={optionsMap}
-                    placeholder={category || 'Select a category....'}
-                />
-
-                <div className={'row'}>
-                    {programmes.map(programme => {
-                        console.log('programme =====>',programme )
-                        return (
-                            <div
-                                // onClick={handleProgrammeClick}
-                                id={'programme-card'}
-                                className={'col-lg-4'}
-                                key={programme.title}>
-                                <h3>{programme.title}</h3>
-                                <img src={programme._embedded.latestProduction._links.image.href}/>
-                                <p>{programme.synopses.ninety}</p>
-                            </div>
-                        )
-                    })}
+        const programmesDisplay = <div className={'row'}>
+            {programmes.map(programme => {
+                return <div
+                    onClick={this.handleClick}
+                    id={'programme-card'}
+                    className={'col-lg-4 col-lg-6 '}
+                    key={programme.title}>
+                    <h3
+                        className={programme.title}
+                    >{programme.title}</h3>
+                    <img
+                        className={programme.title}
+                        src={programme._embedded.latestProduction._links.image.href}
+                        alt={programme.title}
+                    />
+                    <p
+                        className={programme.title}
+                    >{programme.synopses.ninety}</p>
                 </div>
+            })}
+        </div>
+
+        return <div className={'container'}>
+            <img
+                id={'itv_logo'}
+                src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}
+                alt={'ITV Logo'}
+            />
+            <Select
+                value={category}
+                onChange={this.handleCategory}
+                options={optionsMap}
+                placeholder={category || 'Please select or type a category...'}
+            />
+
+            {programmesDisplay}
+
+            <div className={'programme-page'}>
+                <p>Programme Page</p>
             </div>
-        );
+        </div>;
 
     };
 
