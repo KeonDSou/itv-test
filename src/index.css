@@ -25,13 +25,17 @@ body, button {
     margin: 0px;
 }
 
-#programme-card img {
+#programme-card {
     width: 80%;
-    ;
-    margin: 0 10%;
+    height: 300px;
 }
 
-#programme-card h3 {
+img {
+    width: 80%;
+    margin: 0 10% 2%;
+}
+
+#programme-card, #episode h3 {
     font-size: 3vw;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -39,7 +43,12 @@ body, button {
     width: 100%;
 }
 
-#more-prog-info:hover {
+.guidance {
+    margin-bottom: 0;
+}
 
+#episode-date-time {
+    text-align: right;
+    margin-right: 10%;
 }
 

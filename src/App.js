@@ -198,25 +198,28 @@ export default class App extends Component {
         const episodesDisplay = (
             <div className={'row'}>
                 {episodes.map(episode => {
-                    const broadcastDate = new Date(episode.broadcastDateTime.original)
-                    console.log('episode am i here', episode)
+                    const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
+                    const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
                     return <div
-                        id={'episode-card'}
+                        id={'episode'}
                         className={'col-lg-4 col-lg-6 '}
-                        key={episode.productionId}
+                        key={episode.episodeId || episode.productionId}
                     >
                         <h3
-                            className={episode.title}
+                            className='title'
                         >{episode.episodeTitle || episode._embedded.programme.title}</h3>
-                        <p>{this.formatDate(broadcastDate)}</p>
+                        <p id='episode-date-time'>{this.formatDate(broadcastDate)}</p>
+
                         <img
-                            className={episode.title}
-                            src={episode.image}
-                            alt={episode.title}
+                            className='image'
+                            src={episode._links.image.href}
+                            alt={episode.episodeTitle}
                         />
-                        <p
-                            className={episode.title}
-                        >{episode.synopsis_90}</p>
+
+                        <p className='guidance'>{guidance}</p>
+                        <p className='synopsis'>
+                            {episode.synopses.ninety}
+                        </p>
                     </div>
                 })}
             </div>
