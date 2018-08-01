@@ -129,9 +129,9 @@ export default class App extends Component {
     getEpisodeUrl(programme) {
 
         if (this.state.programmes.length) {
-            this.state.programmes.map((res) => {
-                if (res.title === programme) {
-                    const url = res._embedded.productions._links["doc:productions"].href
+            this.state.programmes.map((prog) => {
+                if (prog.title === programme) {
+                    const url = prog._embedded.productions._links["doc:productions"].href;
                     this.getEpisodes(url);
                     this.setState({programmeUrl: url});
                 }
@@ -160,8 +160,6 @@ export default class App extends Component {
     render() {
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes} = this.state;
-        // Title appears only when a category is selected
-        const catProgList = categories ? <h2>{category} Programme List</h2> : undefined;
         // Formats options for drop-down box
         const optionsMap = categories.map(category => ({
             value: category.name,
@@ -180,7 +178,7 @@ export default class App extends Component {
                         className={'col-lg-4 col-lg-6 '}
                         key={programme.title}>
                         <h3
-                            className={programme.title}
+                            className='title'
                         >{programme.title}</h3>
                         <img
                             className={programme.title}
@@ -200,6 +198,9 @@ export default class App extends Component {
                 {episodes.map(episode => {
                     const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
                     const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+                    const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+                    const currentDate = new Date();
+                    const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
                     return <div
                         id={'episode'}
                         className={'col-lg-4 col-lg-6 '}
@@ -208,7 +209,10 @@ export default class App extends Component {
                         <h3
                             className='title'
                         >{episode.episodeTitle || episode._embedded.programme.title}</h3>
-                        <p id='episode-date-time'>{this.formatDate(broadcastDate)}</p>
+                        <p id='episode-date-time'>
+                            {this.formatDate(broadcastDate)}
+                            {` | ${daysLeft} days left`}
+                        </p>
 
                         <img
                             className='image'
