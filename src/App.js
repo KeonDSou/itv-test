@@ -13,6 +13,7 @@ export default class App extends Component {
             programme: '',
             programmeEpisodes: [],
             category: '',
+            episodes: []
         };
         this.handleClick = this.handleClick.bind(this);
     };
@@ -80,9 +81,32 @@ export default class App extends Component {
         this.getProgrammes(selectedOption.value);
     };
 
+    // getProgrammeInfo() {
+    // const {episodes, programmeEpisodes} = this.state;
+    //create title header
+    //image
+    //guidance text
+    //synopsis short
+    //synopsis long
+
+
+    // const episodesArr = [];
+    // for (let i = 0; i < prefix.length; i++) {
+    //     episodesArr.push({
+    //         title: prefix[i].episodeTitle,
+    //         image: prefix[i]._links.image.href,
+    //         guidance: prefix[i].guidance,
+    //         synopsis_90: prefix[i].synopses.ninety,
+    //         synopsis_epg: prefix[i].synopses.epg
+    //     });
+    // }
+    // console.log('episodes: ', episodes);
+    // return episodes;
+    // }
+
     getEpisodes(url) {
         this.setState({
-            programmeEpisodes: [],
+            episodes: [],
             programmes: []
         });
         if (url) {
@@ -94,7 +118,7 @@ export default class App extends Component {
                 })
                 .then(fetch => {
                     this.setState({
-                        programmeEpisodes: fetch.data._embedded.productions
+                        episodes: fetch.data._embedded.productions
                     })
 
                 })
@@ -112,11 +136,20 @@ export default class App extends Component {
                     this.setState({programmeUrl: url});
                 }
             })
-
         }
     }
 
+    formatDate(broadcastDate) {
+        const date = broadcastDate.toLocaleDateString('en-gb')
+            + ' | '
+            + broadcastDate.toLocaleTimeString().replace(':00', '').toLowerCase();
+        return (date);
+    }
 
+    /**
+     * Handles the programme selection
+     * @param e User-selected programme (as an event)
+     */
     handleClick(e) {
         e.preventDefault();
         console.log(e.target.className);
@@ -125,9 +158,8 @@ export default class App extends Component {
     }
 
     render() {
-        console.log('state episodes:', this.state.programmeEpisodes);
-        // Removes need for 'this.state' prefix
-        const {categories, category, programmes} = this.state;
+        // Removes the need for 'this.state' prefix
+        const {categories, category, programmes, episodes} = this.state;
         // Title appears only when a category is selected
         const catProgList = categories ? <h2>{category} Programme List</h2> : undefined;
         // Formats options for drop-down box
@@ -136,34 +168,68 @@ export default class App extends Component {
             label: category.name
         }));
 
-        const programmesDisplay = <div className={'row'}>
-            {programmes.map(programme => {
-                return <div
-                    onClick={this.handleClick}
-                    id={'programme-card'}
-                    className={'col-lg-4 col-lg-6 '}
-                    key={programme.title}>
-                    <h3
-                        className={programme.title}
-                    >{programme.title}</h3>
-                    <img
-                        className={programme.title}
-                        src={programme._embedded.latestProduction._links.image.href}
-                        alt={programme.title}
-                    />
-                    <p
-                        className={programme.title}
-                    >{programme.synopses.ninety}</p>
-                </div>
-            })}
-        </div>
+
+        console.log('episodes arr', episodes);
+
+        const programmesDisplay = (
+            <div className={'row'}>
+                {programmes.map(programme => {
+                    return <div
+                        onClick={this.handleClick}
+                        id={'programme-card'}
+                        className={'col-lg-4 col-lg-6 '}
+                        key={programme.title}>
+                        <h3
+                            className={programme.title}
+                        >{programme.title}</h3>
+                        <img
+                            className={programme.title}
+                            src={programme._embedded.latestProduction._links.image.href}
+                            alt={programme.title}
+                        />
+                        <p
+                            className={programme.title}
+                        >{programme.synopses.ninety}</p>
+                    </div>
+                })}
+            </div>
+        );
+
+        const episodesDisplay = (
+            <div className={'row'}>
+                {episodes.map(episode => {
+                    const broadcastDate = new Date(episode.broadcastDateTime.original)
+                    console.log('episode am i here', episode)
+                    return <div
+                        id={'episode-card'}
+                        className={'col-lg-4 col-lg-6 '}
+                        key={episode.productionId}
+                    >
+                        <h3
+                            className={episode.title}
+                        >{episode.episodeTitle || episode._embedded.programme.title}</h3>
+                        <p>{this.formatDate(broadcastDate)}</p>
+                        <img
+                            className={episode.title}
+                            src={episode.image}
+                            alt={episode.title}
+                        />
+                        <p
+                            className={episode.title}
+                        >{episode.synopsis_90}</p>
+                    </div>
+                })}
+            </div>
+        );
 
         return <div className={'container'}>
-            <img
-                id={'itv_logo'}
-                src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}
-                alt={'ITV Logo'}
-            />
+            <a href='.'>
+                <img
+                    id={'itv_logo'}
+                    src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}
+                    alt={'ITV Logo'}
+                />
+            </a>
             <Select
                 value={category}
                 onChange={this.handleCategory}
@@ -172,10 +238,7 @@ export default class App extends Component {
             />
 
             {programmesDisplay}
-
-            <div className={'programme-page'}>
-                <p>Programme Page</p>
-            </div>
+            {episodesDisplay}
         </div>;
 
     };
