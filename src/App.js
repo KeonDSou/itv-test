@@ -1,3 +1,9 @@
+/**
+ * ITV - Programme Discovery
+ *
+ * A simple application to allow a user to discover ITV content
+ */
+
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -52,7 +58,9 @@ export default class App extends Component {
      * @param category User-specified category
      */
     getProgrammes(category) {
-        if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
+        // if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
+        if (category.includes('&')) category.replace('amp;', ''); // Removes 'amp;'
+
         axios
             .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
                 params: {
