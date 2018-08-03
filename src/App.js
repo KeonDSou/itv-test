@@ -81,29 +81,10 @@ export default class App extends Component {
         this.getProgrammes(selectedOption.value);
     };
 
-    // getProgrammeInfo() {
-    // const {episodes, programmeEpisodes} = this.state;
-    //create title header
-    //image
-    //guidance text
-    //synopsis short
-    //synopsis long
-
-
-    // const episodesArr = [];
-    // for (let i = 0; i < prefix.length; i++) {
-    //     episodesArr.push({
-    //         title: prefix[i].episodeTitle,
-    //         image: prefix[i]._links.image.href,
-    //         guidance: prefix[i].guidance,
-    //         synopsis_90: prefix[i].synopses.ninety,
-    //         synopsis_epg: prefix[i].synopses.epg
-    //     });
-    // }
-    // console.log('episodes: ', episodes);
-    // return episodes;
-    // }
-
+    /**
+     * Fetches the episodes from the chosen category
+     * @param url Episode collection location
+     */
     getEpisodes(url) {
         this.setState({
             episodes: [],
@@ -126,10 +107,14 @@ export default class App extends Component {
         }
     }
 
+    /**
+     * Fetches the URL to collect programme episodes
+     * @param programme User-specified programme
+     */
     getEpisodeUrl(programme) {
 
         if (this.state.programmes.length) {
-            this.state.programmes.map((prog) => {
+            this.state.programmes.filter((prog) => {
                 if (prog.title === programme) {
                     const url = prog._embedded.productions._links["doc:productions"].href;
                     this.getEpisodes(url);
@@ -139,11 +124,43 @@ export default class App extends Component {
         }
     }
 
+    /**
+     * Converts ISO date into a more readable format
+     * @param date Date to be formatted
+     * @returns {string} Formatted date
+     */
     formatDate(broadcastDate) {
         const date = broadcastDate.toLocaleDateString('en-gb')
             + ' | '
             + broadcastDate.toLocaleTimeString().replace(':00', '').toLowerCase();
         return (date);
+    }
+
+    /**
+     * Calculates how many days are left to watch an episode
+     * @param episode Episode in question
+     * @returns {string} Days left (formatted)
+     * To episode.js
+     */
+    getAvailability(episode) {
+        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+        const currentDate = new Date();
+        const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
+        return (daysLeft === 1) ? ` | ${daysLeft} day left` : ` | ${daysLeft} days left`;
+    }
+
+    /**
+     * Label detailing last broadcast date and time, duration and day left
+     * @param episode Episode in question
+     * @returns {string} Label (formatted)
+     * To episode.js
+     */
+    episodeInfoLabel(episode) {
+        const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+        return this.formatDate(broadcastDate)
+            + ' | '
+            + episode.duration.display
+            + this.getAvailability(episode);
     }
 
     /**
@@ -197,21 +214,20 @@ export default class App extends Component {
             <div className={'row'}>
                 {episodes.map(episode => {
                     const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
-                    const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
-                    const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
-                    const currentDate = new Date();
-                    const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
+                    // const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+                    // const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+                    // const currentDate = new Date();
+                    // const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
                     return <div
-                        id={'episode'}
-                        className={'col-lg-4 col-lg-6 '}
+                        id={episode.episodeTitle}
+                        className={'col-lg-4 col-lg-6'}
                         key={episode.episodeId || episode.productionId}
                     >
                         <h3
                             className='title'
                         >{episode.episodeTitle || episode._embedded.programme.title}</h3>
                         <p id='episode-date-time'>
-                            {this.formatDate(broadcastDate)}
-                            {` | ${daysLeft} days left`}
+                            {this.episodeInfoLabel(episode)}
                         </p>
 
                         <img

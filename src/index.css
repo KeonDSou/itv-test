@@ -10,6 +10,7 @@ body, button {
 }
 #itv_logo {
     width: 10%;
+    margin: 0.5em;
     /*padding: 5px;*/
 }
 
@@ -19,15 +20,12 @@ body, button {
 }
 
 #programme-card {
-    width: 100%;
-    padding: 0px;
-    border: 0px;
-    margin: 0px;
+    height: auto;
+    padding: 0.5em;
 }
 
-#programme-card {
-    width: 80%;
-    height: 300px;
+#programme-card p {
+    font-size: medium;
 }
 
 img {
@@ -35,12 +33,10 @@ img {
     margin: 0 10% 2%;
 }
 
-#programme-card, #episode h3 {
-    font-size: 3vw;
+.title {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 100%;
 }
 
 .guidance {
@@ -52,4 +48,3 @@ img {
     text-align: right;
     margin-right: 10%;
 }
-
