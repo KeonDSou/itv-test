@@ -129,11 +129,10 @@ export default class App extends Component {
      * @param date Date to be formatted
      * @returns {string} Formatted date
      */
-    formatDate(broadcastDate) {
-        const date = broadcastDate.toLocaleDateString('en-gb')
+    formatDate(date) {
+        return date.toLocaleDateString('en-gb')
             + ' | '
-            + broadcastDate.toLocaleTimeString().replace(':00', '').toLowerCase();
-        return (date);
+            + date.toLocaleTimeString().replace(':00', '').toLowerCase();
     }
 
     /**
