@@ -111,7 +111,7 @@ export default class App extends Component {
      * Fetches the URL to collect programme episodes
      * @param programme User-specified programme
      */
-    getEpisodeUrl(programme) {
+    getEpisodesUrl(programme) {
 
         if (this.state.programmes.length) {
             this.state.programmes.filter((prog) => {
@@ -140,20 +140,21 @@ export default class App extends Component {
      * Calculates how many days are left to watch an episode
      * @param episode Episode in question
      * @returns {string} Days left (formatted)
-     * To episode.js
      */
     getAvailability(episode) {
         const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
         const currentDate = new Date();
         const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
-        return (daysLeft === 1) ? ` | ${daysLeft} day left` : ` | ${daysLeft} days left`;
+        // For 1+ days remaining
+        if (daysLeft !== 0) return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`;
+        // For 0 days remaining
+        else return ' | Expires today';
     }
 
     /**
      * Label detailing last broadcast date and time, duration and day left
      * @param episode Episode in question
      * @returns {string} Label (formatted)
-     * To episode.js
      */
     episodeInfoLabel(episode) {
         const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
@@ -171,7 +172,7 @@ export default class App extends Component {
         e.preventDefault();
         console.log(e.target.className);
         this.setState({programme: e.target.className});
-        this.getEpisodeUrl(e.target.className);
+        this.getEpisodesUrl(e.target.className);
     }
 
     render() {
@@ -214,10 +215,6 @@ export default class App extends Component {
             <div className={'row'}>
                 {episodes.map(episode => {
                     const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
-                    // const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
-                    // const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
-                    // const currentDate = new Date();
-                    // const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
                     return <div
                         id={episode.episodeTitle}
                         className={'col-lg-4 col-lg-6'}
