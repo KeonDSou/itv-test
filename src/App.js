@@ -2,6 +2,8 @@
  * ITV - Programme Discovery
  *
  * A simple application to allow a user to discover ITV content
+ *
+ * @author Keoni D'Souza
  */
 
 import React, {Component} from 'react';
@@ -17,11 +19,12 @@ export default class App extends Component {
             programmes: [],
             programmeUrl: '',
             programme: '',
-            programmeEpisodes: [],
             category: '',
-            episodes: []
+            episodes: [],
+            episodeData: null
         };
         this.handleClick = this.handleClick.bind(this);
+        this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
     };
 
     /**
@@ -58,9 +61,7 @@ export default class App extends Component {
      * @param category User-specified category
      */
     getProgrammes(category) {
-        // if (category.includes('&')) category = "Drama & Soaps"; // Removes 'amp;'
-        if (category.includes('&')) category.replace('amp;', ''); // Removes 'amp;'
-
+        if (category.includes('&')) category.replace('amp;', '');
         axios
             .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
                 params: {
@@ -85,7 +86,9 @@ export default class App extends Component {
      * @param selectedOption User-specified category
      */
     handleCategory = (selectedOption) => {
-        this.setState({category: selectedOption.value});
+        this.setState({
+            category: selectedOption.value,
+            episodeData: null});
         this.getProgrammes(selectedOption.value);
     };
 
@@ -151,7 +154,12 @@ export default class App extends Component {
     getAvailability(episode) {
         const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
         const currentDate = new Date();
-        const daysLeft = Math.round(Math.abs((expiryDate.getTime() - currentDate.getTime())/(86400000)));
+        const daysLeft =
+            Math.round(
+                Math.abs(
+                    (expiryDate.getTime() - currentDate.getTime()) / (86400000)
+                )
+            );
         // For 1+ days remaining
         if (daysLeft !== 0) return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`;
         // For 0 days remaining
@@ -177,22 +185,40 @@ export default class App extends Component {
      */
     handleClick(e) {
         e.preventDefault();
-        console.log(e.target.className);
         this.setState({programme: e.target.className});
         this.getEpisodesUrl(e.target.className);
     }
 
+    handleEpisodeClick(e) {
+
+        e.preventDefault();
+        // console.log('episodes ->', this.state.episodes);
+        // Search through the episodes where the titles match
+        console.log('e.target -->', e.target, '<-- e.target');
+        console.log('e.target.data-id -->', e.target.dataset.id, '<-- e.target.data-id');
+
+
+            const episodeDetails = this.state.episodes.filter(
+            episode => episode.productionId === e.target.dataset.id);
+
+        console.log('episode details: ', episodeDetails[0]);
+        this.setState({
+            episodes: [],
+            episodeData: episodeDetails[0]
+        });
+
+    }
+
     render() {
+        console.log('episode ->', this.state.episodeData);
         // Removes the need for 'this.state' prefix
-        const {categories, category, programmes, episodes} = this.state;
+        const {categories, category, programmes, episodes, episodeData} = this.state;
         // Formats options for drop-down box
         const optionsMap = categories.map(category => ({
             value: category.name,
             label: category.name
         }));
 
-
-        console.log('episodes arr', episodes);
 
         const programmesDisplay = (
             <div className={'row'}>
@@ -223,31 +249,73 @@ export default class App extends Component {
                 {episodes.map(episode => {
                     const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
                     return <div
-                        id={episode.episodeTitle}
+                        onClick={this.handleEpisodeClick}
                         className={'col-lg-4 col-lg-6'}
+                        id={episode.episodeTitle}
                         key={episode.episodeId || episode.productionId}
                     >
                         <h3
                             className='title'
-                        >{episode.episodeTitle || episode._embedded.programme.title}</h3>
-                        <p id='episode-date-time'>
+                            id={episode.episodeTitle}
+                            data-id={episode.productionId}
+                        >
+                            {episode.episodeTitle || episode._embedded.programme.title}</h3>
+                        <p
+                            className='episode-date-time'
+                            id={episode.episodeTitle}
+                            data-id={episode.productionId}
+                        >
                             {this.episodeInfoLabel(episode)}
                         </p>
 
                         <img
                             className='image'
+                            id={episode.episodeTitle}
                             src={episode._links.image.href}
                             alt={episode.episodeTitle}
+                            data-id={episode.productionId}
+
                         />
 
-                        <p className='guidance'>{guidance}</p>
-                        <p className='synopsis'>
+                        <p
+                            className='guidance'
+                            id={episode.episodeTitle}
+                            data-id={episode.productionId}
+                        >
+                            {guidance}
+                        </p>
+                        <p
+                            className='synopsis'
+                            id={episode.episodeTitle}
+                            data-id={episode.productionId}
+                        >
                             {episode.synopses.ninety}
                         </p>
                     </div>
                 })}
             </div>
         );
+
+        const singleEpisodeDisplay = 0;
+            {/*<div className={'row'}>*/}
+                {/*<div*/}
+                    {/*data-id={episodeData.productionId}*/}
+                    {/*className={'col-lg-4 col-lg-6'}*/}
+                    {/*key={episodeData.episodeId || episodeData.productionId}*/}
+                {/*>*/}
+                    {/*<h3 className='title'>*/}
+                        {/*{episodeData.episodeTitle || episodeData._embedded.programme.title}*/}
+                        {/*</h3>*/}
+                    {/*<p id='episode-date-time'>*/}
+                        {/*/!*{this.episodeInfoLabel(episode)}*!/*/}
+                        {/*</p>*/}
+                    {/*<img className='image'*/}
+                         {/*src={episodeData._links.image.href}*/}
+                         {/*alt={episodeData.episodeTitle}*/}
+                    {/*/>*/}
+                    {/*<p className='synopsis'>{episodeData.synopses.ninety}</p>*/}
+                {/*</div>*/}
+            {/*</div>;*/}
 
         return <div className={'container'}>
             <a href='.'>
@@ -257,6 +325,7 @@ export default class App extends Component {
                     alt={'ITV Logo'}
                 />
             </a>
+
             <Select
                 value={category}
                 onChange={this.handleCategory}
@@ -266,6 +335,7 @@ export default class App extends Component {
 
             {programmesDisplay}
             {episodesDisplay}
+            {singleEpisodeDisplay}
         </div>;
 
     };

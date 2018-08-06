@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650ea114-78c2-4cdf-94f2-291a72795e51" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/KeonDSou.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +25,11 @@
           <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="391">
-                  <caret line="61" column="83" lean-forward="true" selection-start-line="61" selection-start-column="83" selection-end-line="61" selection-end-column="83" />
+                <state relative-caret-position="208">
+                  <caret line="298" column="39" selection-start-line="298" selection-start-column="39" selection-end-line="298" selection-end-column="39" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
-                    <element signature="e#0#39#0" expanded="true" />
+                    <element signature="e#133#172#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -40,7 +41,11 @@
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/index.css">
-              <provider selected="true" editor-type-id="text-editor" />
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="133">
+                  <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+                </state>
+              </provider>
             </entry>
           </file>
         </leaf>
@@ -51,6 +56,11 @@
     <findStrings>
       <find>console</find>
       <find>state:</find>
+      <find>programmeEpisodes</find>
+      <find>programme</find>
+      <find>episode</find>
+      <find>log</find>
+      <find>episodes arr</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -72,8 +82,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/categories.json" />
-        <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
@@ -93,9 +103,10 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="812" />
+    <option name="x" value="-240" />
+    <option name="y" value="-1080" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -210,6 +221,7 @@
       <workItem from="1533029295982" duration="22832000" />
       <workItem from="1533115833934" duration="1779000" />
       <workItem from="1533123384296" duration="9049000" />
+      <workItem from="1533547681832" duration="5631000" />
     </task>
     <task id="LOCAL-00001" summary="Removed old commented-out code">
       <created>1532949679841</created>
@@ -295,11 +307,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533308429607</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Reformatted '&amp;amp;' substitution">
+      <created>1533308838103</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1533308838103</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82651000" />
+    <option name="totallyTimeSpent" value="93613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-240" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -307,7 +326,6 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49956858" weight="0.4192607" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
@@ -315,47 +333,27 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32976654" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
+      <window_info anchor="bottom" id="TypeScript" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.32430556" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Learn" order="2" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info id="Designer" order="2" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.32451254" />
-      <window_info id="Learn" order="2" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5004314" side_tool="true" weight="0.32900944" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info id="Learn" order="2" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49956858" weight="0.4192607" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +374,8 @@
     <MESSAGE value="All code reverted to App.js with newly-created fragments re-instated from interrupted branch" />
     <MESSAGE value="Days left reformatted" />
     <MESSAGE value="formatDate(date) function return statement simplified" />
-    <option name="LAST_COMMIT_MESSAGE" value="formatDate(date) function return statement simplified" />
+    <MESSAGE value="Reformatted '&amp;amp;' substitution" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformatted '&amp;amp;' substitution" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -384,16 +383,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -480,14 +469,10 @@
     <entry file="file://$PROJECT_DIR$/public/favicon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/episodes/episode.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/episodes/episode.js" />
     <entry file="file://$PROJECT_DIR$/src/components/categories/category.js" />
     <entry file="file://$PROJECT_DIR$/src/components/categories/categories.js" />
-    <entry file="file://$PROJECT_DIR$/src/components/categories/programme.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/categories/programme.js" />
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="760">
@@ -495,39 +480,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/episodes/episodes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="112" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!doc;n#formatDate#0;n#Episodes#0" />
-            <element signature="n#!!block;n#formatDate#0;n#Episodes#0" />
-            <element signature="n#!!doc;n#getAvailability#0;n#Episodes#0" />
-            <element signature="n#!!block;n#getAvailability#0;n#Episodes#0" />
-            <element signature="n#!!doc;n#episodeInfoLabel#0;n#Episodes#0" />
-            <element signature="n#!!block;n#episodeInfoLabel#0;n#Episodes#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/categories/programmes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1088">
-          <caret line="19" column="10" lean-forward="true" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
-          <folding>
-            <element signature="e#2572#2578#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/episodes/episodes.js" />
+    <entry file="file://$PROJECT_DIR$/src/components/categories/programmes.js" />
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="699">
           <caret line="255" column="18" lean-forward="true" selection-start-line="255" selection-start-column="18" selection-end-line="255" selection-end-column="18" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -545,7 +506,7 @@
           <caret line="163" column="88" lean-forward="true" selection-start-line="163" selection-start-column="88" selection-end-line="163" selection-end-column="88" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -563,7 +524,7 @@
           <caret line="204" column="59" selection-start-line="204" selection-start-column="59" selection-end-line="204" selection-end-column="59" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -581,7 +542,7 @@
           <caret line="77" column="10" lean-forward="true" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -609,7 +570,7 @@
           <caret line="145" column="44" selection-start-line="145" selection-start-column="44" selection-end-line="145" selection-end-column="44" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -634,7 +595,7 @@
           <caret line="129" column="46" lean-forward="true" selection-start-line="129" selection-start-column="46" selection-end-line="129" selection-end-column="46" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -651,7 +612,7 @@
         <state>
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -742,23 +703,34 @@
     <entry file="file://$PROJECT_DIR$/public/favicon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        <state relative-caret-position="209">
+          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1014">
+          <caret line="300" column="8" selection-start-line="300" selection-start-column="8" selection-end-line="300" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="61" column="83" lean-forward="true" selection-start-line="61" selection-start-column="83" selection-end-line="61" selection-end-column="83" />
+        <state relative-caret-position="208">
+          <caret line="298" column="39" selection-start-line="298" selection-start-column="39" selection-end-line="298" selection-end-column="39" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#133#172#0" expanded="true" />
           </folding>
         </state>
       </provider>

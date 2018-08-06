@@ -5,9 +5,10 @@ body, button {
     font-weight: lighter;
 }
 
-#programme-card:hover{
+#programme-card:hover {
     cursor: pointer;
 }
+
 #itv_logo {
     width: 10%;
     margin: 0.5em;
@@ -44,7 +45,7 @@ img {
     margin-bottom: 0;
 }
 
-#episode-date-time {
+.episode-date-time {
     text-align: right;
     margin-right: 10%;
 }
