@@ -11,6 +11,8 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
 
+const itvLogo = 'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png';
+
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +24,90 @@ export default class App extends Component {
             category: '',
             episodes: [],
             episodeData: null
+            //     {
+            //     productionId: '2/4259/0182#001',
+            //     productionType: 'PROGRAMME',
+            //     episodeId: '2/4259/0182',
+            //     episodeTitle: 'The Blind Side',
+            //     duration: {
+            //         iso8601: 'PT30M',
+            //         display: '30 mins'
+            //     },
+            //     broadcastDateTime: {
+            //         commissioning: '2018-08-03T22:10Z',
+            //         original: '2016-08-25T21:00Z'
+            //     },
+            //     series: 10,
+            //     episode: 11,
+            //     synopses: {
+            //         ninety: "Things get a little dicey when Brian's blind girlfriend reveals that she hates dogs.",
+            //         epg: 'Animated US comedy. Brian starts dating a blind girl, but things get a little dicey when she divulges that she hates dogs. The Griffins install a new staircase.'
+            //     },
+            //     guidance: 'Contains violence, strong language and adult humour.',
+            //     visuallySigned: false,
+            //     _embedded: {
+            //         categories: [
+            //             {
+            //                 name: 'Comedy',
+            //                 _links: {
+            //                     'doc:programmes': {
+            //                         href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&category=Comedy'
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 name: 'Entertainment',
+            //                 _links: {
+            //                     'doc:programmes': {
+            //                         href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&category=Entertainment'
+            //                     }
+            //                 }
+            //             }
+            //         ],
+            //         channel: {
+            //             name: 'ITV2',
+            //             strapline: 'TV. And then some.',
+            //             _links: {
+            //                 playlist: {
+            //                     href: 'http://magni.itv.com/playlist/itvonline/ITV2'
+            //                 },
+            //                 primaryImage: {
+            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-colour.svg'
+            //                 },
+            //                 secondaryImage: {
+            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-mono-neg.svg'
+            //                 },
+            //                 dogImage: {
+            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-mono-neg.svg'
+            //                 },
+            //                 backgroundImage: {
+            //                     href: 'http://hubimages.itv.com/channel/itv2?w={width}&h={height}&q={quality}&blur={blur}&bg={bg}'
+            //                 },
+            //                 'doc:programmes': {
+            //                     href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&channelId=itv2'
+            //                 }
+            //             }
+            //         },
+            //         variantAvailability: [
+            //             {
+            //                 platformTag: 'ctv',
+            //                 from: '2018-08-03T22:40Z',
+            //                 until: '2018-08-09T22:59Z',
+            //                 features: 'mpeg-dash',
+            //                 requiresAds: true
+            //             }
+            //         ]
+            //     },
+            //     _links: {
+            //         image: {
+            //             href: 'http://hubimages.itv.com/episode/2_4259_0182?w={width}&h={height}&q={quality}&blur={blur}&bg={bg}',
+            //             templated: true
+            //         },
+            //         playlist: {
+            //             href: 'http://magni.itv.com/playlist/itvonline/ITV2/2_4259_0182.001'
+            //         }
+            //     }
+            // }
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
@@ -88,7 +174,8 @@ export default class App extends Component {
     handleCategory = (selectedOption) => {
         this.setState({
             category: selectedOption.value,
-            episodeData: null});
+            episodeData: null
+        });
         this.getProgrammes(selectedOption.value);
     };
 
@@ -198,7 +285,7 @@ export default class App extends Component {
         console.log('e.target.data-id -->', e.target.dataset.id, '<-- e.target.data-id');
 
 
-            const episodeDetails = this.state.episodes.filter(
+        const episodeDetails = this.state.episodes.filter(
             episode => episode.productionId === e.target.dataset.id);
 
         console.log('episode details: ', episodeDetails[0]);
@@ -296,47 +383,48 @@ export default class App extends Component {
             </div>
         );
 
-        const singleEpisodeDisplay = 0;
-            {/*<div className={'row'}>*/}
-                {/*<div*/}
-                    {/*data-id={episodeData.productionId}*/}
-                    {/*className={'col-lg-4 col-lg-6'}*/}
-                    {/*key={episodeData.episodeId || episodeData.productionId}*/}
-                {/*>*/}
-                    {/*<h3 className='title'>*/}
-                        {/*{episodeData.episodeTitle || episodeData._embedded.programme.title}*/}
-                        {/*</h3>*/}
-                    {/*<p id='episode-date-time'>*/}
-                        {/*/!*{this.episodeInfoLabel(episode)}*!/*/}
-                        {/*</p>*/}
-                    {/*<img className='image'*/}
-                         {/*src={episodeData._links.image.href}*/}
-                         {/*alt={episodeData.episodeTitle}*/}
-                    {/*/>*/}
-                    {/*<p className='synopsis'>{episodeData.synopses.ninety}</p>*/}
-                {/*</div>*/}
-            {/*</div>;*/}
 
-        return <div className={'container'}>
-            <a href='.'>
-                <img
-                    id={'itv_logo'}
-                    src={'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png'}
-                    alt={'ITV Logo'}
-                />
-            </a>
+        const singleEpisodeDisplay = episodeData ? (
+                <div className={'single-episode'}>
+                    <h3 className='title'>
+                        {episodeData.episodeTitle || episodeData._embedded.programme.title}
+                    </h3>
+                    <img className='image'
+                         src={episodeData._links.image.href}
+                         alt={episodeData.episodeTitle}
+                    />
+                    <p className='synopsis'>{episodeData.synopses.epg}</p>
+                </div>
+            )
+            : undefined;
 
-            <Select
-                value={category}
-                onChange={this.handleCategory}
-                options={optionsMap}
-                placeholder={category || 'Please select or type a category...'}
-            />
+        return (
+            <div className={'container'}>
+                <div className={'row'}>
+                    <a href='.' className={'col-md-3'}>
+                        <img
+                            id={'itv_logo'}
+                            src={itvLogo}
+                            alt={'ITV Logo'}
+                        />
+                    </a>
 
-            {programmesDisplay}
-            {episodesDisplay}
-            {singleEpisodeDisplay}
-        </div>;
+                    <Select
+                        className={'col-md-9'}
+                        value={category}
+                        onChange={this.handleCategory}
+                        options={optionsMap}
+                        placeholder={category || 'Please select or type a category...'}
+                    />
+                </div>
+                <div className={'row'}>
+
+                    {programmesDisplay}
+                    {episodesDisplay}
+                    {singleEpisodeDisplay}
+                </div>
+            </div>
+        );
 
     };
 
