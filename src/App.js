@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
 
-const itvLogo = 'https://upload.wikimedia.org/wikipedia/en/thumb/9/92/ITV_logo_2013.svg/1200px-ITV_logo_2013.svg.png';
+const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
 export default class App extends Component {
     constructor(props) {
@@ -260,7 +260,8 @@ export default class App extends Component {
      */
     episodeInfoLabel(episode) {
         const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
-        return this.formatDate(broadcastDate)
+        return 'Last shown: '
+            + this.formatDate(broadcastDate)
             + ' | '
             + episode.duration.display
             + this.getAvailability(episode);
@@ -276,8 +277,11 @@ export default class App extends Component {
         this.getEpisodesUrl(e.target.className);
     }
 
+    /**
+     * Handles the episode selection
+     * @param e User-selected episode (as an event)
+     */
     handleEpisodeClick(e) {
-
         e.preventDefault();
         // console.log('episodes ->', this.state.episodes);
         // Search through the episodes where the titles match
@@ -293,11 +297,35 @@ export default class App extends Component {
             episodes: [],
             episodeData: episodeDetails[0]
         });
+    }
 
+    /**
+     * Label detailing an episode's series number and episode number and title
+     * @returns {*} JSX for above
+     */
+    seriesEpisodeTitleLabel() {
+        if (this.state.episodeData.series) {
+            return <h2 className={'series-episode-title'}>
+                {`Series ${
+                    this.state.episodeData.series
+                }: Episode ${
+                    this.state.episodeData.episode
+                }${
+                    this.state.episodeData.episodeTitle ? ` - ${
+                        this.state.episodeData.episodeTitle
+                    }` : ''
+                }
+                `}
+            </h2>
+        } else {
+            const broadcastDate = new Date(this.state.episodeData.broadcastDateTime.commissioning);
+            return <h2>{broadcastDate.toLocaleDateString('en-gb')}</h2>
+        }
     }
 
     render() {
-        console.log('episode ->', this.state.episodeData);
+        // console.log('episode ->', this.state.episodeData);
+        // console.log('episodeData -->', episodeData, '<--')
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
         // Formats options for drop-down box
@@ -306,7 +334,13 @@ export default class App extends Component {
             label: category.name
         }));
 
+        const categoryName = episodeData && episodeData._embedded.categories.map(item => {
 
+            console.log('item ===>', item );
+            return (<p>Category: <em>{item.name}</em></p>);
+        });
+
+//<ProgrammeDisplay programme={programme}/>
         const programmesDisplay = (
             <div className={'row'}>
                 {programmes.map(programme => {
@@ -334,7 +368,6 @@ export default class App extends Component {
         const episodesDisplay = (
             <div className={'row'}>
                 {episodes.map(episode => {
-                    const guidance = episode.guidance ? 'Guidance: ' + episode.guidance : undefined;
                     return <div
                         onClick={this.handleEpisodeClick}
                         className={'col-lg-4 col-lg-6'}
@@ -361,16 +394,12 @@ export default class App extends Component {
                             src={episode._links.image.href}
                             alt={episode.episodeTitle}
                             data-id={episode.productionId}
-
                         />
 
-                        <p
-                            className='guidance'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {guidance}
-                        </p>
+                            {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
+                                Guidance:
+                                <span className={'guidance'}>{' ' + episode.guidance}</span>
+                                </p>: undefined}
                         <p
                             className='synopsis'
                             id={episode.episodeTitle}
@@ -383,17 +412,39 @@ export default class App extends Component {
             </div>
         );
 
-
         const singleEpisodeDisplay = episodeData ? (
                 <div className={'single-episode'}>
-                    <h3 className='title'>
-                        {episodeData.episodeTitle || episodeData._embedded.programme.title}
-                    </h3>
-                    <img className='image'
+                    <div className={'row'}>
+                        <h1 className='col-sm-10 prog-title'>
+                            {episodeData._embedded.programme.title}
+                        </h1>
+                        <img className={'col-sm-2 channel'}
+                             src={episodeData._embedded.channel._links.primaryImage.href}
+                             alt={`${episodeData._embedded.channel.name} logo`}
+                        />
+                    </div>
+
+                    <img className={'image'}
                          src={episodeData._links.image.href}
                          alt={episodeData.episodeTitle}
                     />
+
+                    {this.seriesEpisodeTitleLabel()}
+
+                    <p
+                        id={episodeData.episodeTitle}
+                        data-id={episodeData.productionId}
+                    >
+                        {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
+                            Guidance:
+                            <span className={'guidance'}>{' ' + episodeData.guidance}</span>
+                        </p>: undefined}
+                    </p>
+
                     <p className='synopsis'>{episodeData.synopses.epg}</p>
+
+                    <p>{this.episodeInfoLabel(episodeData)}</p>
+                    {categoryName}
                 </div>
             )
             : undefined;
@@ -403,9 +454,9 @@ export default class App extends Component {
                 <div className={'row'}>
                     <a href='.' className={'col-md-3'}>
                         <img
-                            id={'itv_logo'}
-                            src={itvLogo}
-                            alt={'ITV Logo'}
+                            id={'itv_hub_logo'}
+                            src={itvHubLogo}
+                            alt={'ITV Hub Logo'}
                         />
                     </a>
 
@@ -417,8 +468,8 @@ export default class App extends Component {
                         placeholder={category || 'Please select or type a category...'}
                     />
                 </div>
-                <div className={'row'}>
 
+                <div className={'row'}>
                     {programmesDisplay}
                     {episodesDisplay}
                     {singleEpisodeDisplay}

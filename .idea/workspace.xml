@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650ea114-78c2-4cdf-94f2-291a72795e51" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/KeonDSou.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
@@ -25,8 +24,8 @@
           <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/App.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="208">
-                  <caret line="298" column="39" selection-start-line="298" selection-start-column="39" selection-end-line="298" selection-end-column="39" />
+                <state relative-caret-position="356">
+                  <caret line="448" column="22" lean-forward="true" selection-start-line="448" selection-start-column="22" selection-end-line="448" selection-end-column="22" />
                   <folding>
                     <element signature="n#!!doc" expanded="true" />
                     <element signature="e#133#172#0" expanded="true" />
@@ -42,8 +41,8 @@
           <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/index.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="133">
-                  <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+                <state relative-caret-position="259">
+                  <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
                 </state>
               </provider>
             </entry>
@@ -61,6 +60,7 @@
       <find>episode</find>
       <find>log</find>
       <find>episodes arr</find>
+      <find>console.log('episode -&gt;', this.state.episodeData);</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -221,7 +221,9 @@
       <workItem from="1533029295982" duration="22832000" />
       <workItem from="1533115833934" duration="1779000" />
       <workItem from="1533123384296" duration="9049000" />
-      <workItem from="1533547681832" duration="5631000" />
+      <workItem from="1533547681832" duration="18498000" />
+      <workItem from="1533640940368" duration="975000" />
+      <workItem from="1533650139796" duration="3338000" />
     </task>
     <task id="LOCAL-00001" summary="Removed old commented-out code">
       <created>1532949679841</created>
@@ -314,11 +316,25 @@
       <option name="project" value="LOCAL" />
       <updated>1533308838103</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Clicking episode image returns episode details">
+      <created>1533553788647</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1533553788647</updated>
+    </task>
+    <task id="LOCAL-00015" summary="With more of Paul's fun CSS formatting!">
+      <created>1533568781882</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1533568781885</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93613000" />
+    <option name="totallyTimeSpent" value="110793000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-240" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -336,11 +352,9 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32976654" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
-      <window_info anchor="bottom" id="TypeScript" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.32451254" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Learn" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -348,12 +362,14 @@
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49956858" weight="0.4192607" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="TypeScript" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49956858" weight="0.4192607" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,11 +391,13 @@
     <MESSAGE value="Days left reformatted" />
     <MESSAGE value="formatDate(date) function return statement simplified" />
     <MESSAGE value="Reformatted '&amp;amp;' substitution" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformatted '&amp;amp;' substitution" />
+    <MESSAGE value="Clicking episode image returns episode details" />
+    <MESSAGE value="With more of Paul's fun CSS formatting!" />
+    <option name="LAST_COMMIT_MESSAGE" value="With more of Paul's fun CSS formatting!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -710,13 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@types/react/index.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1014">
@@ -724,10 +735,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="298" column="39" selection-start-line="298" selection-start-column="39" selection-end-line="298" selection-end-column="39" />
+        <state relative-caret-position="356">
+          <caret line="448" column="22" lean-forward="true" selection-start-line="448" selection-start-column="22" selection-end-line="448" selection-end-column="22" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#133#172#0" expanded="true" />

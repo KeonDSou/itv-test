@@ -9,13 +9,14 @@ body, button {
     cursor: pointer;
 }
 
-#itv_logo {
-    width: 60%;
+#itv_hub_logo {
+    width: 40%;
+    padding: 0.5em;
 }
 
 /* Search bar/drop-down */
 .css-10nd86i {
-    padding: 30px 0;
+    padding: 2em 0;
 }
 
 #programme-card {
@@ -38,20 +39,18 @@ img {
     overflow: hidden;
 }
 
-.guidance {
+.guidance{
     color: red;
     margin-bottom: 0;
 }
 
 .episode-date-time {
     text-align: right;
-    margin-right: 10%;
 }
 
-img.single-episode.image {
-    /*margin: 0 auto;*/
-    width: 60vw;
-    height: 60vh;
+.image {
+    margin: auto;
+    width: 100%;
 }
 .col-12.single-episode{
     margin: 0 auto;
@@ -60,5 +59,16 @@ img.single-episode.image {
 }
 .single-episode h3, .single-episode p{
     margin: 0 auto;
-    padding-left: 3%;
+    /*padding-left: 3%;*/
+}
+
+.channel {
+    border: 0em;
+    padding: 0em;
+    height: 3em;
+    margin: 0em -5em 0em 0em;
+}
+
+#root {
+    padding-bottom: 3em;
 }
