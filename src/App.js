@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import ProgrammesDisplay from './components/programmes-display';
+import EpisodesDisplay from './components/episodes-display';
 
 const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
@@ -139,36 +140,40 @@ export default class App extends Component {
         }
     }
 
-    /**
-     * Converts ISO date into a more readable format
-     * @param date Date to be formatted
-     * @returns {string} Formatted date
-     */
-    formatDate(date) {
-        return date.toLocaleDateString('en-gb')
-            + ' | '
-            + date.toLocaleTimeString().replace(':00', '').toLowerCase();
-    }
+    // /**
+    //  * Converts ISO date into a more readable format
+    //  * @param date Date to be formatted
+    //  * @returns {string} Formatted date
+    //  */
+    // formatDate(date) {
+    //     return date.toLocaleDateString('en-gb')
+    //         + ' | '
+    //         + date.toLocaleTimeString().replace(':00', '').toLowerCase();
+    // }
 
-    /**
-     * Calculates how many days are left to watch an episode
-     * @param episode Episode in question
-     * @returns {string} Days left (formatted)
-     */
-    getAvailability(episode) {
-        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
-        const currentDate = new Date();
-        const daysLeft =
-            Math.round(
-                Math.abs(
-                    (expiryDate.getTime() - currentDate.getTime()) / (86400000)
-                )
-            );
-        // For 1+ days remaining
-        if (daysLeft !== 0) return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`;
-        // For 0 days remaining
-        else return ' | Expires today';
-    }
+    // /**
+    //  * Calculates how many days are left to watch an episode
+    //  * @param episode Episode in question
+    //  * @returns {string} Days left (formatted)
+    //  */
+    // getAvailability(episode) {
+    //     const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+    //     const currentDate = new Date();
+    //     const daysLeft =
+    //         Math.round(
+    //             Math.abs(
+    //                 (expiryDate.getTime() - currentDate.getTime()) / (86400000)
+    //             )
+    //         );
+    //     // For 1+ days remaining
+    //     if (daysLeft > 0) {
+    //         return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`
+    //     }
+    //     // For 0 days remaining
+    //     else {
+    //         return ' | Expires today'
+    //     }
+    // }
 
     /**
      * Label detailing last broadcast date and time, duration and day left
@@ -176,13 +181,45 @@ export default class App extends Component {
      * @returns {string} Label (formatted)
      */
     episodeInfoLabel(episode) {
+        const currentDate = new Date();
         const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+
+        /**
+         * Converts ISO date into a more readable format
+         */
+        const formatDate =
+            broadcastDate.toLocaleDateString('en-gb')
+            + ' | '
+            + broadcastDate.toLocaleTimeString()
+                // Removes seconds from time
+                .replace(':00', '').toLowerCase();
+
+        /**
+         * Calculates how many days are left to watch an episode
+         */
+        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+        const daysLeft =
+            Math.round(
+                Math.abs(
+                    (expiryDate.getTime() - currentDate.getTime()) / (86400000)
+                )
+            );
+        const day = () => {
+            if (daysLeft === 0) {
+                return ' | Expires today'
+            } else if (daysLeft === 1) {
+                return ' | ' + daysLeft + ' day left'
+            } else {
+                return ' | ' + daysLeft + ' days left'
+
+            }
+        };
         return 'Last shown: '
-            + this.formatDate(broadcastDate)
+            + formatDate
             + ' | '
             + episode.duration.display
-            + this.getAvailability(episode);
-    }
+            + day();
+        }
 
     /**
      * Handles the programme selection
@@ -257,77 +294,76 @@ export default class App extends Component {
             return (<p>Category: <em>{item.name}</em></p>);
         });
 
-//<ProgrammeDisplay programme={programme}/>
-//         const programmesDisplay = (
-//             <div className={'row'}>
-//                 {programmes.map(programme => {
-//                     return <div
-//                         onClick={this.handleClick}
-//                         id={'programme-card'}
-//                         className={'col-lg-4 col-lg-6 '}
-//                         key={programme.title}>
-//                         <h3
-//                             className='title'
-//                         >{programme.title}</h3>
-//                         <img
-//                             className={programme.title}
-//                             src={programme._embedded.latestProduction._links.image.href}
-//                             alt={programme.title}
-//                         />
-//                         <p
-//                             className={programme.title}
-//                         >{programme.synopses.ninety}</p>
-//                     </div>
-//                 })}
-//             </div>
-//         );
+        // const programmesDisplay = (
+        //     <div className={'row'}>
+        //         {programmes.map(programme => {
+        //             return <div
+        //                 onClick={this.handleClick}
+        //                 id={'programme-card'}
+        //                 className={'col-lg-4 col-lg-6 '}
+        //                 key={programme.title}>
+        //                 <h3
+        //                     className='title'
+        //                 >{programme.title}</h3>
+        //                 <img
+        //                     className={programme.title}
+        //                     src={programme._embedded.latestProduction._links.image.href}
+        //                     alt={programme.title}
+        //                 />
+        //                 <p
+        //                     className={programme.title}
+        //                 >{programme.synopses.ninety}</p>
+        //             </div>
+        //         })}
+        //     </div>
+        // );
 
-        const episodesDisplay = (
-            <div className={'row'}>
-                {episodes.map(episode => {
-                    return <div
-                        onClick={this.handleEpisodeClick}
-                        className={'col-lg-4 col-lg-6'}
-                        id={episode.episodeTitle}
-                        key={episode.episodeId || episode.productionId}
-                    >
-                        <h3
-                            className='title'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {episode.episodeTitle || episode._embedded.programme.title}</h3>
-                        <p
-                            className='episode-date-time'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {this.episodeInfoLabel(episode)}
-                        </p>
-
-                        <img
-                            className='image'
-                            id={episode.episodeTitle}
-                            src={episode._links.image.href}
-                            alt={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        />
-
-                            {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
-                                Guidance:
-                                <span className={'guidance'}>{' ' + episode.guidance}</span>
-                                </p>: undefined}
-                        <p
-                            className='synopsis'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {episode.synopses.ninety}
-                        </p>
-                    </div>
-                })}
-            </div>
-        );
+        // const episodesDisplay = (
+        //     <div className={'row'}>
+        //         {episodes.map(episode => {
+        //             return <div
+        //                 onClick={this.handleEpisodeClick}
+        //                 className={'col-lg-4 col-lg-6'}
+        //                 id={episode.episodeTitle}
+        //                 key={episode.episodeId || episode.productionId}
+        //             >
+        //                 <h3
+        //                     className='title'
+        //                     id={episode.episodeTitle}
+        //                     data-id={episode.productionId}
+        //                 >
+        //                     {episode.episodeTitle || episode._embedded.programme.title}</h3>
+        //                 <p
+        //                     className='episode-date-time'
+        //                     id={episode.episodeTitle}
+        //                     data-id={episode.productionId}
+        //                 >
+        //                     {this.episodeInfoLabel(episode)}
+        //                 </p>
+        //
+        //                 <img
+        //                     className='image'
+        //                     id={episode.episodeTitle}
+        //                     src={episode._links.image.href}
+        //                     alt={episode.episodeTitle}
+        //                     data-id={episode.productionId}
+        //                 />
+        //
+        //                     {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
+        //                         Guidance:
+        //                         <span className={'guidance'}>{' ' + episode.guidance}</span>
+        //                         </p>: undefined}
+        //                 <p
+        //                     className='synopsis'
+        //                     id={episode.episodeTitle}
+        //                     data-id={episode.productionId}
+        //                 >
+        //                     {episode.synopses.ninety}
+        //                 </p>
+        //             </div>
+        //         })}
+        //     </div>
+        // );
 
         const singleEpisodeDisplay = episodeData ? (
                 <div className={'single-episode'}>
@@ -389,8 +425,12 @@ export default class App extends Component {
                 <div className={'row'}>
                     {/*{programmesDisplay}*/}
                     <ProgrammesDisplay programmes={programmes}
-                    handleClick = {this.handleClick}/>
-                    {episodesDisplay}
+                                       handleClick = {this.handleClick}/>
+                    {/*{episodesDisplay}*/}
+                    <EpisodesDisplay
+                        episodes={episodes}
+                        episodeInfoLabel={this.episodeInfoLabel}
+                    />
                     {singleEpisodeDisplay}
                 </div>
             </div>
