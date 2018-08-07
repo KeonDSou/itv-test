@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="650ea114-78c2-4cdf-94f2-291a72795e51" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/programmes-display.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,11 +33,20 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="programmes-display.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="programmes-display.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/programmes-display.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+                <state relative-caret-position="532">
+                  <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="418">
+                  <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
                 </state>
               </provider>
             </entry>
@@ -102,6 +110,7 @@
         <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/components/programmes-display.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -246,7 +255,7 @@
       <workItem from="1533123384296" duration="9049000" />
       <workItem from="1533547681832" duration="18498000" />
       <workItem from="1533640940368" duration="975000" />
-      <workItem from="1533650139796" duration="3992000" />
+      <workItem from="1533650139796" duration="4694000" />
     </task>
     <task id="LOCAL-00001" summary="Removed old commented-out code">
       <created>1532949679841</created>
@@ -360,11 +369,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533653951144</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="programmesDisplay moved to separate file">
+      <created>1533654753683</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1533654753683</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111447000" />
+    <option name="totallyTimeSpent" value="112149000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-240" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -424,7 +440,8 @@
     <MESSAGE value="Clicking episode image returns episode details" />
     <MESSAGE value="With more of Paul's fun CSS formatting!" />
     <MESSAGE value="Guidance label reformatted" />
-    <option name="LAST_COMMIT_MESSAGE" value="Guidance label reformatted" />
+    <MESSAGE value="programmesDisplay moved to separate file" />
+    <option name="LAST_COMMIT_MESSAGE" value="programmesDisplay moved to separate file" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -432,7 +449,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/App.css" />
     <entry file="file://$PROJECT_DIR$/src/categories.json" />
     <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -777,8 +793,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/programmes-display.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        <state relative-caret-position="532">
+          <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
