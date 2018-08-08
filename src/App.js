@@ -241,8 +241,6 @@ export default class App extends Component {
     }
 
     render() {
-        // console.log('episode ->', this.state.episodeData);
-        // console.log('episodeData -->', episodeData, '<--')
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
         // Formats options for drop-down box
