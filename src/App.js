@@ -294,77 +294,6 @@ export default class App extends Component {
             return (<p>Category: <em>{item.name}</em></p>);
         });
 
-        // const programmesDisplay = (
-        //     <div className={'row'}>
-        //         {programmes.map(programme => {
-        //             return <div
-        //                 onClick={this.handleClick}
-        //                 id={'programme-card'}
-        //                 className={'col-lg-4 col-lg-6 '}
-        //                 key={programme.title}>
-        //                 <h3
-        //                     className='title'
-        //                 >{programme.title}</h3>
-        //                 <img
-        //                     className={programme.title}
-        //                     src={programme._embedded.latestProduction._links.image.href}
-        //                     alt={programme.title}
-        //                 />
-        //                 <p
-        //                     className={programme.title}
-        //                 >{programme.synopses.ninety}</p>
-        //             </div>
-        //         })}
-        //     </div>
-        // );
-
-        // const episodesDisplay = (
-        //     <div className={'row'}>
-        //         {episodes.map(episode => {
-        //             return <div
-        //                 onClick={this.handleEpisodeClick}
-        //                 className={'col-lg-4 col-lg-6'}
-        //                 id={episode.episodeTitle}
-        //                 key={episode.episodeId || episode.productionId}
-        //             >
-        //                 <h3
-        //                     className='title'
-        //                     id={episode.episodeTitle}
-        //                     data-id={episode.productionId}
-        //                 >
-        //                     {episode.episodeTitle || episode._embedded.programme.title}</h3>
-        //                 <p
-        //                     className='episode-date-time'
-        //                     id={episode.episodeTitle}
-        //                     data-id={episode.productionId}
-        //                 >
-        //                     {this.episodeInfoLabel(episode)}
-        //                 </p>
-        //
-        //                 <img
-        //                     className='image'
-        //                     id={episode.episodeTitle}
-        //                     src={episode._links.image.href}
-        //                     alt={episode.episodeTitle}
-        //                     data-id={episode.productionId}
-        //                 />
-        //
-        //                     {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
-        //                         Guidance:
-        //                         <span className={'guidance'}>{' ' + episode.guidance}</span>
-        //                         </p>: undefined}
-        //                 <p
-        //                     className='synopsis'
-        //                     id={episode.episodeTitle}
-        //                     data-id={episode.productionId}
-        //                 >
-        //                     {episode.synopses.ninety}
-        //                 </p>
-        //             </div>
-        //         })}
-        //     </div>
-        // );
-
         const singleEpisodeDisplay = episodeData ? (
                 <div className={'single-episode'}>
                     <div className={'row'}>
@@ -423,10 +352,8 @@ export default class App extends Component {
                 </div>
 
                 <div className={'row'}>
-                    {/*{programmesDisplay}*/}
                     <ProgrammesDisplay programmes={programmes}
-                                       handleClick = {this.handleClick}/>
-                    {/*{episodesDisplay}*/}
+                                       handleClick={this.handleClick}/>
                     <EpisodesDisplay
                         episodes={episodes}
                         episodeInfoLabel={this.episodeInfoLabel}
