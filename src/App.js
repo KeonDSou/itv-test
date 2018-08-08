@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
+import ProgrammesDisplay from './components/programmes-display';
 
 const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
@@ -24,90 +25,6 @@ export default class App extends Component {
             category: '',
             episodes: [],
             episodeData: null
-            //     {
-            //     productionId: '2/4259/0182#001',
-            //     productionType: 'PROGRAMME',
-            //     episodeId: '2/4259/0182',
-            //     episodeTitle: 'The Blind Side',
-            //     duration: {
-            //         iso8601: 'PT30M',
-            //         display: '30 mins'
-            //     },
-            //     broadcastDateTime: {
-            //         commissioning: '2018-08-03T22:10Z',
-            //         original: '2016-08-25T21:00Z'
-            //     },
-            //     series: 10,
-            //     episode: 11,
-            //     synopses: {
-            //         ninety: "Things get a little dicey when Brian's blind girlfriend reveals that she hates dogs.",
-            //         epg: 'Animated US comedy. Brian starts dating a blind girl, but things get a little dicey when she divulges that she hates dogs. The Griffins install a new staircase.'
-            //     },
-            //     guidance: 'Contains violence, strong language and adult humour.',
-            //     visuallySigned: false,
-            //     _embedded: {
-            //         categories: [
-            //             {
-            //                 name: 'Comedy',
-            //                 _links: {
-            //                     'doc:programmes': {
-            //                         href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&category=Comedy'
-            //                     }
-            //                 }
-            //             },
-            //             {
-            //                 name: 'Entertainment',
-            //                 _links: {
-            //                     'doc:programmes': {
-            //                         href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&category=Entertainment'
-            //                     }
-            //                 }
-            //             }
-            //         ],
-            //         channel: {
-            //             name: 'ITV2',
-            //             strapline: 'TV. And then some.',
-            //             _links: {
-            //                 playlist: {
-            //                     href: 'http://magni.itv.com/playlist/itvonline/ITV2'
-            //                 },
-            //                 primaryImage: {
-            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-colour.svg'
-            //                 },
-            //                 secondaryImage: {
-            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-mono-neg.svg'
-            //                 },
-            //                 dogImage: {
-            //                     href: 'http://fetd.prod.cps.awseuwest1.itvcloud.zone/itvstatic/assets/images/brands/itv2/itv2-mono-neg.svg'
-            //                 },
-            //                 backgroundImage: {
-            //                     href: 'http://hubimages.itv.com/channel/itv2?w={width}&h={height}&q={quality}&blur={blur}&bg={bg}'
-            //                 },
-            //                 'doc:programmes': {
-            //                     href: 'http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?features=mpeg-dash&broadcaster=itv&channelId=itv2'
-            //                 }
-            //             }
-            //         },
-            //         variantAvailability: [
-            //             {
-            //                 platformTag: 'ctv',
-            //                 from: '2018-08-03T22:40Z',
-            //                 until: '2018-08-09T22:59Z',
-            //                 features: 'mpeg-dash',
-            //                 requiresAds: true
-            //             }
-            //         ]
-            //     },
-            //     _links: {
-            //         image: {
-            //             href: 'http://hubimages.itv.com/episode/2_4259_0182?w={width}&h={height}&q={quality}&blur={blur}&bg={bg}',
-            //             templated: true
-            //         },
-            //         playlist: {
-            //             href: 'http://magni.itv.com/playlist/itvonline/ITV2/2_4259_0182.001'
-            //         }
-            //     }
-            // }
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
@@ -324,8 +241,6 @@ export default class App extends Component {
     }
 
     render() {
-        // console.log('episode ->', this.state.episodeData);
-        // console.log('episodeData -->', episodeData, '<--')
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
         // Formats options for drop-down box
@@ -339,31 +254,6 @@ export default class App extends Component {
             console.log('item ===>', item );
             return (<p>Category: <em>{item.name}</em></p>);
         });
-
-//<ProgrammeDisplay programme={programme}/>
-        const programmesDisplay = (
-            <div className={'row'}>
-                {programmes.map(programme => {
-                    return <div
-                        onClick={this.handleClick}
-                        id={'programme-card'}
-                        className={'col-lg-4 col-lg-6 '}
-                        key={programme.title}>
-                        <h3
-                            className='title'
-                        >{programme.title}</h3>
-                        <img
-                            className={programme.title}
-                            src={programme._embedded.latestProduction._links.image.href}
-                            alt={programme.title}
-                        />
-                        <p
-                            className={programme.title}
-                        >{programme.synopses.ninety}</p>
-                    </div>
-                })}
-            </div>
-        );
 
         const episodesDisplay = (
             <div className={'row'}>
@@ -470,7 +360,8 @@ export default class App extends Component {
                 </div>
 
                 <div className={'row'}>
-                    {programmesDisplay}
+                    <ProgrammesDisplay programmes={programmes}
+                    handleClick = {this.handleClick}/>
                     {episodesDisplay}
                     {singleEpisodeDisplay}
                 </div>
