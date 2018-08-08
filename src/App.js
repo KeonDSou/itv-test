@@ -140,41 +140,6 @@ export default class App extends Component {
         }
     }
 
-    // /**
-    //  * Converts ISO date into a more readable format
-    //  * @param date Date to be formatted
-    //  * @returns {string} Formatted date
-    //  */
-    // formatDate(date) {
-    //     return date.toLocaleDateString('en-gb')
-    //         + ' | '
-    //         + date.toLocaleTimeString().replace(':00', '').toLowerCase();
-    // }
-
-    // /**
-    //  * Calculates how many days are left to watch an episode
-    //  * @param episode Episode in question
-    //  * @returns {string} Days left (formatted)
-    //  */
-    // getAvailability(episode) {
-    //     const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
-    //     const currentDate = new Date();
-    //     const daysLeft =
-    //         Math.round(
-    //             Math.abs(
-    //                 (expiryDate.getTime() - currentDate.getTime()) / (86400000)
-    //             )
-    //         );
-    //     // For 1+ days remaining
-    //     if (daysLeft > 0) {
-    //         return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`
-    //     }
-    //     // For 0 days remaining
-    //     else {
-    //         return ' | Expires today'
-    //     }
-    // }
-
     /**
      * Label detailing last broadcast date and time, duration and day left
      * @param episode Episode in question
@@ -278,8 +243,6 @@ export default class App extends Component {
     }
 
     render() {
-        // console.log('episode ->', this.state.episodeData);
-        // console.log('episodeData -->', episodeData, '<--')
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
         // Formats options for drop-down box
