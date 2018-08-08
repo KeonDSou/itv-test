@@ -257,31 +257,6 @@ export default class App extends Component {
             return (<p>Category: <em>{item.name}</em></p>);
         });
 
-//<ProgrammeDisplay programme={programme}/>
-//         const programmesDisplay = (
-//             <div className={'row'}>
-//                 {programmes.map(programme => {
-//                     return <div
-//                         onClick={this.handleClick}
-//                         id={'programme-card'}
-//                         className={'col-lg-4 col-lg-6 '}
-//                         key={programme.title}>
-//                         <h3
-//                             className='title'
-//                         >{programme.title}</h3>
-//                         <img
-//                             className={programme.title}
-//                             src={programme._embedded.latestProduction._links.image.href}
-//                             alt={programme.title}
-//                         />
-//                         <p
-//                             className={programme.title}
-//                         >{programme.synopses.ninety}</p>
-//                     </div>
-//                 })}
-//             </div>
-//         );
-
         const episodesDisplay = (
             <div className={'row'}>
                 {episodes.map(episode => {
@@ -387,7 +362,6 @@ export default class App extends Component {
                 </div>
 
                 <div className={'row'}>
-                    {/*{programmesDisplay}*/}
                     <ProgrammesDisplay programmes={programmes}
                     handleClick = {this.handleClick}/>
                     {episodesDisplay}
