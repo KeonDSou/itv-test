@@ -26,7 +26,7 @@ export default class App extends Component {
             programme: '',
             category: '',
             episodes: [],
-            episodeData: null
+            episodeData: ""
         };
         this.handleClick = this.handleClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
@@ -93,7 +93,7 @@ export default class App extends Component {
     handleCategory = (selectedOption) => {
         this.setState({
             category: selectedOption.value,
-            episodeData: null
+            episodeData: ''
         });
         this.getProgrammes(selectedOption.value);
     };
@@ -157,7 +157,7 @@ export default class App extends Component {
             broadcastDate.toLocaleDateString('en-gb')
             + ' | '
             + broadcastDate.toLocaleTimeString()
-                // Removes seconds from time
+            // Removes seconds from time
                 .replace(':00', '').toLowerCase();
 
         /**
@@ -185,7 +185,7 @@ export default class App extends Component {
             + ' | '
             + episode.duration.display
             + day();
-        }
+    }
 
     /**
      * Handles the programme selection
@@ -214,29 +214,33 @@ export default class App extends Component {
         });
     }
 
-    /**
-     * Label detailing an episode's series number and episode number and title
-     * @returns {*} JSX for above
-     */
-    seriesEpisodeTitleLabel() {
-        if (this.state.episodeData.series) {
-            return <h2 className={'series-episode-title'}>
-                {`Series ${
-                    this.state.episodeData.series
-                }: Episode ${
-                    this.state.episodeData.episode
-                }${
-                    this.state.episodeData.episodeTitle ? ` - ${
-                        this.state.episodeData.episodeTitle
-                    }` : ''
-                }
-                `}
-            </h2>
-        } else {
-            const broadcastDate = new Date(this.state.episodeData.broadcastDateTime.commissioning);
-            return <h2>{broadcastDate.toLocaleDateString('en-gb')}</h2>
-        }
-    }
+    // /**
+    //  * Label detailing an episode's series number and episode number and title
+    //  * @returns {*} JSX for above
+    //  */
+    // seriesEpisodeTitleLabel() {
+    //     const {broadcastDateTime, episode, episodeTitle, series} = this.state.episodeData;
+    //     // For episodes with series ...
+    //     if (series) {
+    //         console.log('qwertyuiop');
+    //         // ... display episode title if present
+    //         if (episodeTitle) {
+    //             return <h2 className={'series-episode-title'}>
+    //                 {'Series ' + series + ':  Episode ' + episode + ' - ' + episodeTitle}
+    //             </h2>
+    //         }
+    //         // ... or just display series and episode number
+    //         else {
+    //             return <h2 className={'series-episode-title'}>
+    //                 {'Series ' + series + ':  Episode ' + episode}
+    //             </h2>
+    //         }
+    //     // Use last broadcast date if there is no series number
+    //     } else {
+    //         const broadcastDate = new Date(broadcastDateTime.commissioning);
+    //         return <h2 className={'series-episode-title'}>{broadcastDate.toLocaleDateString('en-gb')}</h2>
+    //     }
+    // }
 
     render() {
         // Removes the need for 'this.state' prefix
@@ -248,44 +252,17 @@ export default class App extends Component {
             label: category.name
         }));
 
-        // const categoryName = episodeData && episodeData._embedded.categories.map(item => item.name).join(', ');
+        const singleEpisodeDisplay = <SingleEpisodeDisplay
+            episodeData={episodeData}
+            label={this.seriesEpisodeTitleLabel}
+            time={this.episodeTime}
+        />;
 
-        // const singleEpisodeDisplay = episodeData ? (
-        //         <div className={'single-episode'}>
-        //             <div className={'row'}>
-        //                 <h1 className='col-sm-10 prog-title'>
-        //                     {episodeData._embedded.programme.title}
-        //                 </h1>
-        //                 <img className={'col-sm-2 channel'}
-        //                      src={episodeData._embedded.channel._links.primaryImage.href}
-        //                      alt={`${episodeData._embedded.channel.name} logo`}
-        //                 />
-        //             </div>
-        //
-        //             <img className={'image'}
-        //                  src={episodeData._links.image.href}
-        //                  alt={episodeData.episodeTitle}
-        //             />
-        //
-        //             {this.seriesEpisodeTitleLabel()}
-        //
-        //             <div
-        //                 id={episodeData.episodeTitle}
-        //                 data-id={episodeData.productionId}
-        //             >
-        //                 {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
-        //                     Guidance:
-        //                     <span className={'guidance'}>{' ' + episodeData.guidance}</span>
-        //                 </p>: undefined}
-        //             </div>
-        //
-        //             <p className='synopsis'>{episodeData.synopses.epg}</p>
-        //
-        //             <p>{this.episodeTime(episodeData)}</p>
-        //             <p>Category: <em>{categoryName}</em></p>
-        //         </div>
-        //     )
-        //     : undefined;
+        const display = episodeData._embedded ? <SingleEpisodeDisplay
+            episodeData={episodeData}
+            label={this.seriesEpisodeTitleLabel}
+            time={this.episodeTime}
+        />: "";
 
         return (
             <div className={'container'}>
@@ -316,10 +293,9 @@ export default class App extends Component {
                         episodeTime={this.episodeTime}
                         handleEpisodeClick={this.handleEpisodeClick}
                     />
-                    {/*{singleEpisodeDisplay}*/}
                     <SingleEpisodeDisplay
-                        data={episodeData}
-                        label={this.episodeTitleLabel}
+                        episodeData={episodeData}
+                        label={this.seriesEpisodeTitleLabel}
                         time={this.episodeTime}
                     />
                 </div>
