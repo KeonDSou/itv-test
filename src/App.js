@@ -118,7 +118,6 @@ export default class App extends Component {
                     this.setState({
                         episodes: fetch.data._embedded.productions
                     })
-
                 })
                 .catch(err => console.log(err));
         }
