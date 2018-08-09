@@ -202,16 +202,11 @@ export default class App extends Component {
      */
     handleEpisodeClick(e) {
         e.preventDefault();
-        // console.log('episodes ->', this.state.episodes);
-        console.log('click');
-        // Search through the episodes where the titles match
-        console.log('e.target -->', e.target, '<-- e.target');
-        console.log('e.target.data-id -->', e.target.dataset.id, '<-- e.target.data-id');
 
+        // Search through the episodes where the titles match
         const episodeDetails = this.state.episodes.filter(
             episode => episode.productionId === e.target.dataset.id);
 
-        console.log('episode details: ', episodeDetails[0]);
         this.setState({
             episodes: [],
             episodeData: episodeDetails[0]
@@ -245,6 +240,7 @@ export default class App extends Component {
     render() {
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
+
         // Formats options for drop-down box
         const optionsMap = categories.map(category => ({
             value: category.name,
