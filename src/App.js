@@ -12,6 +12,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
+import SingleEpisodeDisplay from './components/single-episode-display';
 
 const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
@@ -247,44 +248,44 @@ export default class App extends Component {
             label: category.name
         }));
 
-        const categoryName = episodeData && episodeData._embedded.categories.map(item => item.name).join(', ');
+        // const categoryName = episodeData && episodeData._embedded.categories.map(item => item.name).join(', ');
 
-        const singleEpisodeDisplay = episodeData ? (
-                <div className={'single-episode'}>
-                    <div className={'row'}>
-                        <h1 className='col-sm-10 prog-title'>
-                            {episodeData._embedded.programme.title}
-                        </h1>
-                        <img className={'col-sm-2 channel'}
-                             src={episodeData._embedded.channel._links.primaryImage.href}
-                             alt={`${episodeData._embedded.channel.name} logo`}
-                        />
-                    </div>
-
-                    <img className={'image'}
-                         src={episodeData._links.image.href}
-                         alt={episodeData.episodeTitle}
-                    />
-
-                    {this.seriesEpisodeTitleLabel()}
-
-                    <div
-                        id={episodeData.episodeTitle}
-                        data-id={episodeData.productionId}
-                    >
-                        {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
-                            Guidance:
-                            <span className={'guidance'}>{' ' + episodeData.guidance}</span>
-                        </p>: undefined}
-                    </div>
-
-                    <p className='synopsis'>{episodeData.synopses.epg}</p>
-
-                    <p>{this.episodeTime(episodeData)}</p>
-                    <p>Category: <em>{categoryName}</em></p>
-                </div>
-            )
-            : undefined;
+        // const singleEpisodeDisplay = episodeData ? (
+        //         <div className={'single-episode'}>
+        //             <div className={'row'}>
+        //                 <h1 className='col-sm-10 prog-title'>
+        //                     {episodeData._embedded.programme.title}
+        //                 </h1>
+        //                 <img className={'col-sm-2 channel'}
+        //                      src={episodeData._embedded.channel._links.primaryImage.href}
+        //                      alt={`${episodeData._embedded.channel.name} logo`}
+        //                 />
+        //             </div>
+        //
+        //             <img className={'image'}
+        //                  src={episodeData._links.image.href}
+        //                  alt={episodeData.episodeTitle}
+        //             />
+        //
+        //             {this.seriesEpisodeTitleLabel()}
+        //
+        //             <div
+        //                 id={episodeData.episodeTitle}
+        //                 data-id={episodeData.productionId}
+        //             >
+        //                 {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
+        //                     Guidance:
+        //                     <span className={'guidance'}>{' ' + episodeData.guidance}</span>
+        //                 </p>: undefined}
+        //             </div>
+        //
+        //             <p className='synopsis'>{episodeData.synopses.epg}</p>
+        //
+        //             <p>{this.episodeTime(episodeData)}</p>
+        //             <p>Category: <em>{categoryName}</em></p>
+        //         </div>
+        //     )
+        //     : undefined;
 
         return (
             <div className={'container'}>
@@ -315,7 +316,12 @@ export default class App extends Component {
                         episodeTime={this.episodeTime}
                         handleEpisodeClick={this.handleEpisodeClick}
                     />
-                    {singleEpisodeDisplay}
+                    {/*{singleEpisodeDisplay}*/}
+                    <SingleEpisodeDisplay
+                        data={episodeData}
+                        label={this.episodeTitleLabel}
+                        time={this.episodeTime}
+                    />
                 </div>
             </div>
         );

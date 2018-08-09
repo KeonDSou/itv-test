@@ -3,7 +3,8 @@
  *
  * A simple application to allow a user to discover ITV content
  *
- * File: episodes-display.js - displays the episodes of a chosen programme
+ * File: episodes-display.js -
+ *      displays the episodes of a chosen programme
  *
  * @author Keoni D'Souza
  */
