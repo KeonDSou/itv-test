@@ -214,34 +214,6 @@ export default class App extends Component {
         });
     }
 
-    // /**
-    //  * Label detailing an episode's series number and episode number and title
-    //  * @returns {*} JSX for above
-    //  */
-    // seriesEpisodeTitleLabel() {
-    //     const {broadcastDateTime, episode, episodeTitle, series} = this.state.episodeData;
-    //     // For episodes with series ...
-    //     if (series) {
-    //         console.log('qwertyuiop');
-    //         // ... display episode title if present
-    //         if (episodeTitle) {
-    //             return <h2 className={'series-episode-title'}>
-    //                 {'Series ' + series + ':  Episode ' + episode + ' - ' + episodeTitle}
-    //             </h2>
-    //         }
-    //         // ... or just display series and episode number
-    //         else {
-    //             return <h2 className={'series-episode-title'}>
-    //                 {'Series ' + series + ':  Episode ' + episode}
-    //             </h2>
-    //         }
-    //     // Use last broadcast date if there is no series number
-    //     } else {
-    //         const broadcastDate = new Date(broadcastDateTime.commissioning);
-    //         return <h2 className={'series-episode-title'}>{broadcastDate.toLocaleDateString('en-gb')}</h2>
-    //     }
-    // }
-
     render() {
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
@@ -254,6 +226,8 @@ export default class App extends Component {
 
         return (
             <div className={'container'}>
+
+                {/*'Navigation'-style header bar*/}
                 <div className={'row'}>
                     <a href='.' className={'col-md-3'}>
                         <img
@@ -272,6 +246,7 @@ export default class App extends Component {
                     />
                 </div>
 
+                {/*Content display area*/}
                 <div className={'row'}>
                     <ProgrammesDisplay
                         programmes={programmes}

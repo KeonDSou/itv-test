@@ -11,11 +11,9 @@
 
 import React from 'react';
 
-const EpisodesDisplay = ({
-        episodes,
-        episodeTime,
-        handleEpisodeClick
-    }) => {
+const EpisodesDisplay = (
+    {episodes, episodeTime, handleEpisodeClick}
+    ) => {
     return (
         <div className={'row'}>
             {episodes.map(episode => {

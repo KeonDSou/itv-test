@@ -11,10 +11,9 @@
 
 import React from 'react';
 
-const ProgrammesDisplay = ({
-        programmes,
-        handleClick
-    }) => {
+const ProgrammesDisplay = (
+    {programmes, handleClick}
+    ) => {
     return (
         <div className={'row'}>
             {programmes.map(programme => {

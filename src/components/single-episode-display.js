@@ -11,8 +11,9 @@
 
 import React from 'react';
 
-const SingleEpisodeDisplay = (props) => {
-    const {episodeData, time} = props;
+const SingleEpisodeDisplay = (
+    {episodeData, time}
+    ) => {
 
     /**
      * Label detailing an episode's series number and episode number and title
@@ -42,7 +43,7 @@ const SingleEpisodeDisplay = (props) => {
         }
     };
 
-    if (props && episodeData) {
+    if (episodeData) {
         const categoryName =
             episodeData._embedded.categories
             && episodeData._embedded.categories
@@ -84,7 +85,7 @@ const SingleEpisodeDisplay = (props) => {
         )
     }
     else {
-        return <div></div>;
+        return <div/>;                                        
     }
 
 };
