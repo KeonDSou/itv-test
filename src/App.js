@@ -252,18 +252,6 @@ export default class App extends Component {
             label: category.name
         }));
 
-        const singleEpisodeDisplay = <SingleEpisodeDisplay
-            episodeData={episodeData}
-            label={this.seriesEpisodeTitleLabel}
-            time={this.episodeTime}
-        />;
-
-        const display = episodeData._embedded ? <SingleEpisodeDisplay
-            episodeData={episodeData}
-            label={this.seriesEpisodeTitleLabel}
-            time={this.episodeTime}
-        />: "";
-
         return (
             <div className={'container'}>
                 <div className={'row'}>

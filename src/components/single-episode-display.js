@@ -40,11 +40,13 @@ const SingleEpisodeDisplay = (props) => {
             const broadcastDate = new Date(broadcastDateTime.commissioning);
             return <h2 className={'series-episode-title'}>{broadcastDate.toLocaleDateString('en-gb')}</h2>
         }
-    }
+    };
 
     if (props && episodeData) {
-        const categoryName = episodeData._embedded.categories && episodeData._embedded.categories.map(item => item.name).join(', ')
-        console.log('inside conditional');
+        const categoryName =
+            episodeData._embedded.categories
+            && episodeData._embedded.categories
+                .map(item => item.name).join(', ');
         return (
             <div className={'single-episode'}>
                 <div className={'row'}>
