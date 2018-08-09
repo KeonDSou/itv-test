@@ -1,3 +1,13 @@
+/**
+ * ITV - Programme Discovery
+ *
+ * A simple application to allow a user to discover ITV content
+ *
+ * File: programmes-display.js - displays the programmes within a chosen category
+ *
+ * @author Keoni D'Souza
+ */
+
 import React from 'react';
 
 const ProgrammesDisplay = ({programmes, handleClick}) => {

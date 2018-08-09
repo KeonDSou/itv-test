@@ -11,6 +11,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
 import ProgrammesDisplay from './components/programmes-display';
+import EpisodesDisplay from './components/episodes-display';
 
 const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
@@ -140,49 +141,50 @@ export default class App extends Component {
     }
 
     /**
-     * Converts ISO date into a more readable format
-     * @param date Date to be formatted
-     * @returns {string} Formatted date
-     */
-    formatDate(date) {
-        return date.toLocaleDateString('en-gb')
-            + ' | '
-            + date.toLocaleTimeString().replace(':00', '').toLowerCase();
-    }
-
-    /**
-     * Calculates how many days are left to watch an episode
+     * Label detailing last broadcast date and time, duration and day left
      * @param episode Episode in question
-     * @returns {string} Days left (formatted)
+     * @returns {string} Label (formatted)
      */
-    getAvailability(episode) {
-        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+    episodeTime(episode) {
         const currentDate = new Date();
+        const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+
+        /**
+         * Converts ISO date into a more readable format
+         */
+        const formatDate =
+            broadcastDate.toLocaleDateString('en-gb')
+            + ' | '
+            + broadcastDate.toLocaleTimeString()
+                // Removes seconds from time
+                .replace(':00', '').toLowerCase();
+
+        /**
+         * Calculates how many days are left to watch an episode
+         */
+        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
         const daysLeft =
             Math.round(
                 Math.abs(
                     (expiryDate.getTime() - currentDate.getTime()) / (86400000)
                 )
             );
-        // For 1+ days remaining
-        if (daysLeft !== 0) return ` | ${daysLeft} day${(daysLeft === 1) ? `` : `s`} left`;
-        // For 0 days remaining
-        else return ' | Expires today';
-    }
+        const day = () => {
+            if (daysLeft === 0) {
+                return ' | Expires today'
+            } else if (daysLeft === 1) {
+                return ' | ' + daysLeft + ' day left'
+            } else {
+                return ' | ' + daysLeft + ' days left'
 
-    /**
-     * Label detailing last broadcast date and time, duration and day left
-     * @param episode Episode in question
-     * @returns {string} Label (formatted)
-     */
-    episodeInfoLabel(episode) {
-        const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
+            }
+        };
         return 'Last shown: '
-            + this.formatDate(broadcastDate)
+            + formatDate
             + ' | '
             + episode.duration.display
-            + this.getAvailability(episode);
-    }
+            + day();
+        }
 
     /**
      * Handles the programme selection
@@ -200,16 +202,11 @@ export default class App extends Component {
      */
     handleEpisodeClick(e) {
         e.preventDefault();
-        // console.log('episodes ->', this.state.episodes);
+
         // Search through the episodes where the titles match
-        console.log('e.target -->', e.target, '<-- e.target');
-        console.log('e.target.data-id -->', e.target.dataset.id, '<-- e.target.data-id');
-
-
         const episodeDetails = this.state.episodes.filter(
             episode => episode.productionId === e.target.dataset.id);
 
-        console.log('episode details: ', episodeDetails[0]);
         this.setState({
             episodes: [],
             episodeData: episodeDetails[0]
@@ -243,64 +240,14 @@ export default class App extends Component {
     render() {
         // Removes the need for 'this.state' prefix
         const {categories, category, programmes, episodes, episodeData} = this.state;
+
         // Formats options for drop-down box
         const optionsMap = categories.map(category => ({
             value: category.name,
             label: category.name
         }));
 
-        const categoryName = episodeData && episodeData._embedded.categories.map(item => {
-
-            console.log('item ===>', item );
-            return (<p>Category: <em>{item.name}</em></p>);
-        });
-
-        const episodesDisplay = (
-            <div className={'row'}>
-                {episodes.map(episode => {
-                    return <div
-                        onClick={this.handleEpisodeClick}
-                        className={'col-lg-4 col-lg-6'}
-                        id={episode.episodeTitle}
-                        key={episode.episodeId || episode.productionId}
-                    >
-                        <h3
-                            className='title'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {episode.episodeTitle || episode._embedded.programme.title}</h3>
-                        <p
-                            className='episode-date-time'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {this.episodeInfoLabel(episode)}
-                        </p>
-
-                        <img
-                            className='image'
-                            id={episode.episodeTitle}
-                            src={episode._links.image.href}
-                            alt={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        />
-
-                            {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
-                                Guidance:
-                                <span className={'guidance'}>{' ' + episode.guidance}</span>
-                                </p>: undefined}
-                        <p
-                            className='synopsis'
-                            id={episode.episodeTitle}
-                            data-id={episode.productionId}
-                        >
-                            {episode.synopses.ninety}
-                        </p>
-                    </div>
-                })}
-            </div>
-        );
+        const categoryName = episodeData && episodeData._embedded.categories.map(item => item.name).join(', ');
 
         const singleEpisodeDisplay = episodeData ? (
                 <div className={'single-episode'}>
@@ -321,7 +268,7 @@ export default class App extends Component {
 
                     {this.seriesEpisodeTitleLabel()}
 
-                    <p
+                    <div
                         id={episodeData.episodeTitle}
                         data-id={episodeData.productionId}
                     >
@@ -329,12 +276,12 @@ export default class App extends Component {
                             Guidance:
                             <span className={'guidance'}>{' ' + episodeData.guidance}</span>
                         </p>: undefined}
-                    </p>
+                    </div>
 
                     <p className='synopsis'>{episodeData.synopses.epg}</p>
 
-                    <p>{this.episodeInfoLabel(episodeData)}</p>
-                    {categoryName}
+                    <p>{this.episodeTime(episodeData)}</p>
+                    <p>Category: <em>{categoryName}</em></p>
                 </div>
             )
             : undefined;
@@ -360,9 +307,14 @@ export default class App extends Component {
                 </div>
 
                 <div className={'row'}>
-                    <ProgrammesDisplay programmes={programmes}
-                    handleClick = {this.handleClick}/>
-                    {episodesDisplay}
+                    <ProgrammesDisplay
+                        programmes={programmes}
+                        handleClick={this.handleClick}/>
+                    <EpisodesDisplay
+                        episodes={episodes}
+                        episodeTime={this.episodeTime}
+                        handleEpisodeClick={this.handleEpisodeClick}
+                    />
                     {singleEpisodeDisplay}
                 </div>
             </div>
