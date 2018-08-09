@@ -12,7 +12,7 @@ import React from 'react';
 
 const EpisodesDisplay = ({
         episodes,
-        episodeInfoLabel,
+        episodeTime,
         handleEpisodeClick
     }) => {
     return (
@@ -35,7 +35,7 @@ const EpisodesDisplay = ({
                         id={episode.episodeTitle}
                         data-id={episode.productionId}
                     >
-                        {episodeInfoLabel && episodeInfoLabel(episode)}
+                        {episodeTime && episodeTime(episode)}
                     </p>
 
                     <img

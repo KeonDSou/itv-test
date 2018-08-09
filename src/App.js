@@ -145,7 +145,7 @@ export default class App extends Component {
      * @param episode Episode in question
      * @returns {string} Label (formatted)
      */
-    episodeInfoLabel(episode) {
+    episodeTime(episode) {
         const currentDate = new Date();
         const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
 
@@ -203,10 +203,10 @@ export default class App extends Component {
     handleEpisodeClick(e) {
         e.preventDefault();
         // console.log('episodes ->', this.state.episodes);
+        console.log('click');
         // Search through the episodes where the titles match
         console.log('e.target -->', e.target, '<-- e.target');
         console.log('e.target.data-id -->', e.target.dataset.id, '<-- e.target.data-id');
-
 
         const episodeDetails = this.state.episodes.filter(
             episode => episode.productionId === e.target.dataset.id);
@@ -251,11 +251,7 @@ export default class App extends Component {
             label: category.name
         }));
 
-        const categoryName = episodeData && episodeData._embedded.categories.map(item => {
-
-            console.log('item ===>', item );
-            return (<p>Category: <em>{item.name}</em></p>);
-        });
+        const categoryName = episodeData && episodeData._embedded.categories.map(item => item.name).join(', ');
 
         const singleEpisodeDisplay = episodeData ? (
                 <div className={'single-episode'}>
@@ -276,7 +272,7 @@ export default class App extends Component {
 
                     {this.seriesEpisodeTitleLabel()}
 
-                    <p
+                    <div
                         id={episodeData.episodeTitle}
                         data-id={episodeData.productionId}
                     >
@@ -284,12 +280,12 @@ export default class App extends Component {
                             Guidance:
                             <span className={'guidance'}>{' ' + episodeData.guidance}</span>
                         </p>: undefined}
-                    </p>
+                    </div>
 
                     <p className='synopsis'>{episodeData.synopses.epg}</p>
 
-                    <p>{this.episodeInfoLabel(episodeData)}</p>
-                    {categoryName}
+                    <p>{this.episodeTime(episodeData)}</p>
+                    <p>Category: <em>{categoryName}</em></p>
                 </div>
             )
             : undefined;
@@ -315,11 +311,13 @@ export default class App extends Component {
                 </div>
 
                 <div className={'row'}>
-                    <ProgrammesDisplay programmes={programmes}
-                                       handleClick={this.handleClick}/>
+                    <ProgrammesDisplay
+                        programmes={programmes}
+                        handleClick={this.handleClick}/>
                     <EpisodesDisplay
                         episodes={episodes}
-                        episodeInfoLabel={this.episodeInfoLabel}
+                        episodeTime={this.episodeTime}
+                        handleEpisodeClick={this.handleEpisodeClick}
                     />
                     {singleEpisodeDisplay}
                 </div>
