@@ -63,12 +63,20 @@ img {
 }
 
 .channel {
-    border: 0em;
-    padding: 0em;
+    border: 0;
+    padding: 0;
     height: 3em;
-    margin: 0em -5em 0em 0em;
+    margin: 0 -5em 0 0;
 }
 
 #root {
     padding-bottom: 3em;
+}
+
+.row.header {
+    padding: 0 0.5em;
+}
+
+.col-sm-2.channel {
+    margin-bottom: 1.5em;
 }
