@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
+import moment from 'moment';
 import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
@@ -148,91 +149,13 @@ export default class App extends Component {
      */
     episodeTime(episode) {
         const currentDate = new Date();
-        const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
 
-        /**
-         * Converts ISO date into a more readable format
-         */
-            // const formatDate =
-            //     broadcastDate.toLocaleDateString('en-gb')
-            //     + ' | '
-            //     + broadcastDate.toLocaleTimeString()
-            //     // Removes seconds from time
-            //         .replace(':00', '').toLowerCase();
-
-            // const formatDate =
-            //     broadcastDate.toLocaleTimeString()
-            //     // Removes seconds from time
-            //         .replace(':00', '').toLowerCase()
-            //     + ' '
-            //     + broadcastDate.toLocaleDateString('en-gb');
-
-        const dayPart = () => {
-            switch (broadcastDate.getUTCDay()) {
-                case 0 :
-                    return 'Sunday';
-                case 1 :
-                    return 'Monday';
-                case 2 :
-                    return 'Tuesday';
-                case 3 :
-                    return 'Wednesday';
-                case 4 :
-                    return 'Thursday';
-                case 5 :
-                    return 'Friday';
-                case 6 :
-                    return 'Saturday';
-            }
-        };
-
-        const monthPart = () => {
-            switch (broadcastDate.getUTCMonth()) {
-                case 0 :
-                    return 'January';
-                case 1 :
-                    return 'February';
-                case 2 :
-                    return 'March';
-                case 3 :
-                    return 'April';
-                case 4 :
-                    return 'May';
-                case 5 :
-                    return 'June';
-                case 6 :
-                    return 'July';
-                case 7 :
-                    return 'August';
-                case 8 :
-                    return 'September';
-                case 9 :
-                    return 'October';
-                case 10 :
-                    return 'November';
-                case 11 :
-                    return 'December';
-            }
-        };
-
-        // const formatDatePart = () => {
-        //     return dayPart()
-        //         + broadcastDate.getUTCDate()
-        //         + monthPart();
-        // };
-
-        const formatDate =
-            broadcastDate.toLocaleTimeString()
-            // Removes seconds from time
-                .replace(':00', '').toLowerCase()
-            + ' '
-            // + broadcastDate.toLocaleDateString('en-gb')
-            // + formatDatePart()
-            + dayPart()
-            + ' '
-            + broadcastDate.getUTCDate()
-            + ' '
-            + monthPart();
+        const dateTime =
+            moment(episode.broadcastDateTime.commissioning)
+                // Sets date to UK format
+                .format('dddd Mo MMMM h:mma')
+                // Removes minutes from programmes on the hour
+                .replace(':00', '');
 
         /**
          * Calculates how many days are left to watch an episode
@@ -255,7 +178,7 @@ export default class App extends Component {
             }
         };
         return 'Last shown: '
-            + formatDate
+            + dateTime
             + ' | '
             + episode.duration.display
             + day();
