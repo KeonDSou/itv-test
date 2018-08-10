@@ -146,8 +146,6 @@ export default class App extends Component {
      * @returns {string} Label (formatted)
      */
     episodeTime(episode) {
-        const currentDate = new Date();
-
         const dateTime =
             moment(episode.broadcastDateTime.commissioning)
                 // Sets date to UK format
@@ -158,6 +156,7 @@ export default class App extends Component {
         /**
          * Calculates how many days are left to watch an episode
          */
+        const currentDate = new Date();
         const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
         const daysLeft =
             Math.round(

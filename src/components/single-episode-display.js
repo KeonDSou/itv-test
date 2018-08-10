@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import moment from "moment";
 
 const SingleEpisodeDisplay = (
     {episodeData, time}
@@ -37,8 +38,14 @@ const SingleEpisodeDisplay = (
             }
             // Use last broadcast date if there is no series number
         } else {
-            const broadcastDate = new Date(broadcastDateTime.commissioning);
-            return <h2 className={'series-episode-title'}>{broadcastDate.toLocaleDateString('en-gb')}</h2>
+            // const broadcastDate = new Date(broadcastDateTime.commissioning);
+            const broadcastDate =
+                moment(broadcastDateTime.commissioning)
+                // Sets date to UK format
+                    .format('dddd Mo MMMM')
+                    // Removes minutes from programmes on the hour
+                    .replace(':00', '');
+            return <h2 className={'series-episode-title'}>{broadcastDate}</h2>
         }
     };
 
