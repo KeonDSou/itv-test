@@ -129,7 +129,6 @@ export default class App extends Component {
      * @param programme User-specified programme
      */
     getEpisodesUrl(programme) {
-
         if (this.state.programmes.length) {
             this.state.programmes.filter((prog) => {
                 if (prog.title === programme) {
@@ -139,7 +138,6 @@ export default class App extends Component {
                 }
             })
         }
-
     }
 
     /**
