@@ -141,13 +141,17 @@ export default class App extends Component {
     }
 
     /**
-     * Label detailing last broadcast date and time, duration and day left
+     * Label detailing last broadcast date and time, duration and days left
      * @param episode Episode in question
      * @returns {string} Label (formatted)
      */
-    episodeTime(episode) {
-        const dateTime =
-            moment(episode.broadcastDateTime.commissioning)
+    broadcastInfo(episode) {
+
+        /**
+         * Returns last broadcast date
+         */
+        const dateTime = 'Last shown: '
+            + moment(episode.broadcastDateTime.commissioning)
                 // Sets date to UK format
                 .format('dddd Mo MMMM h:mma')
                 // Removes minutes from programmes on the hour
@@ -166,19 +170,20 @@ export default class App extends Component {
             );
         const day = () => {
             if (daysLeft === 0) {
-                return ' | Expires today'
+                return 'Expires today'
             } else if (daysLeft === 1) {
-                return ' | ' + daysLeft + ' day left'
+                return daysLeft + ' day left'
             } else {
-                return ' | ' + daysLeft + ' days left'
+                return daysLeft + ' days left'
 
             }
         };
-        return 'Last shown: '
-            + dateTime
-            + ' | '
-            + episode.duration.display
-            + day();
+
+        return {
+            lastBroadcast: dateTime,
+            duration: episode.duration.display,
+            expiry: day()
+        };
     }
 
     /**
@@ -247,13 +252,13 @@ export default class App extends Component {
                         handleClick={this.handleClick}/>
                     <EpisodesDisplay
                         episodes={episodes}
-                        episodeTime={this.episodeTime}
+                        broadcastInfo={this.broadcastInfo}
                         handleEpisodeClick={this.handleEpisodeClick}
                     />
                     <SingleEpisodeDisplay
                         episodeData={episodeData}
                         label={this.seriesEpisodeTitleLabel}
-                        time={this.episodeTime}
+                        broadcastInfo={this.broadcastInfo}
                     />
                 </div>
             </div>

@@ -84,3 +84,36 @@ img {
 .col-sm-2.channel {
     margin-bottom: 1.5em;
 }
+
+.broadcast-info-box {
+    padding: 2em;
+}
+
+.broadcast-info-box-ITV {
+    background: #4FAEBA;
+}
+
+.broadcast-info-box-ITV2 {
+    background: #5CBD97;
+}
+
+.broadcast-info-box-ITV3 {
+    background: #3F4F95;
+}
+
+.broadcast-info-box-ITV4 {
+    background: #81959E;
+}
+
+.broadcast-info-box-ITVBe {
+    background: #AE81AC;
+}
+
+.broadcast-info-box-CITV {
+    background: #F4AB33;
+}
+
+.broadcast-info {
+    display: inline-block;
+    text-align: center;
+}
