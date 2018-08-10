@@ -23,12 +23,17 @@ const EpisodesDisplay = (
                     id={episode.episodeTitle}
                     key={episode.episodeId || episode.productionId}
                 >
-                    <h3
-                        className='title'
-                        id={episode.episodeTitle}
-                        data-id={episode.productionId}
-                    >
-                        {episode.episodeTitle || episode._embedded.programme.title}</h3>
+
+                    <div className='row header'>
+                        <h3 className='col-sm-10 prog-title'>
+                            {episode.episodeTitle || episode._embedded.programme.title}
+                        </h3>
+                        <img className={'col-sm-2 channel'}
+                             src={episode._embedded.channel._links.primaryImage.href}
+                             alt={`${episode._embedded.channel.name} logo`}
+                        />
+                    </div>
+
                     <p
                         className='episode-date-time'
                         id={episode.episodeTitle}

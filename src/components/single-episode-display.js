@@ -83,9 +83,7 @@ const SingleEpisodeDisplay = (
             </div>
         )
     }
-    else {
-        return <div/>;                                        
-    }
+    return <div/>;
 
 };
 

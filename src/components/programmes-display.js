@@ -13,7 +13,7 @@ import React from 'react';
 
 const ProgrammesDisplay = (
     {programmes, handleClick}
-    ) => {
+) => {
     return (
         <div className={'row'}>
             {programmes.map(programme => {
@@ -22,9 +22,17 @@ const ProgrammesDisplay = (
                     id={'programme-card'}
                     className={'col-lg-4 col-lg-6 '}
                     key={programme.title}>
-                    <h3
-                        className='title'
-                    >{programme.title}</h3>
+
+                    <div className='row header'>
+                        <h3 className='col-sm-10 prog-title'>
+                            {programme.title}
+                        </h3>
+                        <img className={'col-sm-2 channel'}
+                             src={programme._embedded.latestProduction._embedded.channel._links.primaryImage.href}
+                             alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
+                        />
+                    </div>
+
                     <img
                         className={programme.title}
                         src={programme._embedded.latestProduction._links.image.href}
