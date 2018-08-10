@@ -20,7 +20,7 @@ const EpisodesDisplay = (
                 return <div
                     onClick={handleEpisodeClick}
                     className={'col-lg-4 col-lg-6'}
-                    id={episode.episodeTitle}
+                    id={'episode-card'}
                     key={episode.episodeId || episode.productionId}
                 >
 
