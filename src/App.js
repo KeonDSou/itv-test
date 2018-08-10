@@ -138,6 +138,7 @@ export default class App extends Component {
                 }
             })
         }
+
     }
 
     /**
@@ -152,12 +153,19 @@ export default class App extends Component {
         /**
          * Converts ISO date into a more readable format
          */
+            // const formatDate =
+            //     broadcastDate.toLocaleDateString('en-gb')
+            //     + ' | '
+            //     + broadcastDate.toLocaleTimeString()
+            //     // Removes seconds from time
+            //         .replace(':00', '').toLowerCase();
+
         const formatDate =
-            broadcastDate.toLocaleDateString('en-gb')
-            + ' | '
-            + broadcastDate.toLocaleTimeString()
+            broadcastDate.toLocaleTimeString()
             // Removes seconds from time
-                .replace(':00', '').toLowerCase();
+                .replace(':00', '').toLowerCase()
+            + ' '
+            + broadcastDate.toLocaleDateString('en-gb');
 
         /**
          * Calculates how many days are left to watch an episode
