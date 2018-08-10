@@ -23,7 +23,6 @@ const SingleEpisodeDisplay = (
         const {broadcastDateTime, episode, episodeTitle, series} = episodeData;
         // For episodes with series ...
         if (series) {
-            console.log('qwertyuiop');
             // ... display episode title if present
             if (episodeTitle) {
                 return <h2 className={'series-episode-title'}>

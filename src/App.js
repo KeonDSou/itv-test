@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Select from 'react-select';
+import moment from 'moment';
 import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
@@ -128,7 +129,6 @@ export default class App extends Component {
      * @param programme User-specified programme
      */
     getEpisodesUrl(programme) {
-
         if (this.state.programmes.length) {
             this.state.programmes.filter((prog) => {
                 if (prog.title === programme) {
@@ -147,17 +147,13 @@ export default class App extends Component {
      */
     episodeTime(episode) {
         const currentDate = new Date();
-        const broadcastDate = new Date(episode.broadcastDateTime.commissioning);
 
-        /**
-         * Converts ISO date into a more readable format
-         */
-        const formatDate =
-            broadcastDate.toLocaleDateString('en-gb')
-            + ' | '
-            + broadcastDate.toLocaleTimeString()
-            // Removes seconds from time
-                .replace(':00', '').toLowerCase();
+        const dateTime =
+            moment(episode.broadcastDateTime.commissioning)
+                // Sets date to UK format
+                .format('dddd Mo MMMM h:mma')
+                // Removes minutes from programmes on the hour
+                .replace(':00', '');
 
         /**
          * Calculates how many days are left to watch an episode
@@ -180,7 +176,7 @@ export default class App extends Component {
             }
         };
         return 'Last shown: '
-            + formatDate
+            + dateTime
             + ' | '
             + episode.duration.display
             + day();
