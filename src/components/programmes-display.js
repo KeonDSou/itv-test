@@ -11,6 +11,10 @@
 
 import React from 'react';
 
+/**
+ * TODO Add programme channel logo
+ */
+
 const ProgrammesDisplay = (
     {programmes, handleClick}
     ) => {
