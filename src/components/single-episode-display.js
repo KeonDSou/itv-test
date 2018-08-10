@@ -10,16 +10,17 @@
  */
 
 import React from 'react';
+import moment from 'moment';
 
 const SingleEpisodeDisplay = (
-    {episodeData, time}
-    ) => {
+    {episodeData, label, broadcastInfo}
+) => {
 
     /**
      * Label detailing an episode's series number and episode number and title
      * @returns {*} JSX for above
      */
-    const label = () => {
+    const episodeLabel = () => {
         const {broadcastDateTime, episode, episodeTitle, series} = episodeData;
         // For episodes with series ...
         if (series) {
@@ -37,16 +38,24 @@ const SingleEpisodeDisplay = (
             }
             // Use last broadcast date if there is no series number
         } else {
-            const broadcastDate = new Date(broadcastDateTime.commissioning);
-            return <h2 className={'series-episode-title'}>{broadcastDate.toLocaleDateString('en-gb')}</h2>
+            // const broadcastDate = new Date(broadcastDateTime.commissioning);
+            const broadcastDate =
+                moment(broadcastDateTime.commissioning)
+                // Sets date to UK format
+                    .format('dddd Mo MMMM')
+                    // Removes minutes from programmes on the hour
+                    .replace(':00', '');
+            return <h2 className={'series-episode-title'}>{broadcastDate}</h2>
         }
     };
+
 
     if (episodeData) {
         const categoryName =
             episodeData._embedded.categories
             && episodeData._embedded.categories
                 .map(item => item.name).join(', ');
+        const channel = (episodeData._embedded.channel.name).replace(' ', '');
         return (
             <div className={'single-episode'}>
                 <div className={'row'}>
@@ -64,7 +73,7 @@ const SingleEpisodeDisplay = (
                      alt={episodeData.episodeTitle}
                 />
 
-                {label()}
+                {episodeLabel()}
 
                 <div
                     id={episodeData.episodeTitle}
@@ -78,8 +87,14 @@ const SingleEpisodeDisplay = (
 
                 <p className='synopsis'>{episodeData.synopses.epg}</p>
 
-                <p>{time(episodeData)}</p>
-                <p>Category: <em>{categoryName}</em></p>
+                <div className={`row broadcast-info-box-${channel}`}>
+                    <p className='col-sm-4 broadcast-info'>{broadcastInfo(episodeData).lastBroadcast}</p>
+                    <p className='col-sm-2 broadcast-info'>{broadcastInfo(episodeData).duration}</p>
+                    <p className='col-sm-2 broadcast-info'>{broadcastInfo(episodeData).expiry}</p>
+                    <p className='col-sm-4 broadcast-info'>{`Category: ${categoryName}`}</p>
+
+                </div>
+
             </div>
         )
     }
