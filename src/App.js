@@ -224,20 +224,20 @@ export default class App extends Component {
         }));
 
         return (
-            <div className={'container'}>
+            <div className='container'>
 
                 {/*'Navigation'-style header bar*/}
-                <div className={'row'}>
-                    <a href='.' className={'col-md-3'}>
+                <div className='row'>
+                    <a href='.' className='col-md-3'>
                         <img
-                            id={'itv_hub_logo'}
+                            id='itv_hub_logo'
                             src={itvHubLogo}
-                            alt={'ITV Hub Logo'}
+                            alt='ITV Hub Logo'
                         />
                     </a>
 
                     <Select
-                        className={'col-md-9'}
+                        className='col-md-9'
                         value={category}
                         onChange={this.handleCategory}
                         options={optionsMap}
@@ -246,7 +246,7 @@ export default class App extends Component {
                 </div>
 
                 {/*Content display area*/}
-                <div className={'row'}>
+                <div className='row'>
                     <ProgrammesDisplay
                         programmes={programmes}
                         handleClick={this.handleClick}/>

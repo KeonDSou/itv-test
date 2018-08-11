@@ -26,13 +26,13 @@ const SingleEpisodeDisplay = (
         if (series) {
             // ... display episode title if present
             if (episodeTitle) {
-                return <h2 className={'series-episode-title'}>
+                return <h2 className='series-episode-title'>
                     {'Series ' + series + ':  Episode ' + episode + ' - ' + episodeTitle}
                 </h2>
             }
             // ... or just display series and episode number
             else {
-                return <h2 className={'series-episode-title'}>
+                return <h2 className='series-episode-title'>
                     {'Series ' + series + ':  Episode ' + episode}
                 </h2>
             }
@@ -45,7 +45,7 @@ const SingleEpisodeDisplay = (
                     .format('dddd Mo MMMM')
                     // Removes minutes from programmes on the hour
                     .replace(':00', '');
-            return <h2 className={'series-episode-title'}>{broadcastDate}</h2>
+            return <h2 className='series-episode-title'>{broadcastDate}</h2>
         }
     };
 
@@ -57,18 +57,18 @@ const SingleEpisodeDisplay = (
                 .map(item => item.name).join(', ');
         const channel = (episodeData._embedded.channel.name).replace(' ', '');
         return (
-            <div className={'single-episode'}>
-                <div className={'row'}>
+            <div className='single-episode'>
+                <div className='row'>
                     <h1 className='col-sm-10 prog-title'>
                         {episodeData._embedded.programme.title}
                     </h1>
-                    <img className={'col-sm-2 channel'}
+                    <img className='col-sm-2 channel'
                          src={episodeData._embedded.channel._links.primaryImage.href}
                          alt={`${episodeData._embedded.channel.name} logo`}
                     />
                 </div>
 
-                <img className={'image'}
+                <img className='image'
                      src={episodeData._links.image.href}
                      alt={episodeData.episodeTitle}
                 />
@@ -81,7 +81,7 @@ const SingleEpisodeDisplay = (
                 >
                     {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
                         Guidance:
-                        <span className={'guidance'}>{' ' + episodeData.guidance}</span>
+                        <span className='guidance'>{' ' + episodeData.guidance}</span>
                     </p> : undefined}
                 </div>
 

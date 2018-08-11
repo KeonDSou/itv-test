@@ -14,12 +14,12 @@ import React from 'react';
 const EpisodesDisplay = (
     {episodes, broadcastInfo, handleEpisodeClick}
     ) => {
-    return <div className={'row'}>
+    return <div className='row'>
         {episodes.map(episode => {
             return <div
                 onClick={handleEpisodeClick}
-                className={'col-lg-4 col-lg-6'}
-                id={'episode-card'}
+                className='col-lg-4 col-lg-6'
+                id='episode-card'
                 key={episode.episodeId || episode.productionId}
             >
 
@@ -27,7 +27,7 @@ const EpisodesDisplay = (
                     <h3 className='col-sm-10 prog-title'>
                         {episode.episodeTitle || episode._embedded.programme.title}
                     </h3>
-                    <img className={'col-sm-2 channel'}
+                    <img className='col-sm-2 channel'
                          src={episode._embedded.channel._links.primaryImage.href}
                          alt={`${episode._embedded.channel.name} logo`}
                     />
@@ -54,7 +54,7 @@ const EpisodesDisplay = (
 
                 {episode.guidance ? <p id={episode.episodeTitle} data-id={episode.productionId}>
                     Guidance:
-                    <span className={'guidance'}>{' ' + episode.guidance}</span>
+                    <span className='guidance'>{' ' + episode.guidance}</span>
                 </p> : undefined}
                 <p
                     className='synopsis'

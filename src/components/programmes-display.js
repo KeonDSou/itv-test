@@ -15,19 +15,19 @@ const ProgrammesDisplay = (
     {programmes, handleClick}
 ) => {
     return (
-        <div className={'row'}>
+        <div className='row'>
             {programmes.map(programme => {
                 return <div
                     onClick={handleClick}
-                    id={'programme-card'}
-                    className={'col-lg-4 col-lg-6 '}
+                    id='programme-card'
+                    className='col-lg-4 col-lg-6 '
                     key={programme.title}>
 
                     <div className='row header'>
                         <h3 className='col-sm-10 prog-title'>
                             {programme.title}
                         </h3>
-                        <img className={'col-sm-2 channel'}
+                        <img className='col-sm-2 channel'
                              src={programme._embedded.latestProduction._embedded.channel._links.primaryImage.href}
                              alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
                         />
