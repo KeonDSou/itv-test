@@ -20,7 +20,7 @@ const SingleEpisodeDisplay = (
      * Label detailing an episode's series number and episode number and title
      * @returns {*} JSX for above
      */
-    const episodeLabel = () => {
+    const episodeTitleLabel = () => {
         const {broadcastDateTime, episode, episodeTitle, series} = episodeData;
         // For episodes with series ...
         if (series) {
@@ -68,33 +68,37 @@ const SingleEpisodeDisplay = (
                     />
                 </div>
 
-                <img className='image'
-                     src={episodeData._links.image.href}
-                     alt={episodeData.episodeTitle}
-                />
-
-                {episodeLabel()}
 
                 <div
+                    className='row'
                     id={episodeData.episodeTitle}
                     data-id={episodeData.productionId}
                 >
-                    {episodeData.guidance ? <p id={episodeData.episodeTitle} data-id={episodeData.productionId}>
-                        Guidance:
-                        <span className='guidance'>{' ' + episodeData.guidance}</span>
-                    </p> : undefined}
+                    <div className='col-md-8'>
+                        <img className='image'
+                             src={episodeData._links.image.href}
+                             alt={episodeData.episodeTitle}
+                        />
+                    </div>
+
+                    <div className='col-sm-4 right-pane'>
+                        {episodeTitleLabel()}
+                        {episodeData.guidance ?
+                            <p className='guidance-box'
+                               id={episodeData.episodeTitle}
+                               data-id={episodeData.productionId}
+                            >{`\u24BC ${episodeData.guidance}`}
+                            </p> : undefined}
+
+                        <p className='synopsis'>{episodeData.synopses.epg}</p>
+                        <div className={`broadcast-info-box-${channel}`}>
+                            <p className='info-element'>{broadcastInfo(episodeData).lastShown}</p>
+                            <p className='info-element'>{`Duration: ${broadcastInfo(episodeData).duration}`}</p>
+                            <p className='info-element'>{`Availability: ${broadcastInfo(episodeData).expiry}`}</p>
+                            <p className='info-element'>{`Category: ${categoryName}`}</p>
+                        </div>
+                    </div>
                 </div>
-
-                <p className='synopsis'>{episodeData.synopses.epg}</p>
-
-                <div className={`row broadcast-info-box-${channel}`}>
-                    <p className='col-sm-4 broadcast-info'>{broadcastInfo(episodeData).lastBroadcast}</p>
-                    <p className='col-sm-2 broadcast-info'>{broadcastInfo(episodeData).duration}</p>
-                    <p className='col-sm-2 broadcast-info'>{broadcastInfo(episodeData).expiry}</p>
-                    <p className='col-sm-4 broadcast-info'>{`Category: ${categoryName}`}</p>
-
-                </div>
-
             </div>
         )
     }

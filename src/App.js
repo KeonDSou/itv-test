@@ -94,7 +94,8 @@ export default class App extends Component {
     handleCategory = (selectedOption) => {
         this.setState({
             category: selectedOption.value,
-            episodeData: ''
+            episodeData: '',
+            episodes: []
         });
         this.getProgrammes(selectedOption.value);
     };
@@ -180,7 +181,7 @@ export default class App extends Component {
         };
 
         return {
-            lastBroadcast: dateTime,
+            lastShown: dateTime,
             duration: episode.duration.display,
             expiry: day()
         };
@@ -192,7 +193,10 @@ export default class App extends Component {
      */
     handleClick(e) {
         e.preventDefault();
-        this.setState({programme: e.target.className});
+        this.setState({
+            episodes: '',
+            programme: e.target.className
+        });
         this.getEpisodesUrl(e.target.className);
     }
 
@@ -230,7 +234,7 @@ export default class App extends Component {
                 <div className='row'>
                     <a href='.' className='col-md-3'>
                         <img
-                            id='itv_hub_logo'
+                            id='itv-hub-logo'
                             src={itvHubLogo}
                             alt='ITV Hub Logo'
                         />
