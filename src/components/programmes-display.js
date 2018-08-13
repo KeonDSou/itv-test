@@ -20,7 +20,7 @@ const ProgrammesDisplay = (
                 return <div
                     onClick={handleClick}
                     id='programme-card'
-                    className='col-lg-4 col-lg-6 '
+                    className='col-lg-4 col-sm-6 '
                     key={programme.title}>
 
                     <div className='row header'>
