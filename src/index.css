@@ -5,15 +5,7 @@ body, button {
     font-weight: lighter;
 }
 
-#programme-card:hover {
-    cursor: pointer;
-}
-
-#episode-card:hover {
-    cursor: pointer;
-}
-
-#itv_hub_logo {
+#itv-hub-logo {
     width: 50%;
     padding: 0.5em;
 }
@@ -23,13 +15,8 @@ body, button {
     padding: 2em 0;
 }
 
-#programme-card {
-    height: auto;
-    padding: 0.5em;
-}
-
-#programme-card p {
-    font-size: medium;
+#root {
+    padding-bottom: 3em;
 }
 
 img {
@@ -43,14 +30,31 @@ img {
     overflow: hidden;
 }
 
-.guidance{
-    color: red;
-    margin-bottom: 0;
+/**
+ * Programmes Display
+ */
+
+#programme-card:hover {
+    cursor: pointer;
+}
+
+#programme-card {
+    height: auto;
+    padding: 0.5em;
+}
+
+/**
+ * Episodes Display
+ */
+
+#episode-card:hover {
+    cursor: pointer;
 }
 
 .episode-date-time {
     text-align: right;
 }
+
 
 .image {
     margin: auto;
@@ -61,9 +65,9 @@ img {
     padding: 0;
     width: 100%;
 }
-.single-episode h3, .single-episode p{
+
+h3.single-episode {
     margin: 0 auto;
-    /*padding-left: 3%;*/
 }
 
 .channel {
@@ -73,9 +77,6 @@ img {
     margin: 0 -5em 0 0;
 }
 
-#root {
-    padding-bottom: 3em;
-}
 
 .row.header {
     padding: 0 0.5em;
@@ -85,35 +86,62 @@ img {
     margin-bottom: 1.5em;
 }
 
-.broadcast-info-box {
-    padding: 2em;
+/**
+ * Single Episode Display
+ */
+
+.series-episode-title {
+    margin-bottom: 0.5em;
+}
+
+p.guidance-box {
+    background: red;
+    color: white;
+    padding-left: 0.5em;
+}
+
+.synopsis {
+    margin: 1em 0;
 }
 
 .broadcast-info-box-ITV {
+    padding-left: 0.5em;
     background: #4FAEBA;
+    color: white;
 }
 
 .broadcast-info-box-ITV2 {
+    padding-left: 0.5em;
     background: #5CBD97;
+    color: white;
+}
+
+.broadcast-info-box-ITV2.p {
+    margin-bottom: 0;
 }
 
 .broadcast-info-box-ITV3 {
+    padding-left: 0.5em;
     background: #3F4F95;
+    color: white;
 }
 
 .broadcast-info-box-ITV4 {
+    padding-left: 0.5em;
     background: #81959E;
+    color: white;
 }
 
 .broadcast-info-box-ITVBe {
+    padding-left: 0.5em;
     background: #AE81AC;
 }
 
 .broadcast-info-box-CITV {
+    padding-left: 0.5em;
     background: #F4AB33;
 }
 
-.broadcast-info {
-    display: inline-block;
-    text-align: center;
+.info-element {
+    margin-bottom: 0;
 }
