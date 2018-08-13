@@ -130,14 +130,17 @@ export default class App extends Component {
      * @param programme User-specified programme
      */
     getEpisodesUrl(programme) {
-        if (this.state.programmes.length) {
-            this.state.programmes.filter((prog) => {
-                if (prog.title === programme) {
-                    const url = prog._embedded.productions._links["doc:productions"].href;
+        // Removes the need for 'this.state' prefix
+        const {programmes} = this.state;
+
+        if (programmes.length) {
+            for (let i = 0; i < programmes.length; i++) {
+                if (programmes[i].title === programme) {
+                    const url = programmes[i]._embedded.productions._links["doc:productions"].href;
                     this.getEpisodes(url);
                     this.setState({programmeUrl: url});
                 }
-            })
+            }
         }
     }
 
@@ -153,7 +156,7 @@ export default class App extends Component {
          */
         const dateTime = 'Last shown: '
             + moment(episode.broadcastDateTime.commissioning)
-                // Sets date to UK format
+            // Sets date to UK format
                 .format('dddd Mo MMMM h:mma')
                 // Removes minutes from programmes on the hour
                 .replace(':00', '');
