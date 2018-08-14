@@ -200,11 +200,14 @@ export default class App extends Component {
      */
     handleClick(e) {
         e.preventDefault();
+        console.log('e ->', e);
+        console.log('e.target ->', e.target);
+        console.log('e.target.attributes["data-id"].value ->', e.target.attributes['data-id'].value);
         this.setState({
             episodes: '',
-            programme: e.target.className
+            programme: e.target.attributes['data-id'].value
         });
-        this.getEpisodesUrl(e.target.className);
+        this.getEpisodesUrl(e.target.attributes['data-id'].value);
     }
 
     /**
