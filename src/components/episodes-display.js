@@ -35,14 +35,20 @@ const EpisodesDisplay = (
                 className='col-lg-4 col-lg-6'
                 id='episode-card'
                 key={episode.episodeId || episode.productionId}
+                data-id={episode.productionId}
             >
 
-                <div className='row header'>
-                    <h3 className='col-sm-10 prog-title'>
+                <div className='row header'
+                     data-id={episode.productionId}
+                >
+                    <h3 className='col-sm-10 prog-title'
+                        data-id={episode.productionId}
+                    >
                         {/* Refer to lines 20-31 */}
                         {title || seriesEpisodeNumber || programmeTitle}
                     </h3>
                     <img className='col-sm-2 channel'
+                         data-id={episode.productionId}
                          src={episode._embedded.channel._links.primaryImage.href}
                          alt={`${episode._embedded.channel.name} logo`}
                     />

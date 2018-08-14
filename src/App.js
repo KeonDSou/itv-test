@@ -200,9 +200,6 @@ export default class App extends Component {
      */
     handleClick(e) {
         e.preventDefault();
-        console.log('e ->', e);
-        console.log('e.target ->', e.target);
-        console.log('e.target.attributes["data-id"].value ->', e.target.attributes['data-id'].value);
         this.setState({
             episodes: '',
             programme: e.target.attributes['data-id'].value
@@ -219,7 +216,7 @@ export default class App extends Component {
 
         // Search through the episodes where the titles match
         const episodeDetails = this.state.episodes.filter(
-            episode => episode.productionId === e.target.dataset.id);
+            episode => episode.productionId === e.target.attributes['data-id'].value);
 
         this.setState({
             episodes: [],
