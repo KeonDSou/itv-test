@@ -195,9 +195,6 @@ export default class App extends Component {
      * @param e User-selected programme (as an event)
      */
 
-    /**
-     * TODO Allow user to click header above image
-     */
     handleClick(e) {
         e.preventDefault();
         this.setState({

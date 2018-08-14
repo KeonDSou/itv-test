@@ -43,6 +43,19 @@ img {
     padding: 0.5em;
 }
 
+.row.header {
+    padding: 0 0.5em;
+}
+
+.col-sm-2.channel {
+    margin-bottom: 1.5em;
+}
+
+.image {
+    margin: auto;
+    width: 100%;
+}
+
 /**
  * Episodes Display
  */
@@ -55,21 +68,6 @@ img {
     text-align: right;
 }
 
-
-.image {
-    margin: auto;
-    width: 100%;
-}
-.col-12.single-episode{
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-}
-
-h3.single-episode {
-    margin: 0 auto;
-}
-
 .channel {
     border: 0;
     padding: 0;
@@ -77,18 +75,19 @@ h3.single-episode {
     margin: 0 -5em 0 0;
 }
 
-
-.row.header {
-    padding: 0 0.5em;
-}
-
-.col-sm-2.channel {
-    margin-bottom: 1.5em;
-}
-
 /**
  * Single Episode Display
  */
+
+h3.single-episode {
+    margin: 0 auto;
+}
+
+.col-12.single-episode{
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+}
 
 .series-episode-title {
     margin-bottom: 0.5em;
