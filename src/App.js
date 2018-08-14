@@ -194,13 +194,20 @@ export default class App extends Component {
      * Handles the programme selection
      * @param e User-selected programme (as an event)
      */
+
+    /**
+     * TODO Allow user to click header above image
+     */
     handleClick(e) {
         e.preventDefault();
+        console.log('e ->', e);
+        console.log('e.target ->', e.target);
+        console.log('e.target.attributes["data-id"].value ->', e.target.attributes['data-id'].value);
         this.setState({
             episodes: '',
-            programme: e.target.className
+            programme: e.target.attributes['data-id'].value
         });
-        this.getEpisodesUrl(e.target.className);
+        this.getEpisodesUrl(e.target.attributes['data-id'].value);
     }
 
     /**
