@@ -91,7 +91,7 @@ export default class App extends Component {
      * Handles the category selection
      * @param selectedOption User-specified category
      */
-    handleCategory = (selectedOption) => {
+    handleCategory(selectedOption) {
         this.setState({
             category: selectedOption.value,
             episodeData: '',
