@@ -8,9 +8,9 @@
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import Select from 'react-select';
 import moment from 'moment';
+import ServiceRequest from './components/service-request';
 import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
@@ -29,6 +29,7 @@ export default class App extends Component {
             episodes: [],
             episodeData: ""
         };
+        this.handleCategory = this.handleCategory.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
     };
@@ -44,16 +45,18 @@ export default class App extends Component {
      * Fetches the categories from the JSON file
      */
     getCategories() {
-        axios
-            .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/categories?', {
-                params: {
-                    broadcaster: 'ITV',
-                    features: 'hls,aes'
-                },
-                headers: {
-                    'Accept': 'application/vnd.itv.hubsvc.category.v3+hal+json'
-                }
-            })
+        // axios
+        //     .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/categories?', {
+        //         params: {
+        //             broadcaster: 'ITV',
+        //             features: 'hls,aes'
+        //         },
+        //         headers: {
+        //             'Accept': 'application/vnd.itv.hubsvc.category.v3+hal+json; charset=UTF-8'
+        //         }
+        //     })
+        ServiceRequest()
+            .get('category', 'categories')
             .then(fetch => {
                 this.setState({
                     categories: fetch.data._embedded.categories
@@ -67,18 +70,24 @@ export default class App extends Component {
      * @param category User-specified category
      */
     getProgrammes(category) {
-        if (category.includes('&')) category.replace('amp;', '');
-        axios
-            .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
-                params: {
-                    features: 'hls,aes',
-                    broadcaster: 'itv',
-                    category: category
-                },
-                headers: {
-                    'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
-                }
-            })
+        if (category.includes('&')) {
+            console.log('category ->', category);
+            category = 'Drama+%26+Soaps';
+            console.log('category ->', category);
+        }
+        // axios
+        //     .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
+        //         params: {
+        //             features: 'hls,aes',
+        //             broadcaster: 'itv',
+        //             category: category
+        //         },
+        //         headers: {
+        //             'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
+        //         }
+        //     })
+        ServiceRequest()
+            .get('programme', 'programmes', category)
             .then(fetch => {
                 this.setState({
                     programmes: fetch.data._embedded.programmes
@@ -110,12 +119,8 @@ export default class App extends Component {
             programmes: []
         });
         if (url) {
-            axios
-                .get(url, {
-                    headers: {
-                        'Accept': 'application/vnd.itv.hubsvc.production.v3+hal+json; charset=UTF-8'
-                    }
-                })
+            ServiceRequest()
+                .collectEpisodes(url)
                 .then(fetch => {
                     this.setState({
                         episodes: fetch.data._embedded.productions
@@ -257,7 +262,8 @@ export default class App extends Component {
                 <div className='row'>
                     <ProgrammesDisplay
                         programmes={programmes}
-                        handleClick={this.handleClick}/>
+                        handleClick={this.handleClick}
+                    />
                     <EpisodesDisplay
                         episodes={episodes}
                         broadcastInfo={this.broadcastInfo}
