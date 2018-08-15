@@ -12,19 +12,26 @@
 import axios from 'axios';
 
 const DOMAIN =
-    `http://discovery.hubsvc.itv.com/platform/itvonline/ctv`;
+    'http://discovery.hubsvc.itv.com/platform/itvonline/ctv';
 
 function ServiceRequest() {
     return {
+        // Simulates the axios get function
         get: function (params) {
+            const category = params.category ? `&category=${params.category}` : '';
             const defaultDomain = DOMAIN
                 + '/'
                 + params.queryProp
-                + '?broadcaster=ITV&features=hls,aes&category='
-                + params.category;
-            const conditionalDomain = params.url ? params.url : defaultDomain;
-            const ACCEPT_HEADER =
-                `application/vnd.itv.hubsvc.${params.headerProp}.v3+hal+json; charset=UTF-8`;
+                + '?broadcaster=ITV&features='
+                + params.features
+                + category;
+            // Selects domain to pass through ...
+            const conditionalDomain = params.url
+                ? params.url // ... for getEpisodes
+                : defaultDomain; // ... for getCategories, getChannels, getProgrammes
+            const ACCEPT_HEADER = 'application/vnd.itv.hubsvc.'
+                + params.headerProp
+                + '+hal+json; charset=UTF-8';
             return axios({
                 method: 'get',
                 url: conditionalDomain,

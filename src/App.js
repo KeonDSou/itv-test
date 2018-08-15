@@ -3,11 +3,15 @@
  *
  * A simple application to allow a user to discover ITV content
  *
+ * File: App.js -
+ *      the main file importing code and initialising the application
+ *
  * @author Keoni D'Souza
  */
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Select from 'react-select';
 import moment from 'moment';
 import ServiceRequest from './components/service-request';
@@ -21,6 +25,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            channels: [],
             categories: [],
             programmes: [],
             programmeUrl: '',
@@ -37,8 +42,12 @@ export default class App extends Component {
     /**
      * Initialises display with category drop-down
      */
-    componentDidMount() {
+    componentWillMount() {
         this.getCategories();
+        this.getChannels();
+    }
+
+    componentDidMount() {
     };
 
     /**
@@ -47,7 +56,8 @@ export default class App extends Component {
     getCategories() {
         const params = {
             queryProp: 'categories',
-            headerProp: 'category'
+            headerProp: 'category.v3',
+            features: 'hls,aes'
         };
         ServiceRequest()
             .get(params)
@@ -59,6 +69,23 @@ export default class App extends Component {
             .catch(err => console.log(err));
     };
 
+    getChannels() {
+        const params = {
+            queryProp: 'channels',
+            features: 'mpeg-dash',
+            headerProp: 'channel.v2'
+        };
+        ServiceRequest()
+            .get(params)
+            .then(fetch => {
+                this.setState({
+                    channels: fetch.data._embedded.channels
+                });
+                console.log('fetch ->', fetch);
+            })
+            .catch(err => console.log(err));
+    }
+
     /**
      * Fetches the programmes from the chosen category
      * @param category User-specified category
@@ -69,8 +96,9 @@ export default class App extends Component {
         }
         const params = {
             queryProp: 'programmes',
+            features: 'hls,aes',
             category,
-            headerProp: 'programme'
+            headerProp: 'programme.v3'
         };
         ServiceRequest()
             .get(params)
@@ -226,46 +254,112 @@ export default class App extends Component {
             label: category.name
         }));
 
-        return (
-            <div className='container'>
+        const Home = () => (
+            <div>
+                <h1>Home - ITV Programme Discovery</h1>
+                <p>{'Please select a category above.'}</p>
+            </div>
+        );
 
-                {/*'Navigation'-style header bar*/}
+        const About = () => (
+            <div>
+                <h1>About</h1>
+                <p>{'A simple application to allow a user to discover ITV content.'}</p>
+            </div>
+        );
+
+        const Categories = () => (
+            <div>
+                <h1>Categories</h1>
                 <div className='row'>
-                    <a href='.' className='col-md-3'>
-                        <img
-                            id='itv-hub-logo'
-                            src={itvHubLogo}
-                            alt='ITV Hub Logo'
-                        />
-                    </a>
-
-                    <Select
-                        className='col-md-9'
-                        value={category}
-                        onChange={this.handleCategory}
-                        options={optionsMap}
-                        placeholder={category || 'Please select or type a category...'}
-                    />
-                </div>
-
-                {/*Content display area*/}
-                <div className='row'>
-                    <ProgrammesDisplay
-                        programmes={programmes}
-                        handleClick={this.handleClick}
-                    />
-                    <EpisodesDisplay
-                        episodes={episodes}
-                        broadcastInfo={this.broadcastInfo}
-                        handleEpisodeClick={this.handleEpisodeClick}
-                    />
-                    <SingleEpisodeDisplay
-                        episodeData={episodeData}
-                        label={this.seriesEpisodeTitleLabel}
-                        broadcastInfo={this.broadcastInfo}
-                    />
+                    <ul>
+                        {this.state.categories
+                            .map(
+                                (category) =>
+                                    <li key={category.name}>
+                                        {category.name}
+                                    </li>
+                            )
+                        }
+                    </ul>
                 </div>
             </div>
+        );
+
+        const Channels = () => (
+            <div>
+                <h1>Channels</h1>
+                <div className='row'>
+                    <ul>
+                        {this.state.channels
+                            .map(
+                                (channel) =>
+                                    <li key={channel.name}>
+                                        {channel.name}
+                                    </li>
+                            )
+                        }
+                    </ul>
+                </div>
+            </div>
+        );
+
+        return (
+            <Router>
+                <div className='container'>
+
+                    {/*'Navigation'-style header bar*/}
+                    <div className='row'>
+                        <a href='.' className='col-md-3'>
+                            <img
+                                id='itv-hub-logo'
+                                src={itvHubLogo}
+                                alt='ITV Hub Logo'
+                            />
+                        </a>
+
+                        <Select
+                            className='col-md-9'
+                            value={category}
+                            onChange={this.handleCategory}
+                            options={optionsMap}
+                            placeholder={category || 'Please select or type a category...'}
+                        />
+
+                        <Link to='/' className='col-md-3'>Home</Link>
+                        <Link to='/about' className='col-md-3'>About</Link>
+                        <Link to='/categories' className='col-md-3'>Categories</Link>
+                        <Link to='/channels' className='col-md-3'>Channels</Link>
+
+                        <Route exact path='/' component={Home}/>
+                        <Route path='/about' component={About}/>
+                        <Route path='/categories' component={Categories}/>
+                        <Route path='/channels' component={Channels}/>
+
+                    </div>
+
+                    {/*Content display area*/}
+                    <div className='row'>
+                        <ProgrammesDisplay
+                            // path={`/${}`}
+                            programmes={programmes}
+                            handleClick={this.handleClick}
+                        />
+                        <EpisodesDisplay
+                            episodes={episodes}
+                            broadcastInfo={this.broadcastInfo}
+                            handleEpisodeClick={this.handleEpisodeClick}
+                        />
+                        <SingleEpisodeDisplay
+                            episodeData={episodeData}
+                            label={this.seriesEpisodeTitleLabel}
+                            broadcastInfo={this.broadcastInfo}
+                        />
+                    </div>
+
+
+                </div>
+            </Router>
         );
 
     };
