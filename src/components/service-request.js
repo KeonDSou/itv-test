@@ -16,26 +16,22 @@ const DOMAIN =
 
 function ServiceRequest() {
     return {
-        get: function (headerProp, queryProp, category) {
-
-
+        get: function (params) {
+            const defaultDomain = DOMAIN
+                + '/'
+                + params.queryProp
+                + '?broadcaster=ITV&features=hls,aes&category='
+                + params.category;
+            const conditionalDomain = params.url ? params.url : defaultDomain;
             const ACCEPT_HEADER =
-                `application/vnd.itv.hubsvc.${headerProp}.v3+hal+json; charset=UTF-8`;
+                `application/vnd.itv.hubsvc.${params.headerProp}.v3+hal+json; charset=UTF-8`;
             return axios({
                 method: 'get',
-                url: `${DOMAIN}/${queryProp}?broadcaster=ITV&features=hls,aes&category=${category}`,
+                url: conditionalDomain,
                 headers: {
                     Accept: ACCEPT_HEADER
                 }
             })
-        },
-        collectEpisodes: function (url) {
-            return axios
-                .get(url, {
-                    headers: {
-                        'Accept': 'application/vnd.itv.hubsvc.production.v3+hal+json; charset=UTF-8'
-                    }
-                })
         }
     }
 }

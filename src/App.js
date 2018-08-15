@@ -45,18 +45,12 @@ export default class App extends Component {
      * Fetches the categories from the JSON file
      */
     getCategories() {
-        // axios
-        //     .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/categories?', {
-        //         params: {
-        //             broadcaster: 'ITV',
-        //             features: 'hls,aes'
-        //         },
-        //         headers: {
-        //             'Accept': 'application/vnd.itv.hubsvc.category.v3+hal+json; charset=UTF-8'
-        //         }
-        //     })
+        const params = {
+            queryProp: 'categories',
+            headerProp: 'category'
+        };
         ServiceRequest()
-            .get('category', 'categories')
+            .get(params)
             .then(fetch => {
                 this.setState({
                     categories: fetch.data._embedded.categories
@@ -71,23 +65,15 @@ export default class App extends Component {
      */
     getProgrammes(category) {
         if (category.includes('&')) {
-            console.log('category ->', category);
             category = 'Drama+%26+Soaps';
-            console.log('category ->', category);
         }
-        // axios
-        //     .get('http://discovery.hubsvc.itv.com/platform/itvonline/ctv/programmes?', {
-        //         params: {
-        //             features: 'hls,aes',
-        //             broadcaster: 'itv',
-        //             category: category
-        //         },
-        //         headers: {
-        //             'Accept': 'application/vnd.itv.hubsvc.programme.v3+hal+json; charset=UTF-8'
-        //         }
-        //     })
+        const params = {
+            queryProp: 'programmes',
+            category,
+            headerProp: 'programme'
+        };
         ServiceRequest()
-            .get('programme', 'programmes', category)
+            .get(params)
             .then(fetch => {
                 this.setState({
                     programmes: fetch.data._embedded.programmes
@@ -119,8 +105,12 @@ export default class App extends Component {
             programmes: []
         });
         if (url) {
+            const params = {
+                url,
+                headerProp: 'production'
+            };
             ServiceRequest()
-                .collectEpisodes(url)
+                .get(params)
                 .then(fetch => {
                     this.setState({
                         episodes: fetch.data._embedded.productions
