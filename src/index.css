@@ -47,15 +47,18 @@ img {
 }
 
 .channel-background {
+    width: 100%;
+    margin: 1em;
     position: relative;
     z-index: 1;
 }
 
 .channel-logo {
     width: 30%;
-    position: relative;
-    top: -11em;
-    left: 2em;
+    height: 30%;
+    position: absolute;
+    top: 7em;
+    left: -0.05em;
     z-index: 3;
 }
 
