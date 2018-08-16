@@ -288,18 +288,26 @@ export default class App extends Component {
 
         const Channels = () => (
             <div>
-                <h1>Channels</h1>
                 <div className='row'>
-                    <ul>
-                        {this.state.channels
-                            .map(
-                                (channel) =>
-                                    <li key={channel.name}>
-                                        {channel.name}
-                                    </li>
-                            )
-                        }
-                    </ul>
+                    {this.state.channels
+                        .map(
+                            (channel) =>
+                                <div className='col-lg-6 channel-container'>
+                                    <img
+                                        className='channel-background'
+                                        key={`${channel.name}-background`}
+                                        src={channel._links.backgroundImage.href}
+                                        alt={channel.name}
+                                    />
+                                    <img
+                                        className='channel-logo'
+                                        key={`${channel.name}-logo`}
+                                        src={channel._links.primaryImage.href}
+                                        alt={channel.name}
+                                    />
+                                </div>
+                        )
+                    }
                 </div>
             </div>
         );
@@ -310,31 +318,40 @@ export default class App extends Component {
 
                     {/*'Navigation'-style header bar*/}
                     <div className='row'>
-                        <a href='.' className='col-md-3'>
-                            <img
-                                id='itv-hub-logo'
-                                src={itvHubLogo}
-                                alt='ITV Hub Logo'
-                            />
-                        </a>
+                        <div className='col-3'>
+                            <a href='.'>
+                                <img
+                                    id='itv-hub-logo'
+                                    src={itvHubLogo}
+                                    alt='ITV Hub Logo'
+                                />
+                            </a>
+                        </div>
 
-                        <Select
-                            className='col-md-9'
-                            value={category}
-                            onChange={this.handleCategory}
-                            options={optionsMap}
-                            placeholder={category || 'Please select or type a category...'}
-                        />
+                        <div className='col-9'>
 
-                        <Link to='/' className='col-md-3'>Home</Link>
-                        <Link to='/about' className='col-md-3'>About</Link>
-                        <Link to='/categories' className='col-md-3'>Categories</Link>
-                        <Link to='/channels' className='col-md-3'>Channels</Link>
+                            <div className='row nav-bar'>
+                                <Link to='/' className='col-3 nav-item'>Home</Link>
+                                <Link to='/about' className='col-3 nav-item'>About</Link>
+                                <Link to='/categories' className='col-3 nav-item'>Categories</Link>
+                                <Link to='/channels' className='col-3 nav-item'>Channels</Link>
+                            </div>
 
-                        <Route exact path='/' component={Home}/>
-                        <Route path='/about' component={About}/>
-                        <Route path='/categories' component={Categories}/>
-                        <Route path='/channels' component={Channels}/>
+                            <div>
+                                <Select
+                                    value={category}
+                                    onChange={this.handleCategory}
+                                    options={optionsMap}
+                                    placeholder={category || 'Please select or type a category...'}
+                                />
+                            </div>
+
+                        </div>
+
+                        <Route key='Home' exact path='/' component={Home}/>
+                        <Route key='About' path='/about' component={About}/>
+                        <Route key='Categories' path='/categories' component={Categories}/>
+                        <Route key='Channels' path='/channels' component={Channels}/>
 
                     </div>
 

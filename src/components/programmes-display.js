@@ -38,7 +38,8 @@ const ProgrammesDisplay = (
                     </div>
 
                     <img
-                        className={programme.title}
+                        className={'programme-image'}
+                        id={programme.title}
                         data-id={programme.title}
                         src={programme._embedded.latestProduction._links.image.href}
                         alt={programme.title}

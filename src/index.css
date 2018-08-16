@@ -10,9 +10,17 @@ body, button {
     padding: 0.5em;
 }
 
+.nav-bar {
+    padding: 1.5em 0;
+}
+
+.nav-item {
+    text-align: center;
+}
+
 /* Search bar/drop-down */
 .css-10nd86i {
-    padding: 2em 0;
+    z-index: 100;
 }
 
 #root {
@@ -28,6 +36,27 @@ img {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+}
+
+/**
+ * Channels page
+ */
+
+.channel-container {
+    position: relative;
+}
+
+.channel-background {
+    position: relative;
+    z-index: 1;
+}
+
+.channel-logo {
+    width: 30%;
+    position: relative;
+    top: -11em;
+    left: 2em;
+    z-index: 3;
 }
 
 /**
@@ -83,7 +112,7 @@ h3.single-episode {
     margin: 0 auto;
 }
 
-.col-12.single-episode{
+.col-12.single-episode {
     margin: 0 auto;
     padding: 0;
     width: 100%;

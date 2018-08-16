@@ -11,6 +11,7 @@
 
 import axios from 'axios';
 
+// Forms the (consistent) first part of each URL
 const DOMAIN =
     'http://discovery.hubsvc.itv.com/platform/itvonline/ctv';
 
@@ -18,7 +19,9 @@ function ServiceRequest() {
     return {
         // Simulates the axios get function
         get: function (params) {
-            const category = params.category ? `&category=${params.category}` : '';
+            const category = params.category
+                ? `&category=${params.category}`
+                : '';
             const defaultDomain = DOMAIN
                 + '/'
                 + params.queryProp
