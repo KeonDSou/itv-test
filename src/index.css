@@ -62,6 +62,44 @@ img {
     z-index: 3;
 }
 
+.channel-strapline {
+    padding: 0.25em 0.5em;
+    position: absolute;
+    bottom: 5em;
+    left: 3.5em;
+    z-index: 3;
+}
+
+#ITV {
+    background: #4FAEBA;
+    color: white;
+}
+
+#ITV2 {
+    background: #5CBD97;
+    color: white;
+}
+
+#ITV3 {
+    background: #3F4F95;
+    color: white;
+}
+
+#ITV4 {
+    background: #81959E;
+    color: white;
+}
+
+#ITVBe {
+    background: #AE81AC;
+    color: white;
+}
+
+#CITV {
+    background: #F4AB33;
+    color: white;
+}
+
 /**
  * Programmes Display
  */

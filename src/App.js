@@ -305,6 +305,10 @@ export default class App extends Component {
                                         src={channel._links.primaryImage.href}
                                         alt={channel.name}
                                     />
+                                    <p className='channel-strapline'
+                                       id={channel.name}>
+                                        {channel.strapline}
+                                    </p>
                                 </div>
                         )
                     }
