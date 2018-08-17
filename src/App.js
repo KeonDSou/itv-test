@@ -32,7 +32,7 @@ export default class App extends Component {
             programme: '',
             category: '',
             episodes: [],
-            episodeData: ""
+            episodeData: ''
         };
         this.handleCategory = this.handleCategory.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -292,7 +292,21 @@ export default class App extends Component {
                     {this.state.channels
                         .map(
                             (channel) =>
-                                <div className='col-lg-6 channel-container'>
+                                <div className='col-sm-2 channel-bar'
+                                     key={channel.name}>
+                                    <p id={channel.name}>
+                                        {channel.name}
+                                    </p>
+                                </div>
+                        )
+                    }
+                </div>
+                <div className='row'>
+                    {this.state.channels
+                        .map(
+                            (channel) =>
+                                <div className='col-lg-6 channel-container'
+                                     key={channel.name}>
                                     <img
                                         className='channel-background'
                                         key={`${channel.name}-background`}
