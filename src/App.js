@@ -135,7 +135,7 @@ export default class App extends Component {
         if (url) {
             const params = {
                 url,
-                headerProp: 'production'
+                headerProp: 'production.v3'
             };
             ServiceRequest()
                 .get(params)
