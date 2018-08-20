@@ -280,10 +280,11 @@ export default class App extends Component {
                             (category) =>
                                 <div className='col-3'
                                      key={category.name}>
-                                    <Link to={`/categories/${category.name
-                                        .replace(' & ', '-')
-                                        .toLowerCase()}`}
-                                    >
+                                    <Link to={`/categories/${
+                                        category.name
+                                            .replace(' & ', '-')
+                                            .toLowerCase()
+                                    }`}>
                                         <div className='category-box'
                                              onClick={this.handleCategory}
                                              id={category.name
@@ -376,7 +377,7 @@ export default class App extends Component {
                                     value={category}
                                     onChange={this.handleCategory}
                                     options={optionsMap}
-                                    placeholder={category || 'Please select or type a category...'}
+                                    placeholder={category.replace('amp;', '') || 'Please select or type a category...'}
                                 />
                             </div>
                         </div>
