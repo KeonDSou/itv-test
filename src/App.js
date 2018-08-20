@@ -81,7 +81,6 @@ export default class App extends Component {
                 this.setState({
                     channels: fetch.data._embedded.channels
                 });
-                console.log('fetch ->', fetch);
             })
             .catch(err => console.log(err));
     }
@@ -115,12 +114,16 @@ export default class App extends Component {
      * @param selectedOption User-specified category
      */
     handleCategory(selectedOption) {
+        const category = selectedOption.value ? selectedOption.value : selectedOption.target.innerHTML;
         this.setState({
-            category: selectedOption.value,
+            category: category,
             episodeData: '',
             episodes: []
         });
-        this.getProgrammes(selectedOption.value);
+        this.getProgrammes(category);
+        return (
+            <Route key={category.name} path={`/channels/${category.name}`} component={ProgrammesDisplay}/>
+        )
     };
 
     /**
@@ -275,17 +278,23 @@ export default class App extends Component {
                     {this.state.categories
                         .map(
                             (category) =>
-                                <div className='col-3'>
-                                    <div className='category-box'
-                                         id={category.name
-                                             .replace(' & ', '-')
-                                             .toLowerCase()}
-                                         key={category.name}>
-                                        <p>
-                                            {category.name}
-                                        </p>
-                                        {console.log('category ->', category)}
-                                    </div>
+                                <div className='col-3'
+                                     key={category.name}>
+                                    <Link to={`/categories/${category.name
+                                        .replace(' & ', '-')
+                                        .toLowerCase()}`}
+                                    >
+                                        <div className='category-box'
+                                             onClick={this.handleCategory}
+                                             id={category.name
+                                                 .replace(' & ', '-')
+                                                 .toLowerCase()}
+                                        >
+                                            <p>
+                                                {category.name}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
                         )
                     }
@@ -303,9 +312,6 @@ export default class App extends Component {
                                 <div className='col-sm-2 channel-bar'
                                      id={channel.name}
                                      key={channel.name}>
-                                    {/*<p id={channel.name}>*/}
-                                    {/*{channel.name}*/}
-                                    {/*</p>*/}
                                     <img
                                         key={`${channel.name}-bar`}
                                         src={channel._links.dogImage.href}
@@ -350,7 +356,7 @@ export default class App extends Component {
                     {/*'Navigation'-style header bar*/}
                     <div className='row header'>
                         <div className='col-3'>
-                            <a href='.'>
+                            <a href='/'>
                                 <img
                                     id='itv-hub-logo'
                                     src={itvHubLogo}
@@ -384,7 +390,7 @@ export default class App extends Component {
                     {/*Content display area*/}
                     <div className='row'>
                         <ProgrammesDisplay
-                            // path={`/${}`}
+                            path={`/categories/${category}`}
                             programmes={programmes}
                             handleClick={this.handleClick}
                         />
@@ -401,7 +407,7 @@ export default class App extends Component {
                     </div>
 
                     <div className='footer'>
-                        <p><em>by</em> Keoni D'Souza</p>
+                        <p><em>{'by'}</em>{" Keoni D'Souza"}</p>
                     </div>
                 </div>
             </Router>
