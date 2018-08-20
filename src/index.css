@@ -5,6 +5,10 @@ body, button {
     font-weight: lighter;
 }
 
+.header {
+    margin-bottom: 1em;
+}
+
 #itv-hub-logo {
     width: 50%;
     padding: 0.5em;
@@ -23,10 +27,6 @@ body, button {
     z-index: 100;
 }
 
-#root {
-    padding-bottom: 3em;
-}
-
 img {
     width: 80%;
     margin: 0 10% 2%;
@@ -39,12 +39,71 @@ img {
 }
 
 /**
+ * Categories page
+ */
+
+.category-box {
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    padding: 2em 0;
+    margin: 0.5em 0;
+    cursor: pointer;
+}
+
+.category-box:hover {
+    filter: brightness(85%);
+}
+
+.category-box p {
+    margin-bottom: 0;
+}
+
+#children {
+    background: #5FC9C2;
+}
+
+#comedy {
+    background: #5EBEA0;
+}
+
+#drama-soaps {
+    background: #DD7181;
+}
+
+#entertainment {
+    background: #5E4F81;
+}
+
+#factual {
+    background: #879BAB;
+}
+
+#films {
+    background: #EAA573;
+}
+
+#news {
+    background: #A4326C;
+}
+
+#sport {
+    background: tomato;
+}
+
+/**
  * Channels page
  */
 
 .channel-bar {
     color: white;
     text-align: center;
+}
+
+.channel-bar img {
+    height: 70%;
+    padding-top: 1.5em;
+    vertical-align: middle;
 }
 
 .channel-container {
@@ -213,4 +272,9 @@ p.guidance-box {
 
 .info-element {
     margin-bottom: 0;
+}
+
+.footer {
+    padding: 2em 0;
+    text-align: right;
 }

@@ -270,33 +270,47 @@ export default class App extends Component {
 
         const Categories = () => (
             <div>
-                <h1>Categories</h1>
-                <div className='row'>
-                    <ul>
-                        {this.state.categories
-                            .map(
-                                (category) =>
-                                    <li key={category.name}>
-                                        {category.name}
-                                    </li>
-                            )
-                        }
-                    </ul>
+                <h1>Category Selection</h1>
+                <div className='row categories'>
+                    {this.state.categories
+                        .map(
+                            (category) =>
+                                <div className='col-3'>
+                                    <div className='category-box'
+                                         id={category.name
+                                             .replace(' & ', '-')
+                                             .toLowerCase()}
+                                         key={category.name}>
+                                        <p>
+                                            {category.name}
+                                        </p>
+                                        {console.log('category ->', category)}
+                                    </div>
+                                </div>
+                        )
+                    }
                 </div>
             </div>
         );
 
         const Channels = () => (
             <div>
+                <h1>Channel Selection</h1>
                 <div className='row'>
                     {this.state.channels
                         .map(
                             (channel) =>
                                 <div className='col-sm-2 channel-bar'
+                                     id={channel.name}
                                      key={channel.name}>
-                                    <p id={channel.name}>
-                                        {channel.name}
-                                    </p>
+                                    {/*<p id={channel.name}>*/}
+                                    {/*{channel.name}*/}
+                                    {/*</p>*/}
+                                    <img
+                                        key={`${channel.name}-bar`}
+                                        src={channel._links.dogImage.href}
+                                        alt={channel.name}
+                                    />
                                 </div>
                         )
                     }
@@ -333,9 +347,8 @@ export default class App extends Component {
         return (
             <Router>
                 <div className='container'>
-
                     {/*'Navigation'-style header bar*/}
-                    <div className='row'>
+                    <div className='row header'>
                         <div className='col-3'>
                             <a href='.'>
                                 <img
@@ -345,16 +358,13 @@ export default class App extends Component {
                                 />
                             </a>
                         </div>
-
                         <div className='col-9'>
-
                             <div className='row nav-bar'>
                                 <Link to='/' className='col-3 nav-item'>Home</Link>
                                 <Link to='/about' className='col-3 nav-item'>About</Link>
                                 <Link to='/categories' className='col-3 nav-item'>Categories</Link>
                                 <Link to='/channels' className='col-3 nav-item'>Channels</Link>
                             </div>
-
                             <div>
                                 <Select
                                     value={category}
@@ -363,15 +373,13 @@ export default class App extends Component {
                                     placeholder={category || 'Please select or type a category...'}
                                 />
                             </div>
-
                         </div>
-
-                        <Route key='Home' exact path='/' component={Home}/>
-                        <Route key='About' path='/about' component={About}/>
-                        <Route key='Categories' path='/categories' component={Categories}/>
-                        <Route key='Channels' path='/channels' component={Channels}/>
-
                     </div>
+
+                    <Route key='Home' exact path='/' component={Home}/>
+                    <Route key='About' path='/about' component={About}/>
+                    <Route key='Categories' path='/categories' component={Categories}/>
+                    <Route key='Channels' path='/channels' component={Channels}/>
 
                     {/*Content display area*/}
                     <div className='row'>
@@ -392,7 +400,9 @@ export default class App extends Component {
                         />
                     </div>
 
-
+                    <div className='footer'>
+                        <p><em>by</em> Keoni D'Souza</p>
+                    </div>
                 </div>
             </Router>
         );
