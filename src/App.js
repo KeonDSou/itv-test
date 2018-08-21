@@ -27,7 +27,6 @@ export default class App extends Component {
         this.state = {
             channels: [],
             categories: [],
-            showCategories: '',
             programmes: [],
             programmeUrl: '',
             programme: '',
@@ -409,11 +408,6 @@ export default class App extends Component {
 
                     {/*Content display area*/}
                     <div className='row'>
-                        {/*<ProgrammesDisplay*/}
-                        {/*path={`/categories/${category}`}*/}
-                        {/*programmes={programmes}*/}
-                        {/*handleClick={this.handleClick}*/}
-                        {/*/>*/}
                         {/*<EpisodesDisplay*/}
                         {/*episodes={episodes}*/}
                         {/*broadcastInfo={this.broadcastInfo}*/}
