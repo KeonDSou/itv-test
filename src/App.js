@@ -281,8 +281,6 @@ export default class App extends Component {
                   programmes={programmes}
                   handleClick={this.handleClick}
               />
-              {this.state.showCategories ? this.setState({categories:''}) : null}
-              {Categories}
           </div>
         );
 
