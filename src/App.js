@@ -27,6 +27,7 @@ export default class App extends Component {
         this.state = {
             channels: [],
             categories: [],
+            showCategories: '',
             programmes: [],
             programmeUrl: '',
             programme: '',
@@ -271,6 +272,20 @@ export default class App extends Component {
             </div>
         );
 
+        const Children = () => (
+          <div>
+              <h1>Children</h1>
+              <p>{"Children's programmes"}</p>
+              <ProgrammesDisplay
+                  path={`/categories/children`}
+                  programmes={programmes}
+                  handleClick={this.handleClick}
+              />
+              {this.state.showCategories ? this.setState({categories:''}) : null}
+              {Categories}
+          </div>
+        );
+
         const Categories = () => (
             <div>
                 <h1>Category Selection</h1>
@@ -280,11 +295,7 @@ export default class App extends Component {
                             (category) =>
                                 <div className='col-3'
                                      key={category.name}>
-                                    <Link to={`/categories/${
-                                        category.name
-                                            .replace(' & ', '-')
-                                            .toLowerCase()
-                                    }`}>
+                                    <Link to={`/children`}>
                                         <div className='category-box'
                                              onClick={this.handleCategory}
                                              id={category.name
@@ -386,25 +397,26 @@ export default class App extends Component {
                     <Route key='Home' exact path='/' component={Home}/>
                     <Route key='About' path='/about' component={About}/>
                     <Route key='Categories' path='/categories' component={Categories}/>
+                    <Route key='Children' path='/children' component={Children}/>
                     <Route key='Channels' path='/channels' component={Channels}/>
 
                     {/*Content display area*/}
                     <div className='row'>
-                        <ProgrammesDisplay
-                            path={`/categories/${category}`}
-                            programmes={programmes}
-                            handleClick={this.handleClick}
-                        />
-                        <EpisodesDisplay
-                            episodes={episodes}
-                            broadcastInfo={this.broadcastInfo}
-                            handleEpisodeClick={this.handleEpisodeClick}
-                        />
-                        <SingleEpisodeDisplay
-                            episodeData={episodeData}
-                            label={this.seriesEpisodeTitleLabel}
-                            broadcastInfo={this.broadcastInfo}
-                        />
+                        {/*<ProgrammesDisplay*/}
+                            {/*path={`/categories/${category}`}*/}
+                            {/*programmes={programmes}*/}
+                            {/*handleClick={this.handleClick}*/}
+                        {/*/>*/}
+                        {/*<EpisodesDisplay*/}
+                            {/*episodes={episodes}*/}
+                            {/*broadcastInfo={this.broadcastInfo}*/}
+                            {/*handleEpisodeClick={this.handleEpisodeClick}*/}
+                        {/*/>*/}
+                        {/*<SingleEpisodeDisplay*/}
+                            {/*episodeData={episodeData}*/}
+                            {/*label={this.seriesEpisodeTitleLabel}*/}
+                            {/*broadcastInfo={this.broadcastInfo}*/}
+                        {/*/>*/}
                     </div>
 
                     <div className='footer'>
