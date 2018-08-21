@@ -274,9 +274,7 @@ export default class App extends Component {
         const Category = ({match}) => (
             <div>
                 <h1>
-                    {category
-                        .replace('amp;', '')
-                        .replace('\<(.*?)\>', '')}
+                    {category.replace('amp;', '')}
                 </h1>
                 <ProgrammesDisplay
                     path={`/${match.params.id}/${category}`}
@@ -393,7 +391,6 @@ export default class App extends Component {
                                     onChange={this.handleCategory}
                                     options={optionsMap}
                                     placeholder={category.replace('amp;', '')
-                                        .replace('\<(.*?)\>', '')
                                     || 'Please select or type a category...'}
                                 />
                             </div>
