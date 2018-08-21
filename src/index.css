@@ -46,7 +46,6 @@ img {
     color: white;
     font-size: 2em;
     text-align: center;
-    padding: 2em 0;
     margin: 0.5em 0;
     cursor: pointer;
 }
@@ -56,6 +55,7 @@ img {
 }
 
 .category-box p {
+    padding: 2em 0;
     margin-bottom: 0;
 }
 
