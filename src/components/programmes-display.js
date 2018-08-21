@@ -10,11 +10,13 @@
  */
 
 import React from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 const ProgrammesDisplay = (
     {
-        programmes,
-        handleClick
+        category,
+        handleClick,
+        programmes
     }
 ) => {
     return (
@@ -27,33 +29,45 @@ const ProgrammesDisplay = (
                     key={programme.title}
                     data-id={programme.title}
                 >
-                    <div className='row header'
-                         data-id={programme.title}
+                    <Link
+                        to={`/categories/${
+                            category
+                            }/${
+                            programme.title
+                                .replace(/\s+/g, '-')
+                                .replace(':', '')
+                                .replace('!', '')
+                                .toLowerCase()
+                            }`}
                     >
-                        <h3 className='col-sm-10 prog-title'
+                        <div className='row header'
+                             data-id={programme.title}
+                        >
+                            <h3 className='col-sm-10 prog-title'
+                                data-id={programme.title}
+                            >
+                                {programme.title}
+                            </h3>
+                            <img className='col-sm-2 channel'
+                                 data-id={programme.title}
+                                 src={programme._embedded.latestProduction._embedded.channel._links.primaryImage.href}
+                                 alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
+                            />
+                        </div>
+                        <img
+                            className={'programme-image'}
+                            id={programme.title}
+                            data-id={programme.title}
+                            src={programme._embedded.latestProduction._links.image.href}
+                            alt={programme.title}
+                        />
+                        <p
+                            className={programme.title}
                             data-id={programme.title}
                         >
-                            {programme.title}
-                        </h3>
-                        <img className='col-sm-2 channel'
-                             data-id={programme.title}
-                             src={programme._embedded.latestProduction._embedded.channel._links.primaryImage.href}
-                             alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
-                        />
-                    </div>
-                    <img
-                        className={'programme-image'}
-                        id={programme.title}
-                        data-id={programme.title}
-                        src={programme._embedded.latestProduction._links.image.href}
-                        alt={programme.title}
-                    />
-                    <p
-                        className={programme.title}
-                        data-id={programme.title}
-                    >
-                        {programme.synopses.ninety}
-                    </p>
+                            {programme.synopses.ninety}
+                        </p>
+                    </Link>
                 </div>
             })}
         </div>

@@ -125,13 +125,13 @@ export default class App extends Component {
             episodes: []
         });
         this.getProgrammes(category);
-        return (
-            <Route
-                key={category.name}
-                path={`/channels/${category.name}`}
-                component={ProgrammesDisplay}
-            />
-        )
+        // return (
+        //     <Route
+        //         key={category.name}
+        //         path={`/channels/${category.name}`}
+        //         component={ProgrammesDisplay}
+        //     />
+        // )
     };
 
     /**
@@ -263,7 +263,16 @@ export default class App extends Component {
 
     render() {
         // Removes the need for 'this.state' prefix
-        const {categories, category, programmes, episodes, episodeData} = this.state;
+        const {
+            channels,
+            categories,
+            programmes,
+            programmeUrl,
+            programme,
+            category,
+            episodes,
+            episodeData
+        } = this.state;
 
         // Formats options for drop-down box
         const optionsMap = categories.map(category => ({
@@ -274,7 +283,7 @@ export default class App extends Component {
         const Home = () => (
             <div>
                 <h1>Home - ITV Programme Discovery</h1>
-                <p>{'Please select a category above.'}</p>
+                <p>{'Welcome to ITV Programme Discovery - the place to navigate ITV programmes.'}</p>
             </div>
         );
 
@@ -285,11 +294,15 @@ export default class App extends Component {
             </div>
         );
 
+        // const Programme = ({match}) => (
+        //   <div>
+        //       <h3>{programme}</h3>
+        //   </div>
+        // );
+
         const Category = ({match}) => (
             <div>
-                <h1>
-                    {category.replace('amp;', '')}
-                </h1>
+                <h1>{category.replace('amp;', '')}</h1>
                 <ProgrammesDisplay
                     path={`/${match.params.id}/${category}`}
                     programmes={programmes}
@@ -395,10 +408,30 @@ export default class App extends Component {
                         </div>
                         <div className='col-9'>
                             <div className='row nav-bar'>
-                                <Link to='/' className='col-3 nav-item'>Home</Link>
-                                <Link to='/about' className='col-3 nav-item'>About</Link>
-                                <Link to='/categories' className='col-3 nav-item'>Categories</Link>
-                                <Link to='/channels' className='col-3 nav-item'>Channels</Link>
+                                <Link
+                                    to='/'
+                                    className='col-3 nav-item'
+                                    id='children'>
+                                    Home
+                                </Link>
+                                <Link
+                                    to='/about'
+                                    className='col-3 nav-item'
+                                    id='comedy'>
+                                    About
+                                </Link>
+                                <Link
+                                    to='/categories'
+                                    className='col-3 nav-item'
+                                    id='drama-soaps'>
+                                    Categories
+                                </Link>
+                                <Link
+                                    to='/channels'
+                                    className='col-3 nav-item'
+                                    id='entertainment'>
+                                    Channels
+                                </Link>
                             </div>
                             <div>
                                 <Select
@@ -420,16 +453,16 @@ export default class App extends Component {
 
                     {/*Content display area*/}
                     <div className='row'>
-                        {/*<EpisodesDisplay*/}
-                        {/*episodes={episodes}*/}
-                        {/*broadcastInfo={this.broadcastInfo}*/}
-                        {/*handleEpisodeClick={this.handleEpisodeClick}*/}
-                        {/*/>*/}
-                        {/*<SingleEpisodeDisplay*/}
-                        {/*episodeData={episodeData}*/}
-                        {/*label={this.seriesEpisodeTitleLabel}*/}
-                        {/*broadcastInfo={this.broadcastInfo}*/}
-                        {/*/>*/}
+                        <EpisodesDisplay
+                            episodes={episodes}
+                            broadcastInfo={this.broadcastInfo}
+                            handleEpisodeClick={this.handleEpisodeClick}
+                        />
+                        <SingleEpisodeDisplay
+                            episodeData={episodeData}
+                            label={this.seriesEpisodeTitleLabel}
+                            broadcastInfo={this.broadcastInfo}
+                        />
                     </div>
 
                     <div className='footer'>

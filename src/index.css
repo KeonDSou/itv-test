@@ -5,6 +5,10 @@ body, button {
     font-weight: lighter;
 }
 
+a {
+    color: initial;
+}
+
 .header {
     margin-bottom: 1em;
 }
@@ -16,6 +20,10 @@ body, button {
 
 .nav-bar {
     padding: 1.5em 0;
+}
+
+.nav-bar a {
+    color: white;
 }
 
 .nav-item {
