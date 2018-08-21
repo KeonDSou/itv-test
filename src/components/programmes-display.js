@@ -12,7 +12,10 @@
 import React from 'react';
 
 const ProgrammesDisplay = (
-    {programmes, handleClick}
+    {
+        programmes,
+        handleClick
+    }
 ) => {
     return (
         <div className='row'>
@@ -22,12 +25,14 @@ const ProgrammesDisplay = (
                     id='programme-card'
                     className='col-lg-4 col-sm-6'
                     key={programme.title}
-                    data-id={programme.title}>
-
+                    data-id={programme.title}
+                >
                     <div className='row header'
-                         data-id={programme.title}>
+                         data-id={programme.title}
+                    >
                         <h3 className='col-sm-10 prog-title'
-                            data-id={programme.title}>
+                            data-id={programme.title}
+                        >
                             {programme.title}
                         </h3>
                         <img className='col-sm-2 channel'
@@ -36,7 +41,6 @@ const ProgrammesDisplay = (
                              alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
                         />
                     </div>
-
                     <img
                         className={'programme-image'}
                         id={programme.title}
@@ -47,7 +51,9 @@ const ProgrammesDisplay = (
                     <p
                         className={programme.title}
                         data-id={programme.title}
-                    >{programme.synopses.ninety}</p>
+                    >
+                        {programme.synopses.ninety}
+                    </p>
                 </div>
             })}
         </div>

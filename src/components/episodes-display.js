@@ -12,7 +12,11 @@
 import React from 'react';
 
 const EpisodesDisplay = (
-    {episodes, broadcastInfo, handleEpisodeClick}
+    {
+        episodes,
+        broadcastInfo,
+        handleEpisodeClick
+    }
 ) => {
     return <div className='row'>
         {episodes.map(episode => {
@@ -57,11 +61,12 @@ const EpisodesDisplay = (
                 <p className='episode-date-time'
                    id={title}
                    data-id={episode.productionId}
-                >{broadcastInfo(episode).lastShown
-                + ' | '
-                + broadcastInfo(episode).duration
-                + ' | '
-                + broadcastInfo(episode).expiry}
+                >
+                    {broadcastInfo(episode).lastShown
+                    + ' | '
+                    + broadcastInfo(episode).duration
+                    + ' | '
+                    + broadcastInfo(episode).expiry}
                 </p>
 
                 <img className='image'
@@ -75,7 +80,8 @@ const EpisodesDisplay = (
                     <p className='guidance-box'
                        id={title}
                        data-id={episode.productionId}
-                    >{`\u24BC ${episode.guidance}`}
+                    >
+                        {`\u24BC ${episode.guidance}`}
                     </p> : undefined}
 
                 <p className='synopsis'

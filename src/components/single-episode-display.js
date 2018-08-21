@@ -13,7 +13,11 @@ import React from 'react';
 import moment from 'moment';
 
 const SingleEpisodeDisplay = (
-    {episodeData, label, broadcastInfo}
+    {
+        episodeData,
+        label,
+        broadcastInfo
+    }
 ) => {
 
     /**
@@ -21,13 +25,20 @@ const SingleEpisodeDisplay = (
      * @returns {*} JSX for above
      */
     const episodeTitleLabel = () => {
-        const {broadcastDateTime, episode, episodeTitle, series} = episodeData;
+        const {
+            broadcastDateTime,
+            episode,
+            episodeTitle,
+            series
+        } = episodeData;
         // For episodes with series ...
         if (series) {
             // ... display episode title if present
             if (episodeTitle) {
                 return <h2 className='series-episode-title'>
-                    {'Series ' + series + ':  Episode ' + episode + ' - ' + episodeTitle}
+                    {'Series ' + series
+                    + ':  Episode ' + episode
+                    + ' - ' + episodeTitle}
                 </h2>
             }
             // ... or just display series and episode number
@@ -38,14 +49,15 @@ const SingleEpisodeDisplay = (
             }
             // Use last broadcast date if there is no series number
         } else {
-            // const broadcastDate = new Date(broadcastDateTime.commissioning);
             const broadcastDate =
                 moment(broadcastDateTime.commissioning)
                 // Sets date to UK format
                     .format('dddd Mo MMMM')
                     // Removes minutes from programmes on the hour
                     .replace(':00', '');
-            return <h2 className='series-episode-title'>{broadcastDate}</h2>
+            return <h2 className='series-episode-title'>
+                {broadcastDate}
+            </h2>
         }
     };
 
@@ -54,8 +66,11 @@ const SingleEpisodeDisplay = (
         const categoryName =
             episodeData._embedded.categories
             && episodeData._embedded.categories
-                .map(item => item.name).join(', ');
-        const channel = (episodeData._embedded.channel.name).replace(' ', '');
+                .map(item => item.name)
+                .join(', ');
+        const channel =
+            (episodeData._embedded.channel.name)
+                .replace(' ', '');
         return (
             <div className='single-episode'>
                 <div className='row'>
@@ -63,8 +78,11 @@ const SingleEpisodeDisplay = (
                         {episodeData._embedded.programme.title}
                     </h1>
                     <img className='col-sm-2 channel'
-                         src={episodeData._embedded.channel._links.primaryImage.href}
-                         alt={`${episodeData._embedded.channel.name} logo`}
+                         src={episodeData._embedded.channel
+                             ._links.primaryImage.href}
+                         alt={`${
+                             episodeData._embedded.channel.name
+                             } logo`}
                     />
                 </div>
 
@@ -92,10 +110,18 @@ const SingleEpisodeDisplay = (
 
                         <p className='synopsis'>{episodeData.synopses.epg}</p>
                         <div className={`broadcast-info-box-${channel}`}>
-                            <p className='info-element'>{broadcastInfo(episodeData).lastShown}</p>
-                            <p className='info-element'>{`Duration: ${broadcastInfo(episodeData).duration}`}</p>
-                            <p className='info-element'>{`Availability: ${broadcastInfo(episodeData).expiry}`}</p>
-                            <p className='info-element'>{`Category: ${categoryName}`}</p>
+                            <p className='info-element'>
+                                {broadcastInfo(episodeData).lastShown}
+                            </p>
+                            <p className='info-element'>
+                                {`Duration: ${broadcastInfo(episodeData).duration}`}
+                            </p>
+                            <p className='info-element'>
+                                {`Availability: ${broadcastInfo(episodeData).expiry}`}
+                            </p>
+                            <p className='info-element'>
+                                {`Category: ${categoryName}`}
+                            </p>
                         </div>
                     </div>
                 </div>

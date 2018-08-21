@@ -19,7 +19,8 @@ import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
 
-const itvHubLogo = 'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
+const itvHubLogo =
+    'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
 export default class App extends Component {
     constructor(props) {
@@ -27,7 +28,6 @@ export default class App extends Component {
         this.state = {
             channels: [],
             categories: [],
-            showCategories: '',
             programmes: [],
             programmeUrl: '',
             programme: '',
@@ -115,7 +115,10 @@ export default class App extends Component {
      * @param selectedOption User-specified category
      */
     handleCategory(selectedOption) {
-        const category = selectedOption.value ? selectedOption.value : selectedOption.target.innerHTML;
+        const category =
+            selectedOption.value
+                ? selectedOption.value
+                : selectedOption.target.innerHTML;
         this.setState({
             category: category,
             episodeData: '',
@@ -123,7 +126,11 @@ export default class App extends Component {
         });
         this.getProgrammes(category);
         return (
-            <Route key={category.name} path={`/channels/${category.name}`} component={ProgrammesDisplay}/>
+            <Route
+                key={category.name}
+                path={`/channels/${category.name}`}
+                component={ProgrammesDisplay}
+            />
         )
     };
 
@@ -163,9 +170,13 @@ export default class App extends Component {
         if (programmes.length) {
             for (let i = 0; i < programmes.length; i++) {
                 if (programmes[i].title === programme) {
-                    const url = programmes[i]._embedded.productions._links["doc:productions"].href;
+                    const url =
+                        programmes[i]._embedded.productions
+                            ._links["doc:productions"].href;
                     this.getEpisodes(url);
-                    this.setState({programmeUrl: url});
+                    this.setState(
+                        {programmeUrl: url}
+                    );
                 }
             }
         }
@@ -192,7 +203,8 @@ export default class App extends Component {
          * Calculates how many days are left to watch an episode
          */
         const currentDate = new Date();
-        const expiryDate = new Date(episode._embedded.variantAvailability[0].until);
+        const expiryDate =
+            new Date(episode._embedded.variantAvailability[0].until);
         const daysLeft =
             Math.round(
                 Math.abs(
@@ -240,7 +252,8 @@ export default class App extends Component {
 
         // Search through the episodes where the titles match
         const episodeDetails = this.state.episodes.filter(
-            episode => episode.productionId === e.target.attributes['data-id'].value);
+            episode => episode.productionId ===
+                e.target.attributes['data-id'].value);
 
         this.setState({
             episodes: [],
@@ -275,9 +288,7 @@ export default class App extends Component {
         const Category = ({match}) => (
             <div>
                 <h1>
-                    {category
-                        .replace('amp;', '')
-                        .replace('\<(.*?)\>', '')}
+                    {category.replace('amp;', '')}
                 </h1>
                 <ProgrammesDisplay
                     path={`/${match.params.id}/${category}`}
@@ -299,9 +310,9 @@ export default class App extends Component {
                                     <Link to={`/categories/${
                                         category.name
                                             .replace(' & ', '-')
-                                            .toLowerCase()}`}>
+                                            .toLowerCase()}`}
+                                    >
                                         <div className='category-box'
-
                                              id={category.name
                                                  .replace(' & ', '-')
                                                  .toLowerCase()}
@@ -315,7 +326,6 @@ export default class App extends Component {
                         )
                     }
                 </div>
-
             </div>
         );
 
@@ -328,7 +338,8 @@ export default class App extends Component {
                             (channel) =>
                                 <div className='col-sm-2 channel-bar'
                                      id={channel.name}
-                                     key={channel.name}>
+                                     key={channel.name}
+                                >
                                     <img
                                         key={`${channel.name}-bar`}
                                         src={channel._links.dogImage.href}
@@ -343,7 +354,8 @@ export default class App extends Component {
                         .map(
                             (channel) =>
                                 <div className='col-lg-6 channel-container'
-                                     key={channel.name}>
+                                     key={channel.name}
+                                >
                                     <img
                                         className='channel-background'
                                         key={`${channel.name}-background`}
@@ -394,7 +406,6 @@ export default class App extends Component {
                                     onChange={this.handleCategory}
                                     options={optionsMap}
                                     placeholder={category.replace('amp;', '')
-                                        .replace('\<(.*?)\>', '')
                                     || 'Please select or type a category...'}
                                 />
                             </div>
@@ -409,11 +420,6 @@ export default class App extends Component {
 
                     {/*Content display area*/}
                     <div className='row'>
-                        {/*<ProgrammesDisplay*/}
-                        {/*path={`/categories/${category}`}*/}
-                        {/*programmes={programmes}*/}
-                        {/*handleClick={this.handleClick}*/}
-                        {/*/>*/}
                         {/*<EpisodesDisplay*/}
                         {/*episodes={episodes}*/}
                         {/*broadcastInfo={this.broadcastInfo}*/}
