@@ -272,16 +272,19 @@ export default class App extends Component {
             </div>
         );
 
-        const Children = () => (
-          <div>
-              <h1>Children</h1>
-              <p>{"Children's programmes"}</p>
-              <ProgrammesDisplay
-                  path={`/categories/children`}
-                  programmes={programmes}
-                  handleClick={this.handleClick}
-              />
-          </div>
+        const Category = ({match}) => (
+            <div>
+                <h1>
+                    {category
+                        .replace('amp;', '')
+                        .replace('\<(.*?)\>', '')}
+                </h1>
+                <ProgrammesDisplay
+                    path={`/${match.params.id}/${category}`}
+                    programmes={programmes}
+                    handleClick={this.handleClick}
+                />
+            </div>
         );
 
         const Categories = () => (
@@ -293,14 +296,17 @@ export default class App extends Component {
                             (category) =>
                                 <div className='col-3'
                                      key={category.name}>
-                                    <Link to={`/children`}>
+                                    <Link to={`/categories/${
+                                        category.name
+                                            .replace(' & ', '-')
+                                            .toLowerCase()}`}>
                                         <div className='category-box'
-                                             onClick={this.handleCategory}
+
                                              id={category.name
                                                  .replace(' & ', '-')
                                                  .toLowerCase()}
                                         >
-                                            <p>
+                                            <p onClick={this.handleCategory}>
                                                 {category.name}
                                             </p>
                                         </div>
@@ -309,6 +315,7 @@ export default class App extends Component {
                         )
                     }
                 </div>
+
             </div>
         );
 
@@ -386,34 +393,36 @@ export default class App extends Component {
                                     value={category}
                                     onChange={this.handleCategory}
                                     options={optionsMap}
-                                    placeholder={category.replace('amp;', '') || 'Please select or type a category...'}
+                                    placeholder={category.replace('amp;', '')
+                                        .replace('\<(.*?)\>', '')
+                                    || 'Please select or type a category...'}
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <Route key='Home' exact path='/' component={Home}/>
-                    <Route key='About' path='/about' component={About}/>
-                    <Route key='Categories' path='/categories' component={Categories}/>
-                    <Route key='Children' path='/children' component={Children}/>
-                    <Route key='Channels' path='/channels' component={Channels}/>
+                    <Route exact path='/' component={Home}/>
+                    <Route path='/about' component={About}/>
+                    <Route exact path='/categories' component={Categories}/>
+                    <Route path='/categories/:id' component={Category}/>
+                    <Route path='/channels' component={Channels}/>
 
                     {/*Content display area*/}
                     <div className='row'>
                         {/*<ProgrammesDisplay*/}
-                            {/*path={`/categories/${category}`}*/}
-                            {/*programmes={programmes}*/}
-                            {/*handleClick={this.handleClick}*/}
+                        {/*path={`/categories/${category}`}*/}
+                        {/*programmes={programmes}*/}
+                        {/*handleClick={this.handleClick}*/}
                         {/*/>*/}
                         {/*<EpisodesDisplay*/}
-                            {/*episodes={episodes}*/}
-                            {/*broadcastInfo={this.broadcastInfo}*/}
-                            {/*handleEpisodeClick={this.handleEpisodeClick}*/}
+                        {/*episodes={episodes}*/}
+                        {/*broadcastInfo={this.broadcastInfo}*/}
+                        {/*handleEpisodeClick={this.handleEpisodeClick}*/}
                         {/*/>*/}
                         {/*<SingleEpisodeDisplay*/}
-                            {/*episodeData={episodeData}*/}
-                            {/*label={this.seriesEpisodeTitleLabel}*/}
-                            {/*broadcastInfo={this.broadcastInfo}*/}
+                        {/*episodeData={episodeData}*/}
+                        {/*label={this.seriesEpisodeTitleLabel}*/}
+                        {/*broadcastInfo={this.broadcastInfo}*/}
                         {/*/>*/}
                     </div>
 
