@@ -30,8 +30,10 @@ function ServiceRequest() {
                 + category;
             // Selects domain to pass through ...
             const conditionalDomain = params.url
-                ? params.url // ... for getEpisodes
-                : defaultDomain; // ... for getCategories, getChannels, getProgrammes
+                // ... for getEpisodes
+                ? params.url
+                // ... for getCategories, getChannels, getProgrammes
+                : defaultDomain;
             const ACCEPT_HEADER = 'application/vnd.itv.hubsvc.'
                 + params.headerProp
                 + '+hal+json; charset=UTF-8';
