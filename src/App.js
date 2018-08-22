@@ -56,12 +56,7 @@ export default class App extends Component {
     /**
      * Fetches the categories from the JSON file
      */
-    getCategories() {
-        const params = {
-            queryProp: 'categories',
-            headerProp: 'category.v3',
-            features: 'hls,aes'
-        };
+    collectCategories(params) {
         ServiceRequest()
             .get(params)
             .then(fetch => {
@@ -70,6 +65,18 @@ export default class App extends Component {
                 })
             })
             .catch(err => console.log(err));
+    }
+
+    /**
+     * Sets the parameters for the fetch request
+     */
+    getCategories() {
+        const params = {
+            queryProp: 'categories',
+            headerProp: 'category.v3',
+            features: 'hls,aes'
+        };
+        this.collectCategories(params);
     };
 
     getChannels() {
@@ -234,13 +241,6 @@ export default class App extends Component {
             value: category.name,
             label: category.name
         }));
-
-        // const Home = () => (
-        //     <div>
-        //         <h1>Home - ITV Programme Discovery</h1>
-        //         <p>{'Welcome to ITV Programme Discovery - the place to navigate ITV programmes.'}</p>
-        //     </div>
-        // );
 
         // const Programme = ({match}) => (
         //   <div>
