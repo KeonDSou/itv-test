@@ -79,12 +79,10 @@ export default class App extends Component {
         this.collectCategories(params);
     };
 
-    getChannels() {
-        const params = {
-            queryProp: 'channels',
-            features: 'mpeg-dash',
-            headerProp: 'channel.v2'
-        };
+    /**
+     * Fetches the channels from the JSON file
+     */
+    collectChannels(params) {
         ServiceRequest()
             .get(params)
             .then(fetch => {
@@ -93,6 +91,18 @@ export default class App extends Component {
                 });
             })
             .catch(err => console.log(err));
+    };
+
+    /**
+     * Sets the parameters for the fetch request
+     */
+    getChannels() {
+        const params = {
+            queryProp: 'channels',
+            features: 'mpeg-dash',
+            headerProp: 'channel.v2'
+        };
+        this.collectChannels(params);
     }
 
     /**
