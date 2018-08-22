@@ -9,8 +9,8 @@
  * @author Keoni D'Souza
  */
 
-import ProgrammesDisplay from "../components/programmes-display";
-import React from "react";
+import ProgrammesDisplay from '../components/programmes-display';
+import React from 'react';
 
 const Category = (
     {

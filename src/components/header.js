@@ -9,8 +9,8 @@
  * @author Keoni D'Souza
  */
 
-import MenuBar from "./menu-bar";
-import React from "react";
+import MenuBar from './menu-bar';
+import React from 'react';
 import Select from 'react-select';
 
 const itvHubLogo =

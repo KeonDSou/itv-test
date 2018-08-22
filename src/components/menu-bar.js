@@ -9,33 +9,33 @@
  * @author Keoni D'Souza
  */
 
-import {Link} from "react-router-dom";
-import React from "react";
+import {Link} from 'react-router-dom';
+import React from 'react';
 
 const MenuBar = () => (
     <div className='row nav-bar'>
         <Link
             to='/'
             className='col-3 nav-item'
-            id='children'>
+            id='home'>
             Home
         </Link>
         <Link
             to='/about'
             className='col-3 nav-item'
-            id='comedy'>
+            id='about'>
             About
         </Link>
         <Link
             to='/categories'
             className='col-3 nav-item'
-            id='drama-soaps'>
+            id='categories'>
             Categories
         </Link>
         <Link
             to='/channels'
             className='col-3 nav-item'
-            id='entertainment'>
+            id='channels'>
             Channels
         </Link>
     </div>

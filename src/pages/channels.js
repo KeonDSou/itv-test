@@ -9,7 +9,7 @@
  * @author Keoni D'Souza
  */
 
-import React from "react";
+import React from 'react';
 
 const Channels = ({channels}) => (
     <div>

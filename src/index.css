@@ -67,19 +67,19 @@ img {
     margin-bottom: 0;
 }
 
-#children {
+#children, #home {
     background: #5FC9C2;
 }
 
-#comedy {
+#comedy, #about {
     background: #5EBEA0;
 }
 
-#drama-soaps {
+#drama-soaps, #categories {
     background: #DD7181;
 }
 
-#entertainment {
+#entertainment, #channels {
     background: #5E4F81;
 }
 
