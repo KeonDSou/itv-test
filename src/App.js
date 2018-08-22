@@ -13,7 +13,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import Select from 'react-select';
 
 // Pages
 import Home from './pages/home';
@@ -23,13 +22,11 @@ import Categories from './pages/categories';
 import Channels from './pages/channels';
 
 // Other imports
+import Header from './components/header';
 import ServiceRequest from './components/service-request';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
 import broadcastInfo from './components/broadcast-info';
-
-const itvHubLogo =
-    'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
 
 export default class App extends Component {
     constructor(props) {
@@ -159,13 +156,6 @@ export default class App extends Component {
             episodes: []
         });
         this.getProgrammes(category);
-        // return (
-        //     <Route
-        //         key={category.name}
-        //         path={`/channels/${category.name}`}
-        //         component={ProgrammesDisplay}
-        //     />
-        // )
     };
 
     /**
@@ -283,78 +273,35 @@ export default class App extends Component {
 
         const PreCategory = ({match}) => (
             <Category
-                category={this.state.category}
+                category={category}
                 match={match}
-                programmes={this.state.programmes}
+                programmes={programmes}
                 handleClick={this.handleClick}
             />
         );
 
         const PreCategories = () => (
             <Categories
-                categories={this.state.categories}
+                categories={categories}
                 handleCategory={this.handleCategory}
             />
         );
 
         const PreChannels = () => (
             <Channels
-                channels={this.state.channels}
+                channels={channels}
             />
         );
 
         return (
             <Router>
                 <div className='container'>
-                    {/*'Navigation'-style header bar*/}
-                    <div className='row header'>
-                        <div className='col-3'>
-                            <a href='/'>
-                                <img
-                                    id='itv-hub-logo'
-                                    src={itvHubLogo}
-                                    alt='ITV Hub Logo'
-                                />
-                            </a>
-                        </div>
-                        <div className='col-9'>
-                            <div className='row nav-bar'>
-                                <Link
-                                    to='/'
-                                    className='col-3 nav-item'
-                                    id='children'>
-                                    Home
-                                </Link>
-                                <Link
-                                    to='/about'
-                                    className='col-3 nav-item'
-                                    id='comedy'>
-                                    About
-                                </Link>
-                                <Link
-                                    to='/categories'
-                                    className='col-3 nav-item'
-                                    id='drama-soaps'>
-                                    Categories
-                                </Link>
-                                <Link
-                                    to='/channels'
-                                    className='col-3 nav-item'
-                                    id='entertainment'>
-                                    Channels
-                                </Link>
-                            </div>
-                            <div>
-                                <Select
-                                    value={category}
-                                    onChange={this.handleCategory}
-                                    options={optionsMap}
-                                    placeholder={category.replace('amp;', '')
-                                    || 'Please select or type a category...'}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <Header
+                        categories={categories}
+                        category={category}
+                        handleCategory={this.handleCategory}
+                        options={optionsMap}
+                    />
 
                     <Route exact path='/' component={Home}/>
                     <Route path='/about' component={About}/>

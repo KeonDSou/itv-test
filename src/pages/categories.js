@@ -12,12 +12,7 @@
 import {Link} from "react-router-dom";
 import React from "react";
 
-const Categories = (
-    {
-        categories,
-        handleCategory
-    }
-) => (
+const Categories = ({categories, handleCategory}) => (
     <div>
         <h1>Category Selection</h1>
         <div className='row categories'>
