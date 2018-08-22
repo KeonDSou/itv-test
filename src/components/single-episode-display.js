@@ -85,8 +85,6 @@ const SingleEpisodeDisplay = (
                              } logo`}
                     />
                 </div>
-
-
                 <div
                     className='row'
                     id={episodeData.episodeTitle}
@@ -98,7 +96,6 @@ const SingleEpisodeDisplay = (
                              alt={episodeData.episodeTitle}
                         />
                     </div>
-
                     <div className='col-sm-4 right-pane'>
                         {episodeTitleLabel()}
                         {episodeData.guidance ?
@@ -107,7 +104,6 @@ const SingleEpisodeDisplay = (
                                data-id={episodeData.productionId}
                             >{`\u24BC ${episodeData.guidance}`}
                             </p> : undefined}
-
                         <p className='synopsis'>{episodeData.synopses.epg}</p>
                         <div className={`broadcast-info-box-${channel}`}>
                             <p className='info-element'>
