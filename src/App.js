@@ -20,6 +20,7 @@ import broadcastInfo from './components/broadcast-info';
 import Home from './pages/home';
 import About from './pages/about';
 import Category from './pages/category';
+import Categories from './pages/categories';
 
 const itvHubLogo =
     'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
@@ -277,41 +278,17 @@ export default class App extends Component {
         const PreCategory = ({match}) => (
             <Category
                 category={this.state.category}
-                handleClick={this.handleClick}
-                programmes={this.state.programmes}
                 match={match}
+                programmes={this.state.programmes}
+                handleClick={this.handleClick}
             />
         );
 
-        const Categories = () => (
-            <div>
-                <h1>Category Selection</h1>
-                <div className='row categories'>
-                    {this.state.categories
-                        .map(
-                            (category) =>
-                                <div className='col-3'
-                                     key={category.name}>
-                                    <Link to={`/categories/${
-                                        category.name
-                                            .replace(' & ', '-')
-                                            .toLowerCase()}`}
-                                    >
-                                        <div className='category-box'
-                                             id={category.name
-                                                 .replace(' & ', '-')
-                                                 .toLowerCase()}
-                                        >
-                                            <p onClick={this.handleCategory}>
-                                                {category.name}
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </div>
-                        )
-                    }
-                </div>
-            </div>
+        const PreCategories = () => (
+            <Categories
+                categories={this.state.categories}
+                handleCategory={this.handleCategory}
+            />
         );
 
         const Channels = () => (
@@ -419,7 +396,7 @@ export default class App extends Component {
 
                     <Route exact path='/' component={Home}/>
                     <Route path='/about' component={About}/>
-                    <Route exact path='/categories' component={Categories}/>
+                    <Route exact path='/categories' component={PreCategories}/>
                     <Route path='/categories/:id' component={PreCategory}/>
                     <Route path='/channels' component={Channels}/>
 

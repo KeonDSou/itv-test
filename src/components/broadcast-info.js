@@ -1,3 +1,14 @@
+/**
+ * ITV - Programme Discovery
+ *
+ * A simple application to allow a user to discover ITV content
+ *
+ * File: broadcast-info.js -
+ *      returns broadcast information about an episode
+ *
+ * @author Keoni D'Souza
+ */
+
 import moment from 'moment';
 
 /**
