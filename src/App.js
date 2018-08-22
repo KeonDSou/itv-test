@@ -27,6 +27,7 @@ export default class App extends Component {
         super(props);
         this.state = {
             channels: [],
+            channel: '',
             categories: [],
             programmes: [],
             programmeUrl: '',
@@ -36,7 +37,7 @@ export default class App extends Component {
             episodeData: ''
         };
         this.handleCategory = this.handleCategory.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleProgrammeClick = this.handleProgrammeClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
     };
 
@@ -98,6 +99,27 @@ export default class App extends Component {
             queryProp: 'programmes',
             features: 'hls,aes',
             category,
+            headerProp: 'programme.v3'
+        };
+        ServiceRequest()
+            .get(params)
+            .then(fetch => {
+                this.setState({
+                    programmes: fetch.data._embedded.programmes
+                });
+            })
+            .catch(err => console.log(err));
+    };
+
+     /**
+     * Fetches the programmes from the chosen channel
+     * @param category User-specified channel
+     */
+    getChannelProgrammes(category) {
+        const params = {
+            queryProp: 'programmes',
+            features: 'hls,aes',
+            channel,
             headerProp: 'programme.v3'
         };
         ServiceRequest()
@@ -234,7 +256,7 @@ export default class App extends Component {
      * @param e User-selected programme (as an event)
      */
 
-    handleClick(e) {
+    handleProgrammeClick(e) {
         e.preventDefault();
         this.setState({
             episodes: '',
@@ -306,7 +328,7 @@ export default class App extends Component {
                 <ProgrammesDisplay
                     path={`/${match.params.id}/${category}`}
                     programmes={programmes}
-                    handleClick={this.handleClick}
+                    handleClick={this.handleProgrammeClick}
                 />
             </div>
         );
@@ -342,6 +364,17 @@ export default class App extends Component {
             </div>
         );
 
+        const Channel = ({match}) => (
+            <div>
+                <h1>{this.state.channel}</h1>
+                <ProgrammesDisplay
+                    path={`/${match.params.id}/${this.state.channel}`}
+                    programmes={programmes}
+                    handleClick={this.handleProgrammeClick}
+                />
+            </div>
+        );
+
         const Channels = () => (
             <div>
                 <h1>Channel Selection</h1>
@@ -353,11 +386,16 @@ export default class App extends Component {
                                      id={channel.name}
                                      key={channel.name}
                                 >
-                                    <img
-                                        key={`${channel.name}-bar`}
-                                        src={channel._links.dogImage.href}
-                                        alt={channel.name}
-                                    />
+                                    <Link to={`/channels/${
+                                        channel.name
+                                            .toLowerCase()}`}
+                                    >
+                                        <img
+                                            key={`${channel.name}-bar`}
+                                            src={channel._links.dogImage.href}
+                                            alt={channel.name}
+                                        />
+                                    </Link>
                                 </div>
                         )
                     }
@@ -366,25 +404,32 @@ export default class App extends Component {
                     {this.state.channels
                         .map(
                             (channel) =>
-                                <div className='col-lg-6 channel-container'
-                                     key={channel.name}
-                                >
-                                    <img
-                                        className='channel-background'
-                                        key={`${channel.name}-background`}
-                                        src={channel._links.backgroundImage.href}
-                                        alt={channel.name}
-                                    />
-                                    <img
-                                        className='channel-logo'
-                                        key={`${channel.name}-logo`}
-                                        src={channel._links.primaryImage.href}
-                                        alt={channel.name}
-                                    />
-                                    <p className='channel-strapline'
-                                       id={channel.name}>
-                                        {channel.strapline}
-                                    </p>
+                                <div className='col-lg-6'>
+                                    <Link to={`/channels/${
+                                        channel.name
+                                            .toLowerCase()}`}
+                                    >
+                                        <div className='channel-container'
+                                             key={channel.name}
+                                        >
+                                            <img
+                                                className='channel-background'
+                                                key={`${channel.name}-background`}
+                                                src={channel._links.backgroundImage.href}
+                                                alt={channel.name}
+                                            />
+                                            <img
+                                                className='channel-logo'
+                                                key={`${channel.name}-logo`}
+                                                src={channel._links.primaryImage.href}
+                                                alt={channel.name}
+                                            />
+                                            <p className='channel-strapline'
+                                               id={channel.name}>
+                                                {channel.strapline}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 </div>
                         )
                     }
@@ -450,6 +495,7 @@ export default class App extends Component {
                     <Route exact path='/categories' component={Categories}/>
                     <Route path='/categories/:id' component={Category}/>
                     <Route path='/channels' component={Channels}/>
+                    <Route path='/channels/:id' component={Channel}/>
 
                     {/*Content display area*/}
                     <div className='row'>

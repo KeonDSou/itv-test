@@ -22,17 +22,21 @@ function ServiceRequest() {
             const category = params.category
                 ? `&category=${params.category}`
                 : '';
+            const channel = params.channel
+                ? `&channelId=${params.channel}`
+                : '';
             const defaultDomain = DOMAIN
                 + '/'
                 + params.queryProp
                 + '?broadcaster=ITV&features='
                 + params.features
-                + category;
+                + category
+                + channel;
             // Selects domain to pass through ...
             const conditionalDomain = params.url
                 // ... for getEpisodes
                 ? params.url
-                // ... for getCategories, getChannels, getProgrammes
+                // ... for getCategories, getChannels, getProgrammes, getChannelProgrammes
                 : defaultDomain;
             const ACCEPT_HEADER = 'application/vnd.itv.hubsvc.'
                 + params.headerProp
