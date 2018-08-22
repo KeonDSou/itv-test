@@ -12,7 +12,7 @@
 // React modules
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 // Pages
 import Home from './pages/home';
@@ -303,11 +303,13 @@ export default class App extends Component {
                         options={optionsMap}
                     />
 
-                    <Route exact path='/' component={Home}/>
-                    <Route path='/about' component={About}/>
-                    <Route exact path='/categories' component={PreCategories}/>
-                    <Route path='/categories/:id' component={PreCategory}/>
-                    <Route path='/channels' component={PreChannels}/>
+                    <Switch>
+                        <Route exact path='/' component={Home}/>
+                        <Route path='/about' component={About}/>
+                        <Route exact path='/categories' component={PreCategories}/>
+                        <Route path='/categories/:id' component={PreCategory}/>
+                        <Route path='/channels' component={PreChannels}/>
+                    </Switch>
 
                     {/*Content display area*/}
                     <div className='row'>
