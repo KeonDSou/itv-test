@@ -18,6 +18,7 @@ import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
 import broadcastInfo from './components/broadcast-info';
+import Home from './pages/home';
 import About from './pages/about';
 
 const itvHubLogo =
@@ -234,17 +235,10 @@ export default class App extends Component {
             label: category.name
         }));
 
-        const Home = () => (
-            <div>
-                <h1>Home - ITV Programme Discovery</h1>
-                <p>{'Welcome to ITV Programme Discovery - the place to navigate ITV programmes.'}</p>
-            </div>
-        );
-
-        // const About = () => (
+        // const Home = () => (
         //     <div>
-        //         <h1>About</h1>
-        //         <p>{'A simple application to allow a user to discover ITV content.'}</p>
+        //         <h1>Home - ITV Programme Discovery</h1>
+        //         <p>{'Welcome to ITV Programme Discovery - the place to navigate ITV programmes.'}</p>
         //     </div>
         // );
 

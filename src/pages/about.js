@@ -1,3 +1,14 @@
+/**
+ * ITV - Programme Discovery
+ *
+ * A simple application to allow a user to discover ITV content
+ *
+ * File: about.js -
+ *      JSX for the about page
+ *
+ * @author Keoni D'Souza
+ */
+
 import React from "react";
 
 const About = () => (
