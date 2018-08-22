@@ -109,6 +109,20 @@ export default class App extends Component {
      * Fetches the programmes from the chosen category
      * @param category User-specified category
      */
+    collectProgrammes(params) {
+        ServiceRequest()
+            .get(params)
+            .then(fetch => {
+                this.setState({
+                    programmes: fetch.data._embedded.programmes
+                });
+            })
+            .catch(err => console.log(err));
+    };
+
+    /**
+     * Sets the parameters for the fetch request
+     */
     getProgrammes(category) {
         if (category.includes('&')) {
             category = 'Drama+%26+Soaps';
@@ -119,14 +133,7 @@ export default class App extends Component {
             category,
             headerProp: 'programme.v3'
         };
-        ServiceRequest()
-            .get(params)
-            .then(fetch => {
-                this.setState({
-                    programmes: fetch.data._embedded.programmes
-                });
-            })
-            .catch(err => console.log(err));
+        this.collectProgrammes(params);
     };
 
     /**
