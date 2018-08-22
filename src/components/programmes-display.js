@@ -10,12 +10,12 @@
  */
 
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const ProgrammesDisplay = (
     {
         category,
-        handleClick,
+        handleProgrammeClick,
         programmes
     }
 ) => {
@@ -23,7 +23,7 @@ const ProgrammesDisplay = (
         <div className='row'>
             {programmes.map(programme => {
                 return <div
-                    onClick={handleClick}
+                    onClick={handleProgrammeClick}
                     id='programme-card'
                     className='col-lg-4 col-sm-6'
                     key={programme.title}

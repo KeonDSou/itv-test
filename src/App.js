@@ -12,7 +12,7 @@
 // React modules
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 // Pages
 import Home from './pages/home';
@@ -42,7 +42,7 @@ export default class App extends Component {
             episodeData: ''
         };
         this.handleCategory = this.handleCategory.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleProgrammeClick = this.handleProgrammeClick.bind(this);
         this.handleEpisodeClick = this.handleEpisodeClick.bind(this);
     };
 
@@ -219,7 +219,7 @@ export default class App extends Component {
      * @param e User-selected programme (as an event)
      */
 
-    handleClick(e) {
+    handleProgrammeClick(e) {
         e.preventDefault();
         this.setState({
             episodes: '',
@@ -252,8 +252,6 @@ export default class App extends Component {
             channels,
             categories,
             programmes,
-            programmeUrl,
-            programme,
             category,
             episodes,
             episodeData
@@ -276,7 +274,7 @@ export default class App extends Component {
                 category={category}
                 match={match}
                 programmes={programmes}
-                handleClick={this.handleClick}
+                handleProgrammeClick={this.handleProgrammeClick}
             />
         );
 

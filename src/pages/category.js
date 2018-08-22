@@ -17,7 +17,7 @@ const Category = (
         category,
         match,
         programmes,
-        handleClick
+        handleProgrammeClick
     }
 ) => (
     <div>
@@ -25,7 +25,7 @@ const Category = (
         <ProgrammesDisplay
             path={`/${match.params.id}/${category}`}
             programmes={programmes}
-            handleClick={handleClick}
+            handleProgrammeClick={handleProgrammeClick}
         />
     </div>
 );
