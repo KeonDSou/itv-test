@@ -9,18 +9,24 @@
  * @author Keoni D'Souza
  */
 
+// React modules
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Select from 'react-select';
-import ServiceRequest from './components/service-request';
-import EpisodesDisplay from './components/episodes-display';
-import SingleEpisodeDisplay from './components/single-episode-display';
-import broadcastInfo from './components/broadcast-info';
+
+// Pages
 import Home from './pages/home';
 import About from './pages/about';
 import Category from './pages/category';
 import Categories from './pages/categories';
+import Channels from './pages/channels';
+
+// Other imports
+import ServiceRequest from './components/service-request';
+import EpisodesDisplay from './components/episodes-display';
+import SingleEpisodeDisplay from './components/single-episode-display';
+import broadcastInfo from './components/broadcast-info';
 
 const itvHubLogo =
     'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
@@ -291,54 +297,10 @@ export default class App extends Component {
             />
         );
 
-        const Channels = () => (
-            <div>
-                <h1>Channel Selection</h1>
-                <div className='row'>
-                    {this.state.channels
-                        .map(
-                            (channel) =>
-                                <div className='col-sm-2 channel-bar'
-                                     id={channel.name}
-                                     key={channel.name}
-                                >
-                                    <img
-                                        key={`${channel.name}-bar`}
-                                        src={channel._links.dogImage.href}
-                                        alt={channel.name}
-                                    />
-                                </div>
-                        )
-                    }
-                </div>
-                <div className='row'>
-                    {this.state.channels
-                        .map(
-                            (channel) =>
-                                <div className='col-lg-6 channel-container'
-                                     key={channel.name}
-                                >
-                                    <img
-                                        className='channel-background'
-                                        key={`${channel.name}-background`}
-                                        src={channel._links.backgroundImage.href}
-                                        alt={channel.name}
-                                    />
-                                    <img
-                                        className='channel-logo'
-                                        key={`${channel.name}-logo`}
-                                        src={channel._links.primaryImage.href}
-                                        alt={channel.name}
-                                    />
-                                    <p className='channel-strapline'
-                                       id={channel.name}>
-                                        {channel.strapline}
-                                    </p>
-                                </div>
-                        )
-                    }
-                </div>
-            </div>
+        const PreChannels = () => (
+            <Channels
+                channels={this.state.channels}
+            />
         );
 
         return (
@@ -398,7 +360,7 @@ export default class App extends Component {
                     <Route path='/about' component={About}/>
                     <Route exact path='/categories' component={PreCategories}/>
                     <Route path='/categories/:id' component={PreCategory}/>
-                    <Route path='/channels' component={Channels}/>
+                    <Route path='/channels' component={PreChannels}/>
 
                     {/*Content display area*/}
                     <div className='row'>

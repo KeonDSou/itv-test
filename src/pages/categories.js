@@ -21,8 +21,8 @@ const Categories = (
     <div>
         <h1>Category Selection</h1>
         <div className='row categories'>
-            {categories.map(
-                (category) =>
+            {categories
+                .map((category) =>
                     <div className='col-3'
                          key={category.name}>
                         <Link to={`/categories/${
@@ -41,7 +41,8 @@ const Categories = (
                             </div>
                         </Link>
                     </div>
-            )}
+                )
+            }
         </div>
     </div>
 );
