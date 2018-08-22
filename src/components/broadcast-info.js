@@ -36,7 +36,6 @@ function broadcastInfo(episode) {
             return daysLeft + ' day left'
         } else {
             return daysLeft + ' days left'
-
         }
     };
 

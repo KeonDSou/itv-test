@@ -14,12 +14,12 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import Select from 'react-select';
 import ServiceRequest from './components/service-request';
-import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
 import broadcastInfo from './components/broadcast-info';
 import Home from './pages/home';
 import About from './pages/about';
+import Category from './pages/category';
 
 const itvHubLogo =
     'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
@@ -65,7 +65,7 @@ export default class App extends Component {
                 })
             })
             .catch(err => console.log(err));
-    }
+    };
 
     /**
      * Sets the parameters for the fetch request
@@ -103,11 +103,11 @@ export default class App extends Component {
             headerProp: 'channel.v2'
         };
         this.collectChannels(params);
-    }
+    };
 
     /**
      * Fetches the programmes from the chosen category
-     * @param category User-specified category
+     * @param params Parameters for axios request
      */
     collectProgrammes(params) {
         ServiceRequest()
@@ -122,6 +122,7 @@ export default class App extends Component {
 
     /**
      * Sets the parameters for the fetch request
+     * @param category User-specified category
      */
     getProgrammes(category) {
         if (category.includes('&')) {
@@ -162,6 +163,21 @@ export default class App extends Component {
 
     /**
      * Fetches the episodes from the chosen category
+     * @param params Parameters for axios request
+     */
+    collectEpisodes(params) {
+        ServiceRequest()
+            .get(params)
+            .then(fetch => {
+                this.setState({
+                    episodes: fetch.data._embedded.productions
+                })
+            })
+            .catch(err => console.log(err));
+    };
+
+    /**
+     * Sets the parameters for the fetch request
      * @param url Episode collection location
      */
     getEpisodes(url) {
@@ -174,16 +190,9 @@ export default class App extends Component {
                 url,
                 headerProp: 'production.v3'
             };
-            ServiceRequest()
-                .get(params)
-                .then(fetch => {
-                    this.setState({
-                        episodes: fetch.data._embedded.productions
-                    })
-                })
-                .catch(err => console.log(err));
+            this.collectEpisodes(params);
         }
-    }
+    };
 
     /**
      * Fetches the URL to collect programme episodes
@@ -265,15 +274,13 @@ export default class App extends Component {
         //   </div>
         // );
 
-        const Category = ({match}) => (
-            <div>
-                <h1>{category.replace('amp;', '')}</h1>
-                <ProgrammesDisplay
-                    path={`/${match.params.id}/${category}`}
-                    programmes={programmes}
-                    handleClick={this.handleClick}
-                />
-            </div>
+        const PreCategory = ({match}) => (
+            <Category
+                category={this.state.category}
+                handleClick={this.handleClick}
+                programmes={this.state.programmes}
+                match={match}
+            />
         );
 
         const Categories = () => (
@@ -413,7 +420,7 @@ export default class App extends Component {
                     <Route exact path='/' component={Home}/>
                     <Route path='/about' component={About}/>
                     <Route exact path='/categories' component={Categories}/>
-                    <Route path='/categories/:id' component={Category}/>
+                    <Route path='/categories/:id' component={PreCategory}/>
                     <Route path='/channels' component={Channels}/>
 
                     {/*Content display area*/}
