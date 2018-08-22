@@ -18,6 +18,7 @@ import ProgrammesDisplay from './components/programmes-display';
 import EpisodesDisplay from './components/episodes-display';
 import SingleEpisodeDisplay from './components/single-episode-display';
 import broadcastInfo from './components/broadcast-info';
+import About from './pages/about';
 
 const itvHubLogo =
     'https://upload.wikimedia.org/wikipedia/en/0/0a/ITV_Hub_Logo.png';
@@ -182,53 +183,6 @@ export default class App extends Component {
         }
     }
 
-    // /**
-    //  * Label detailing last broadcast date and time, duration and days left
-    //  * @param episode Episode in question
-    //  * @returns {string} Label (formatted)
-    //  */
-    // broadcastInfo(episode) {
-    //
-    //     /**
-    //      * Returns last broadcast date
-    //      */
-    //     const dateTime = 'Last shown: '
-    //         + moment(episode.broadcastDateTime.commissioning)
-    //         // Sets date to UK format
-    //             .format('dddd Mo MMMM h:mma')
-    //             // Removes minutes from programmes on the hour
-    //             .replace(':00', '');
-    //
-    //     /**
-    //      * Calculates how many days are left to watch an episode
-    //      */
-    //     const currentDate = new Date();
-    //     const expiryDate =
-    //         new Date(episode._embedded.variantAvailability[0].until);
-    //     const daysLeft =
-    //         Math.round(
-    //             Math.abs(
-    //                 (expiryDate.getTime() - currentDate.getTime()) / (86400000)
-    //             )
-    //         );
-    //     const day = () => {
-    //         if (daysLeft === 0) {
-    //             return 'Expires today'
-    //         } else if (daysLeft === 1) {
-    //             return daysLeft + ' day left'
-    //         } else {
-    //             return daysLeft + ' days left'
-    //
-    //         }
-    //     };
-    //
-    //     return {
-    //         lastShown: dateTime,
-    //         duration: episode.duration.display,
-    //         expiry: day()
-    //     };
-    // }
-
     /**
      * Handles the programme selection
      * @param e User-selected programme (as an event)
@@ -287,12 +241,12 @@ export default class App extends Component {
             </div>
         );
 
-        const About = () => (
-            <div>
-                <h1>About</h1>
-                <p>{'A simple application to allow a user to discover ITV content.'}</p>
-            </div>
-        );
+        // const About = () => (
+        //     <div>
+        //         <h1>About</h1>
+        //         <p>{'A simple application to allow a user to discover ITV content.'}</p>
+        //     </div>
+        // );
 
         // const Programme = ({match}) => (
         //   <div>
