@@ -18,7 +18,6 @@ const itvHubLogo =
 
 const Header = (
     {
-        categories,
         category,
         handleCategory,
         options
@@ -36,6 +35,7 @@ const Header = (
         </div>
         <div className='col-9'>
             <MenuBar/>
+            {/* Search bar/drop-down */}
             <Select
                 value={category}
                 onChange={handleCategory}

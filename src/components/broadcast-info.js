@@ -14,10 +14,9 @@ import moment from 'moment';
 /**
  * Label detailing last broadcast date and time, duration and days left
  * @param episode Episode in question
- * @returns {string} Label (formatted)
+ * @returns Formatted label
  */
 function broadcastInfo(episode) {
-
     /**
      * Returns last broadcast date
      */

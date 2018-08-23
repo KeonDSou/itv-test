@@ -20,7 +20,6 @@ const EpisodesDisplay = (
 ) => {
     return <div className='row'>
         {episodes.map(episode => {
-
             const title = episode.episodeTitle;
             const programmeTitle = episode._embedded.programme.title;
             // If there is an episode number ...
@@ -41,20 +40,19 @@ const EpisodesDisplay = (
                 key={episode.episodeId || episode.productionId}
                 data-id={episode.productionId}
             >
-
                 <div className='row header'
                      data-id={episode.productionId}
                 >
                     <h3 className='col-sm-10 prog-title'
                         data-id={episode.productionId}
                     >
-                        {/* Refer to lines 20-31 */}
+                        {/* Refer to lines 23-34 */}
                         {title || seriesEpisodeNumber || programmeTitle}
                     </h3>
                     <img className='col-sm-2 channel'
                          data-id={episode.productionId}
                          src={episode._embedded.channel._links.primaryImage.href}
-                         alt={`${episode._embedded.channel.name} logo`}
+                         alt={episode._embedded.channel.name}
                     />
                 </div>
 
@@ -76,6 +74,7 @@ const EpisodesDisplay = (
                      data-id={episode.productionId}
                 />
 
+                {/* Display guidance box, if applicable */}
                 {episode.guidance ?
                     <p className='guidance-box'
                        id={title}

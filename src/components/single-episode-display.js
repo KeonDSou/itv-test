@@ -15,11 +15,9 @@ import moment from 'moment';
 const SingleEpisodeDisplay = (
     {
         episodeData,
-        label,
         broadcastInfo
     }
 ) => {
-
     /**
      * Label detailing an episode's series number and episode number and title
      * @returns {*} JSX for above
@@ -61,8 +59,8 @@ const SingleEpisodeDisplay = (
         }
     };
 
-
     if (episodeData) {
+        // Comma-separates multiple categories
         const categoryName =
             episodeData._embedded.categories
             && episodeData._embedded.categories
@@ -79,9 +77,7 @@ const SingleEpisodeDisplay = (
                 <img className='col-sm-2 channel'
                      src={episodeData._embedded.channel
                          ._links.primaryImage.href}
-                     alt={`${
-                         episodeData._embedded.channel.name
-                         } logo`}
+                     alt={episodeData._embedded.channel.name}
                 />
             </div>
             <div
@@ -97,13 +93,16 @@ const SingleEpisodeDisplay = (
                 </div>
                 <div className='col-sm-4 right-pane'>
                     {episodeTitleLabel()}
+                    {/* Display guidance box, if applicable */}
                     {episodeData.guidance ?
                         <p className='guidance-box'
                            id={episodeData.episodeTitle}
                            data-id={episodeData.productionId}
                         >{`\u24BC ${episodeData.guidance}`}
                         </p> : undefined}
+                    
                     <p className='synopsis'>{episodeData.synopses.epg}</p>
+
                     <div className={`broadcast-info-box-${channel}`}>
                         <p className='info-element'>
                             {broadcastInfo(episodeData).lastShown}

@@ -54,9 +54,6 @@ export default class App extends Component {
         this.getChannels();
     }
 
-    componentDidMount() {
-    };
-
     /**
      * Fetches the categories from the JSON file
      */
@@ -72,7 +69,7 @@ export default class App extends Component {
     };
 
     /**
-     * Sets the parameters for the fetch request
+     * Sets the parameters for the categories fetch request
      */
     getCategories() {
         const params = {
@@ -92,13 +89,13 @@ export default class App extends Component {
             .then(fetch => {
                 this.setState({
                     channels: fetch.data._embedded.channels
-                });
+                })
             })
             .catch(err => console.log(err));
     };
 
     /**
-     * Sets the parameters for the fetch request
+     * Sets the parameters for the channels fetch request
      */
     getChannels() {
         const params = {
@@ -119,13 +116,13 @@ export default class App extends Component {
             .then(fetch => {
                 this.setState({
                     programmes: fetch.data._embedded.programmes
-                });
+                })
             })
             .catch(err => console.log(err));
     };
 
     /**
-     * Sets the parameters for the fetch request
+     * Sets the parameters for the programmes fetch request
      * @param category User-specified category
      */
     getProgrammes(category) {
@@ -198,7 +195,6 @@ export default class App extends Component {
     getEpisodesUrl(programme) {
         // Removes the need for 'this.state' prefix
         const {programmes} = this.state;
-
         if (programmes.length) {
             for (let i = 0; i < programmes.length; i++) {
                 if (programmes[i].title === programme) {
@@ -218,7 +214,6 @@ export default class App extends Component {
      * Handles the programme selection
      * @param e User-selected programme (as an event)
      */
-
     handleProgrammeClick(e) {
         e.preventDefault();
         this.setState({
@@ -234,12 +229,10 @@ export default class App extends Component {
      */
     handleEpisodeClick(e) {
         e.preventDefault();
-
         // Search through the episodes where the titles match
         const episodeDetails = this.state.episodes.filter(
             episode => episode.productionId ===
                 e.target.attributes['data-id'].value);
-
         this.setState({
             episodes: [],
             episodeData: episodeDetails[0]
@@ -263,12 +256,10 @@ export default class App extends Component {
             label: category.name
         }));
 
-        // const Programme = ({match}) => (
-        //   <div>
-        //       <h3>{programme}</h3>
-        //   </div>
-        // );
-
+        /**
+         * This set of three 'Pre-' constants allows the
+         * nested component to access values from the state
+         */
         const PreCategory = ({match}) => (
             <Category
                 category={category}
@@ -309,7 +300,7 @@ export default class App extends Component {
                         <Route path='/channels' component={PreChannels}/>
                     </Switch>
 
-                    {/*Content display area*/}
+                    {/* Content display area */}
                     <div className='row'>
                         <EpisodesDisplay
                             episodes={episodes}
@@ -329,9 +320,7 @@ export default class App extends Component {
                 </div>
             </Router>
         );
-
     };
-
 };
 
 ReactDOM.render(

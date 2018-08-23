@@ -14,6 +14,7 @@ import React from 'react';
 const Channels = ({channels}) => (
     <div>
         <h1>Channel Selection</h1>
+        {/* Channel bar */}
         <div className='row'>
             {channels
                 .map((channel) =>
@@ -30,6 +31,7 @@ const Channels = ({channels}) => (
                 )
             }
         </div>
+        {/* Channel boxes */}
         <div className='row'>
             {channels
                 .map((channel) =>

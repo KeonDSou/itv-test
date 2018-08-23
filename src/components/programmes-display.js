@@ -50,7 +50,7 @@ const ProgrammesDisplay = (
                         <img className='col-sm-2 channel'
                              data-id={programme.title}
                              src={programme._embedded.latestProduction._embedded.channel._links.primaryImage.href}
-                             alt={`${programme._embedded.latestProduction._embedded.channel.name} logo`}
+                             alt={programme._embedded.latestProduction._embedded.channel.name}
                         />
                     </div>
                     <img
